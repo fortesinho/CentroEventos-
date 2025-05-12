@@ -11,15 +11,24 @@ public class Persona
    private string? _Email;// (string, único)
    private string? _Telefono;
 
-    public int Id { get => _Id; set => _Id = value; }
-    public int DNI { get => _DNI; set => _DNI = value; }
-    public string? Nombre { get => _Nombre; set => _Nombre = value; }
-    public string? Apellido { get => _Apellido; set => _Apellido = value; }
-    public string? Email { get => _Email; set => _Email = value; }
-    public string? Telefono { get => _Telefono; set => _Telefono = value; }
+    public Persona(int id, int dNI, string? nombre, string? apellido, string? email, string? telefono)
+    {
+        this._Id = id;
+        this._DNI = dNI;
+        this._Nombre = nombre;
+        this._Apellido = apellido;
+        this._Email = email;
+        this._Telefono = telefono;
+    }
 
-    public override string ToString(){
+    public int Id { get => _Id; set => _Id = value; }
+   public int DNI { get => _DNI; set => _DNI = value; }
+   public string? Nombre { get => _Nombre; set => _Nombre = value; }
+   public string? Apellido { get => _Apellido; set => _Apellido = value; }
+   public string? Email { get => _Email; set => _Email = value; }
+   public string? Telefono { get => _Telefono; set => _Telefono = value; }
+
+   public override string ToString(){
       return $" Id: {this.Id}, Dni: {this.DNI}, Nombre: {this.Nombre}, Apellido: {this.Apellido}, Email: {this.Email}, Telefono: {this.Telefono}";
    }
-
 }
