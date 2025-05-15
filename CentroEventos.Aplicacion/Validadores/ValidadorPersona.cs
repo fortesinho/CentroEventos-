@@ -7,8 +7,13 @@ namespace CentroEventos.Aplicacion.Validadores;
 
 public class  ValidadorPersona
 {
+    private readonly IRepositorioPersona _repositorioPersona;
+      public ValidadorPersona(IRepositorioPersona repositorioPersona)
+        {
+            _repositorioPersona = repositorioPersona;
+        }
     public void Validar(Persona persona){
-        private readonly IRepositorioPersona _repositorioPersona;
+        
         if(string.IsNullOrWhiteSpace(persona.Nombre)){
             throw new ValidacionException("Nombre no puede estar vacio");
         }
@@ -21,11 +26,12 @@ public class  ValidadorPersona
         if(string.IsNullOrWhiteSpace(persona.Email)){
             throw new ValidacionException("Email no puede estar vacio");
         }
+        if (_repositorioPersona.ExisteConDni(persona.DNI))
+                throw new DuplicadoException($"Ya existe una persona con el DNI {persona.DNI}.");
 
-        /*falta dni e email (Requiere consulta a IRepositorioPersona) */
+        if (_repositorioPersona.ExisteConEmail(persona.Email))
+                throw new DuplicadoException($"Ya existe una persona con el email {persona.Email}.");
+
     }
-/*○ Nombre, Apellido, DNI, Email no deben estar vacíos.
-○ DNI no puede repetirse entre Personas. (Requiere consulta a IRepositorioPersona)
-○ Email no puede repetirse entre Personas. (Requiere consulta a IRepositorioPersona)
-*/
+
 }

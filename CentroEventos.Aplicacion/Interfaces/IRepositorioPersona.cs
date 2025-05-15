@@ -2,7 +2,7 @@ using System;
 
 namespace CentroEventos.Aplicacion.Interfaces;
 
-public class IRepositorioPersona
+public interface IRepositorioPersona
 {
-
+bool ExisteConDni(string dni);
 }
