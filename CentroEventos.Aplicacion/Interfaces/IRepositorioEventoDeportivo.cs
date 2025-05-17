@@ -1,8 +1,9 @@
 using System;
+using CentroEventos.Aplicacion.Entidades;
 
 namespace CentroEventos.Aplicacion.Interfaces;
 
-public class IRepositorioEventoDeportivo
+public interface IRepositorioEventoDeportivo
 {
 
 }

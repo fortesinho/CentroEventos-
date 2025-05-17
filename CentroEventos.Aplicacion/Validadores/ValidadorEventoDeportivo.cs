@@ -26,7 +26,8 @@ public ValidadorEventoDeportivo(IRepositorioPersona repositorioPersona){
    if (Evento.DuracionHoras <= 0){
     throw new ValidacionException("La duración del evento debe ser mayor que cero.");
    }
-     
+    if (_repositorioPersona.ObtenerPorId(Evento.ResponsableId) == null)
+                throw new EntidadNotFoundException("Persona (Responsable)", Evento.ResponsableId); 
     
 }
 }

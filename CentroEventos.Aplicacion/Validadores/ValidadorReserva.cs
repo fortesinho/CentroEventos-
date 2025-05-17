@@ -2,7 +2,10 @@ using System;
 
 namespace CentroEventos.Aplicacion.Validadores;
 
-public class ValidadorIRepositorioPersona
+public class ValidadorReserva
 {
+public void Validar(){
 
+
+}
 }
