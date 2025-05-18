@@ -23,5 +23,10 @@ public void Validar(Reserva reserva){
  if (_repoEvento.ObtenerPorId(reserva.EventoDeportivoId) == null)
             throw new EntidadNotFoundException("Evento Deportivo", reserva.EventoDeportivoId);
 
+ if (_repoReserva.ObtenerPorEventoYPersona(reserva.EventoDeportivoId, reserva.PersonaId).Any())
+            throw new DuplicadoException("La persona ya está inscripta en este evento");
+
+ if (_repoReserva.ObtenerPorEvento(reserva.EventoDeportivoId).Count()>= _repoEvento.ObtenerPorId(reserva.EventoDeportivoId)?.CupoMaximo)
+            throw new CupoExcedidoException();
 }
 }

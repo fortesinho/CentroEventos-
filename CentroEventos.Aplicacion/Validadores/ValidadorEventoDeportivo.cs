@@ -14,7 +14,7 @@ public ValidadorEventoDeportivo(IRepositorioPersona repositorioPersona){
  if(String.IsNullOrWhiteSpace(Evento.Nombre)){
    throw new ValidacionException("Nombre no puede estar vacio");
  }
-  if(String.IsNullOrWhiteSpace(Evento.Descripcion)){
+if(String.IsNullOrWhiteSpace(Evento.Descripcion)){
    throw new ValidacionException("Descripcion no puede estar vacio");
  }   
   if (Evento.FechaHoraInicio < DateTime.Now){
@@ -23,10 +23,10 @@ public ValidadorEventoDeportivo(IRepositorioPersona repositorioPersona){
   if (Evento.CupoMaximo <= 0){
     throw new ValidacionException("El cupo máximo debe ser mayor que cero.");
   }
-   if (Evento.DuracionHoras <= 0){
+  if (Evento.DuracionHoras <= 0){
     throw new ValidacionException("La duración del evento debe ser mayor que cero.");
    }
-    if (_repositorioPersona.ObtenerPorId(Evento.ResponsableId) == null)
+  if (_repositorioPersona.ObtenerPorId(Evento.ResponsableId) == null)
                 throw new EntidadNotFoundException("Persona (Responsable)", Evento.ResponsableId); 
     
 }
