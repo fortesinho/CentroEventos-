@@ -12,7 +12,7 @@ public class RepositorioPersona : IRepositorioPersona
     public void Agregar(Persona persona)
     {
         persona.id = GeneradorId.obtener(_dirUltIdPer);
-        using StreamWriter sw = new StreamWriter(_dirUltIdPer, append: true);
+        using StreamWriter sw = new StreamWriter(_ArchivoPersona, append: true);
         sw.WriteLine($"{persona.id};{persona.dni};{persona.nombre};{persona.apellido};{persona.email};{persona.telefono}");
 
     }

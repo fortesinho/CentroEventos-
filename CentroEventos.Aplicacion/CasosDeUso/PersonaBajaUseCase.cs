@@ -13,5 +13,12 @@ public void Ejecutar(int personaId, int idUsuario){
   if (repoPersona.ObtenerPorId(personaId) == null)
       throw new EntidadNotFoundException("Persona", personaId);
 
+  if (repoReserva.ObtenerPorPersona(personaId).Any())
+        throw new OperacionInvalidaException("La persona tiene reservas.");
+
+   if (repoEvento.Listar().Any(e => e.ResponsableId == personaId))
+            throw new OperacionInvalidaException("La persona es responsable de eventos.");
+    
+   repoPersona.Eliminar(personaId);
 }
 }
