@@ -4,23 +4,28 @@ namespace CentroEventos.Aplicacion.Entidades;
 
 public class EventoDeportivo
 {
-    private int _Id;//(int, único, debe ser autoincremental gestionado por el repositorio)
-    private string? _Nombre;//(string - ej: "Clase de Spinning Avanzado", "Partido final de Vóley")
-    private string? _Descripcion;
-    private DateTime _FechaHoraInicio; //(DateTime - Fecha y hora exactas de inicio del evento)
-    private double _DuracionHoras;//(double - Duración del evento en horas, ej: 1.5 para una hora y media)
-    private int _CupoMaximo; //(int - Cantidad máxima de participantes permitidos)
-    private int _ResponsableId; //(int - Id de la Persona a cargo del evento)
+    public EventoDeportivo(int id, string? nombre, string? descripcion, DateTime fechaHoraInicio, double duracionHoras, int cupoMaximo, int responsableId)
+    {
+        Id = id;
+        Nombre = nombre;
+        Descripcion = descripcion;
+        FechaHoraInicio = fechaHoraInicio;
+        DuracionHoras = duracionHoras;
+        CupoMaximo = cupoMaximo;
+        ResponsableId = responsableId;
+    }
 
-    public int Id { get => _Id; set => _Id = value; }
-    public string? Nombre { get => _Nombre; set => _Nombre = value; }
-    public string? Descripcion { get => _Descripcion; set => _Descripcion = value; }
-    public DateTime FechaHoraInicio { get => _FechaHoraInicio; set => _FechaHoraInicio = value; }
-    public double DuracionHoras { get => _DuracionHoras; set => _DuracionHoras = value; }
-    public int CupoMaximo { get => _CupoMaximo; set => _CupoMaximo = value; }
-    public int ResponsableId { get => _ResponsableId; set => _ResponsableId = value; }
+    public int Id { get; set; }
+    public string? Nombre { get; set; }
+    public string? Descripcion { get; set; }
+    public DateTime FechaHoraInicio { get; set; }
+    public double DuracionHoras { get; set; }
+    public int CupoMaximo { get; set; }
+    public int ResponsableId { get; set; }
 
-    public override string ToString(){
-        return $"Id: {this._Id}, Nombre: {this._Nombre}, Descripcion: {this._Descripcion}, FechaHoraInicio: {this._FechaHoraInicio}, DuracionHoras: {this._DuracionHoras}, CupoMaximo: {this._CupoMaximo}, ResponsableId: {this._ResponsableId}";
+    
+    public override string ToString()
+    {
+        return $"Id: {this.Id}, Nombre: {this.Nombre}, Descripcion: {this.Descripcion}, FechaHoraInicio: {this.FechaHoraInicio}, DuracionHoras: {this.DuracionHoras}, CupoMaximo: {this.CupoMaximo}, ResponsableId: {this.ResponsableId}";
     }
 }

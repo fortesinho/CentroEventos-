@@ -6,10 +6,11 @@ namespace CentroEventos.Repositorios;
 
 public class RepositorioPersona : IRepositorioPersona
 {
+    readonly string _nombreArch = "Personas.txt";
+    readonly string _dirUltId = "ultimo_id_persona.txt";
     public void Agregar(Persona persona)
     {
-    int nuevoId = ObtenerTodas().Any() ? ObtenerTodas().Max(p => p.Id) + 1 : 1; // para poder generar ids unicos
-    persona.Id = nuevoId;
+
        
     }
 
@@ -37,4 +38,20 @@ public class RepositorioPersona : IRepositorioPersona
     {
         return null;
     }
-}
+
+    private int ObtenerNuevoId(){
+      int ultimoId = 0;
+        if(File.Exists(_dirUltId)){
+            using var sr = new StreamReader(_dirUltId);
+            string? linea = sr.ReadLine();
+            if (!string.IsNullOrWhiteSpace(linea))
+               ultimoId = int.Parse(linea);
+            }
+        int nuevoId = ultimoId + 1;
+        using var sw = new StreamWriter(_dirUltId, false);
+        sw.WriteLine(nuevoId);
+    return nuevoId;
+        }
+
+    }
+

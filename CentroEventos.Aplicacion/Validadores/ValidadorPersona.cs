@@ -24,7 +24,7 @@ public class  ValidadorPersona(IRepositorioPersona repositorioPersona)
         if (repositorioPersona.ExisteConDni(persona.DNI))
                 throw new DuplicadoException($"Ya existe una persona con el DNI {persona.DNI}.");
 
-        if (repositorioPersona.ExisteConEmail(persona.Email))
+        if (repositorioPersona.ExisteConEmail (persona.Email))
                 throw new DuplicadoException($"Ya existe una persona con el email {persona.Email}.");
 
     }
