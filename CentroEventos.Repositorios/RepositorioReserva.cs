@@ -1,97 +1,126 @@
 
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
-
+using CentroEventos.Aplicacion.Extra;
 namespace CentroEventos.Repositorios;
 
-    public class RepositorioReservaTXT : IRepositorioReserva, IDisposable
+public class RepositorioReservaTXT : IRepositorioReserva
+{
+    readonly string ArchivoReservas = "reservas.txt";
+    readonly string _dirUltIdRes = "ultimo_id_reserva.txt";
+    public void Agregar(Reserva reserva)
     {
-        private string ArchivoReservas = "reservas.txt"; 
-        private bool _disposed = false;
+        reserva.Id = GeneradorId.obtener(_dirUltIdRes); // genera nuevo id
+        using StreamWriter sw = new StreamWriter(ArchivoReservas, true); //empieza a escribir al final del archivo sin borrar lo que ya habia 
+        sw.WriteLine(DarFormato(reserva)); // escribe los datos de la reserva en el archivo
+    }
 
-        public void Agregar(Reserva reserva)
-        {
-            reserva.Id = ObtenerNuevoId(); //Asigna un id unico a la reserva antes de guardarla
-            using StreamWriter sw = new StreamWriter(ArchivoReservas);
-            sw.WriteLine(DarFormato(reserva));
-        }
-
-        public void Eliminar(int id)
-        {
-            var reservas = Listar();
-            reservas.RemoveAll(r => r.Id == id);
-            GuardarTodasReservas(reservas);
-        }
-
-        public void Modificar(Reserva reserva)
-        {
-            var reservas = Listar();
-            var index = reservas.FindIndex(r => r.Id == reserva.Id);
-            if (index >= 0)
+    public void Eliminar(int id)
+    {
+        List<Reserva> reservas = Listar(); //lee el archivo y se lo guarda en reservas
+        for (int i = 0; i < reservas.Count; i++)
+        { // recorre toda la lista y elimina todos los elementos que tengan el id recibido por parametro
+            if (reservas[i].Id == id)
             {
-                reservas[index] = reserva;
-                GuardarTodasReservas(reservas);
+                reservas.RemoveAt(i);
+                i--; // vuelvo uno atras porque si vienen 2 ids seguidos el segundo no lo borra
             }
         }
+        ActualizarReservas(reservas);//sobreescribe el archivo pero ahora con los elementos eliminados
+    }
 
-        public List<Reserva> Listar()
-        {
-            var reservas = new List<Reserva>();
-
-            if (!File.Exists(ArchivoReservas))
-                return reservas;
-
-            using var sr = new StreamReader(ArchivoReservas);
-            while (!sr.EndOfStream)
+    public void Modificar(Reserva reserva)
+    {
+        List<Reserva> reservas = Listar();
+        int aux = -1;
+        for (int i = 0; i < reservas.Count; i++)
+            if (reservas[i].Id == reserva.Id)
             {
-                var linea = sr.ReadLine();
-                var reserva = ParsearReserva(linea);
-                if (reserva != null)
-                    reservas.Add(reserva);
+                aux = i;
+                break;
             }
-
-            return reservas;
+        if (aux >= 0)
+        { // si encontro el id que quiere modificar
+            reservas[aux] = reserva; // guardo en esa posicion el parametro que recibi
+            ActualizarReservas(reservas);//actulizo la lista
         }
-
-        public Reserva? ObtenerPorId(int id)
-        {
-            if (!File.Exists(ArchivoReservas))
-                return null;
-
-            using var sr = new StreamReader(ArchivoReservas);
-            while (!sr.EndOfStream)
+    }
+    public List<Reserva> Listar()
+    {
+        List<Reserva> reservas = new List<Reserva>(); //creo una lista vacia
+        if (!File.Exists(ArchivoReservas))
+        { // si no existe el archivo
+            return reservas;//devuelve la lista vacia
+        }
+        using StreamReader sr = new StreamReader(ArchivoReservas);
+        while (!sr.EndOfStream)
+        {    //mientras no llego al final del archivo
+            string? linea = sr.ReadLine();//guardo la linea
+            Reserva? reserva = ConvertirLinea(linea); // modifico la linea que recibi antes y me guardo sus campos en la variable reserva
+            if (reserva != null)
             {
-                var linea = sr.ReadLine();
-                var reserva = ParsearReserva(linea);
-                if (reserva?.Id == id)
-                    return reserva;
+                reservas.Add(reserva); //si los campos estaban cargados correctamente los agrego a la lista de reserva
             }
-
+        }
+        return reservas;
+    }
+    public Reserva? ObtenerPorId(int id)
+    {
+        if (!File.Exists(ArchivoReservas))
             return null;
-        }
-
-        public List<Reserva> ObtenerPorEventoYPersona(int eventoDeportivoId, int personaId)
+        using StreamReader sr = new StreamReader(ArchivoReservas);
+        while (!sr.EndOfStream)
         {
-            return Listar().Where(r => r.EventoDeportivoId == eventoDeportivoId && r.PersonaId == personaId).ToList();
+            string? linea = sr.ReadLine();
+            Reserva? reserva = ConvertirLinea(linea);
+            if (reserva?.Id == id)
+                return reserva;
         }
-
-        public List<Reserva> ObtenerPorEvento(int eventoDeportivoId)
+        return null;
+    }
+    public List<Reserva> ObtenerPorEventoYPersona(int eventoDeportivoId, int personaId)
+    {
+        List<Reserva> listaNue = new List<Reserva>();
+        List<Reserva> lista = Listar();
+        foreach (Reserva r in lista)
         {
-            return Listar().Where(r => r.EventoDeportivoId == eventoDeportivoId).ToList();
-        }
-
-        // metodos privados 
-        private int ObtenerNuevoId(){
-            List<Reserva> reservas = Listar(); //se guarda todas las reservas
-            int maxId = 0;//guarda el id mas alto que encontro  
-            foreach (Reserva reserva in reservas){ //recorre todas las reservas
-                if (reserva.Id > maxId){
-                    maxId = reserva.Id;
-                }
+            if (r.EventoDeportivoId == eventoDeportivoId && r.PersonaId == personaId)
+            { //si tienen el mismo id la persona y el evento
+                listaNue.Add(r);//lo agrego a la lista nueva
             }
-            return maxId + 1;
         }
-        private void GuardarTodasReservas(List<Reserva> reservas)
+        return listaNue;
+    }
+    public List<Reserva> ObtenerPorEvento(int eventoDeportivoId)
+    {
+        List<Reserva> listaNue = new List<Reserva>();
+        List<Reserva> lista = Listar();
+        foreach (Reserva r in lista)
+        {
+            if (r.EventoDeportivoId == eventoDeportivoId)
+            { // si la reserva coincide con el id del parametro se agrega a la lista nueva
+                listaNue.Add(r);
+            }
+        }
+        return listaNue;
+    }
+    public List<Reserva> ObtenerPorPersona(int id){
+        List<Reserva> listaNue = new List<Reserva>();
+        List<Reserva> lista = Listar();
+        foreach (Reserva r in lista){
+            if (r.PersonaId == id){
+                listaNue.Add(r);
+            }
+        }
+        return listaNue;
+    }
+
+    //-------- metodos privados ---------- 
+    private static string DarFormato(Reserva reserva)
+    {
+        return $"{reserva.Id}|{reserva.EventoDeportivoId}|{reserva.PersonaId}|{reserva.FechaAltaReserva:O}|{reserva.EstadoAsistencia}";
+    }
+    private void ActualizarReservas(List<Reserva> reservas)
     {
         using StreamWriter sw = new StreamWriter(ArchivoReservas, false);
         foreach (Reserva reserva in reservas)
@@ -99,54 +128,30 @@ namespace CentroEventos.Repositorios;
             sw.WriteLine(DarFormato(reserva));
         }
     }
-
-        private string DarFormato(Reserva reserva)
-        {
-            return $"{reserva.Id}|{reserva.EventoDeportivoId}|{reserva.PersonaId}|{reserva.FechaAltaReserva:O}";
+    private static Reserva? ConvertirLinea(string? linea){
+        if (string.IsNullOrWhiteSpace(linea))
+        { //si la linea es null o esta vacia devuelve null
+            return null;
         }
-
-        private static Reserva? ParsearReserva(string? linea)
+        string[]? partes = linea.Split('|'); // me guardo la linea en un vector de strings usando '|' que lo usamos para separar los campos 
+        if (partes.Length != 5)
+            return null;
+        try
         {
-            if (string.IsNullOrWhiteSpace(linea))
-                return null;
-
-            var partes = linea.Split('|');
-            if (partes.Length != 4)
-                return null;
-
             return new Reserva
             {
                 Id = int.Parse(partes[0]),
                 EventoDeportivoId = int.Parse(partes[1]),
                 PersonaId = int.Parse(partes[2]),
-                FechaAltaReserva = DateTime.Parse(partes[3])
+                FechaAltaReserva = DateTime.Parse(partes[3]),
+                EstadoAsistencia = Enum.Parse<Reserva.EstadoAsis>(partes[4])
             };
         }
-
-        // --- IDisposable ---
-
-        public void Dispose()
+        catch
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    // liberar recursos administrados si hiciera falta
-                }
-                _disposed = true;
-            }
-        }
-
-        ~RepositorioReservaTXT()
-        {
-            Dispose(false);
+            return null; // Si falla algo en el parseo, devuelve null y sigue sin tirar excepción
         }
     }
+}
 
 

@@ -6,8 +6,6 @@ namespace CentroEventos.Aplicacion.Validadores;
 
 public class ValidadorReserva(IRepositorioPersona repoPersona, IRepositorioEventoDeportivo repoEvento, IRepositorioReserva repoReserva)
 {
-   
-
 public void Validar(Reserva reserva){
  if (repoPersona.ObtenerPorId(reserva.PersonaId) == null)
             throw new EntidadNotFoundException("reserva",reserva.PersonaId);

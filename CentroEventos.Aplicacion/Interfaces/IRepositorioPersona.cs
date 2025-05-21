@@ -9,6 +9,7 @@ public interface IRepositorioPersona
     /// Elimina una persona por su ID.
     void Eliminar(int id);
     /// Devuelve una persona por su ID, o null si no se encuentra.
+    void Modificar(Persona persona);
     Persona? ObtenerPorId(int id);
     /// Devuelve todas las personas guardadas.
     List<Persona> ObtenerTodas();
