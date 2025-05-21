@@ -8,7 +8,9 @@ public class RepositorioPersona : IRepositorioPersona
 {
     public void Agregar(Persona persona)
     {
-        
+    int nuevoId = ObtenerTodas().Any() ? ObtenerTodas().Max(p => p.Id) + 1 : 1; // para poder generar ids unicos
+    persona.Id = nuevoId;
+       
     }
 
     public void Eliminar(int id)

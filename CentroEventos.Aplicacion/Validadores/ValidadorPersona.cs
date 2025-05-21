@@ -3,15 +3,10 @@ using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Interfaces;
 namespace CentroEventos.Aplicacion.Validadores;
 
-    
 
-public class  ValidadorPersona
+
+public class  ValidadorPersona(IRepositorioPersona repositorioPersona)
 {
-    private readonly IRepositorioPersona _repositorioPersona;
-      public ValidadorPersona(IRepositorioPersona repositorioPersona)
-        {
-            _repositorioPersona = repositorioPersona;
-        }
     public void Validar(Persona persona){
         
         if(string.IsNullOrWhiteSpace(persona.Nombre)){
@@ -26,10 +21,10 @@ public class  ValidadorPersona
         if(string.IsNullOrWhiteSpace(persona.Email)){
             throw new ValidacionException("Email no puede estar vacio");
         }
-        if (_repositorioPersona.ExisteConDni(persona.DNI))
+        if (repositorioPersona.ExisteConDni(persona.DNI))
                 throw new DuplicadoException($"Ya existe una persona con el DNI {persona.DNI}.");
 
-        if (_repositorioPersona.ExisteConEmail(persona.Email))
+        if (repositorioPersona.ExisteConEmail(persona.Email))
                 throw new DuplicadoException($"Ya existe una persona con el email {persona.Email}.");
 
     }
