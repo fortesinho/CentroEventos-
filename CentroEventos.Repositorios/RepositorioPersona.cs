@@ -11,7 +11,7 @@ public class RepositorioPersona : IRepositorioPersona
     readonly string _dirUltIdPer = "ultimo_id_persona.txt";
     public void Agregar(Persona persona)
     {
-        persona.id = GeneradorId.obtener(_dirUltIdPer);
+        persona.id = GeneradorId.Obtener(_dirUltIdPer);
         using StreamWriter sw = new StreamWriter(_ArchivoPersona, append: true);
         sw.WriteLine($"{persona.id};{persona.dni};{persona.nombre};{persona.apellido};{persona.email};{persona.telefono}");
 

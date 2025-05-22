@@ -4,7 +4,7 @@ using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Extra;
 namespace CentroEventos.Repositorios;
 
-public class RepositorioReservaTXT : IRepositorioReserva
+public class RepositorioReserva : IRepositorioReserva
 {
     readonly string ArchivoReservas = "Reservas.txt";
     readonly string _dirUltIdRes = "ultimo_id_reserva.txt";
