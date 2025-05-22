@@ -51,26 +51,20 @@ public class RepositorioPersona : IRepositorioPersona
         }
         return false;
     }
-    public bool ExisteConEmail(string email)
-    {
+    public bool ExisteConEmail(string email){
         List<Persona> personas = ObtenerTodas();
-        foreach (Persona p in personas)
-        {
-            if (p.email == email)
-            {
+        foreach (Persona p in personas){
+            if (p.email == email){
                 return true;
             }
         }
         return false;
     }
 
-    public Persona? ObtenerPorId(int id)
-    {
+    public Persona? ObtenerPorId(int id){
         List<Persona> personas = ObtenerTodas();
-        foreach (Persona p in personas)
-        {
-            if (p.id == id)
-            {
+        foreach (Persona p in personas){
+            if (p.id == id){
                 return p;
             }
         }
@@ -85,12 +79,10 @@ public class RepositorioPersona : IRepositorioPersona
             return personas;
         }
         using StreamReader sr = new StreamReader(_ArchivoPersona);
-        while (!sr.EndOfStream)
-        {
+        while (!sr.EndOfStream){
             string? linea = sr.ReadLine();
             Persona? persona = ConvertirLinea(linea);
-            if (persona != null)
-            {
+            if (persona != null){
                 personas.Add(persona);
             }
         }

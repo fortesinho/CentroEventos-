@@ -34,7 +34,13 @@ PersonaModificacionUseCase personaModificacionUC = new PersonaModificacionUseCas
 
 PersonaBajaUseCase personaBajaUC = new PersonaBajaUseCase(repoPersona, repoEvento, repoReserva, autorizacion);
 
+EventoDeportivoModificacionUseCase eventoModificacionUC = new EventoDeportivoModificacionUseCase(repoEvento, autorizacion, validadorEvento);
 
+EventoDeportivoBajaUseCase eventoBajaUC = new EventoDeportivoBajaUseCase(repoEvento, repoReserva, autorizacion);
+
+ReservaBajaUseCase reservaBajaUC = new ReservaBajaUseCase(repoReserva, autorizacion);
+
+ReservaModificacionUseCase reservaModificacionUC = new ReservaModificacionUseCase(repoReserva, autorizacion, validadorReserva);
 // Crear una persona
 Persona persona1 = new Persona { nombre = "Juan", apellido = "Perez", dni = "11111111", email = "juanperez@gmail.com", telefono = "221-111-1111" };
 Persona persona2 = new Persona { nombre = "Emanuel", apellido = "Perez", dni = "22222222", email = "emanuelperez@gmail.com", telefono = "221-222-2222" };
@@ -48,12 +54,26 @@ EventoDeportivo evento2 = new EventoDeportivo { Nombre = "Torneo de Basquet", De
 
 //crear una reserva
 Reserva reserva1 = new Reserva { PersonaId = 1, EventoDeportivoId = 1, FechaAltaReserva = DateTime.Now, EstadoAsistencia = Reserva.EstadoAsis.Presente, };
+Reserva reserva2 = new Reserva { PersonaId = 1, EventoDeportivoId = 3, FechaAltaReserva = DateTime.Now.AddDays(30), EstadoAsistencia = Reserva.EstadoAsis.Presente, };
 
 //crear persona modificada, probando con id X que sabemos ya sabemos que esta en la lista
 Persona personaModificada = new Persona { id = 10, nombre = "Lionel", apellido = "Messi", dni = "10101010", email = "lionelmessi10@gmail.com", telefono = "342-111-7539" };
 
 // eliminar una persona por id 
-int eliminarId = 10; //elegimos un id que queramos eliminar
+int eliminarId = 20; //elegimos un id que queramos eliminar
+
+// crear evento modificado, debe coincidir con un evento ya dado de alta, cambiar id por uno existente para que se produzca la modificacion
+EventoDeportivo eventoModificado = new EventoDeportivo { Id = 20, Nombre = "Torneo de Tenis", Descripcion = "Polvo de ladrillo", FechaHoraInicio = new DateTime(2025, 12, 20, 14, 30, 0), DuracionHoras = 3.0, CupoMaximo = 32, ResponsableId = 1 };
+
+// elegir el id del evento a eliminar
+int idEventoAEliminar = 10;
+
+//reserva modificada, cambiar el id por uno que ya exista (1 o 2) para que se produzca la modificacion
+Reserva reservaModificada = new Reserva { Id = 5, PersonaId = 5, EventoDeportivoId = 6, FechaAltaReserva = DateTime.Now, EstadoAsistencia = Reserva.EstadoAsis.Ausente };
+
+// elegir el id de la reserva que queres eliminar
+int idReservaAEliminar = 10; 
+
 try
 {
     personaAltaUC.Ejecutar(usuarioVIP, idUsuario);
@@ -67,7 +87,7 @@ try
 {
     personaAltaUC.Ejecutar(persona1, idUsuario);
     Console.WriteLine(" Persona 1 dada de alta correctamente:\n" + persona1);
-}
+}   
 catch (Exception ex)
 {
     Console.WriteLine($" Error al dar de alta persona 1: {ex.Message}");
@@ -128,6 +148,15 @@ catch (Exception ex)
 }
 try
 {
+    reservaAltaUC.Ejecutar(reserva2, idUsuario);
+    Console.WriteLine(" Reserva realizada con éxito:" + reserva2);
+}
+catch (Exception ex)
+{
+    Console.WriteLine($" Error al realizar la reserva: {ex.Message}");
+}
+try
+{
     personaModificacionUC.Ejecutar(personaModificada, idUsuario);
     Console.WriteLine("\n Persona modificada correctamente:");
     Console.WriteLine(personaModificada);
@@ -144,6 +173,74 @@ try
 catch (Exception ex)
 {
     Console.WriteLine($"\n Error al eliminar persona Id={eliminarId}: {ex.Message}");
+}
+try
+{
+    eventoModificacionUC.Ejecutar(eventoModificado, idUsuario);
+    Console.WriteLine("\n Evento modificado correctamente:");
+    Console.WriteLine(eventoModificado);
+}
+catch (FalloAutorizacionException ex)
+{
+    Console.WriteLine($"\n No tiene permiso: {ex.Message}");
+}
+catch (EntidadNotFoundException ex)
+{
+    Console.WriteLine($"\n No se encontró el evento: {ex.Message}");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"\n Error inesperado al modificar evento: {ex.Message}");
+}
+try
+{
+    eventoBajaUC.Ejecutar(idEventoAEliminar, idUsuario);
+    Console.WriteLine($"\n Evento con Id={idEventoAEliminar} eliminado correctamente.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"\n Error inesperado: {ex.Message}");
+}
+// Modificar reserva
+try
+{
+    reservaModificacionUC.Ejecutar(reservaModificada, idUsuario);
+    Console.WriteLine("\n Reserva modificada correctamente:");
+    Console.WriteLine(reservaModificada);
+}
+catch (FalloAutorizacionException ex)
+{
+    Console.WriteLine($"\n No tiene permiso: {ex.Message}");
+}
+catch (EntidadNotFoundException ex)
+{
+    Console.WriteLine($"\n No se encontró la reserva: {ex.Message}");
+}
+catch (ValidacionException ex)
+{
+    Console.WriteLine($"\n Error de validación: {ex.Message}");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"\n Error inesperado al modificar la reserva: {ex.Message}");
+}
+
+try
+{
+    reservaBajaUC.Ejecutar(idReservaAEliminar, idUsuario);
+    Console.WriteLine($"\n Reserva con Id={idReservaAEliminar} eliminada correctamente.");
+}
+catch (FalloAutorizacionException ex)
+{
+    Console.WriteLine($"\n No tiene permiso: {ex.Message}");
+}
+catch (EntidadNotFoundException ex)
+{
+    Console.WriteLine($"\n No se encontró la reserva: {ex.Message}");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"\n Error inesperado al eliminar la reserva: {ex.Message}");
 }
 
 // === Mostrar Listados ===

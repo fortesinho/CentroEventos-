@@ -10,7 +10,7 @@ public class RepositorioReserva : IRepositorioReserva
     readonly string _dirUltIdRes = "ultimo_id_reserva.txt";
     public void Agregar(Reserva reserva){
         reserva.Id = GeneradorId.Obtener(_dirUltIdRes); // genera nuevo id
-        using StreamWriter sw = new StreamWriter(ArchivoReservas, true); //empieza a escribir al final del archivo sin borrar lo que ya habia 
+        using StreamWriter sw = new StreamWriter(ArchivoReservas,true); //empieza a escribir al final del archivo sin borrar lo que ya habia 
         sw.WriteLine(DarFormato(reserva)); // escribe los datos de la reserva en el archivo
     }
 
@@ -38,13 +38,12 @@ public class RepositorioReserva : IRepositorioReserva
             ActualizarReservas(reservas);//actulizo la lista
         }
     }
-    public List<Reserva> Listar()
-    {
+    public List<Reserva> Listar(){
         List<Reserva> reservas = new List<Reserva>(); //creo una lista vacia
         if (!File.Exists(ArchivoReservas)){ // si no existe el archivo
             return reservas;//devuelve la lista vacia
         }
-        using StreamReader sr = new StreamReader(ArchivoReservas,false);
+        using StreamReader sr = new StreamReader(ArchivoReservas);
         while (!sr.EndOfStream){    //mientras no llego al final del archivo
             string? linea = sr.ReadLine();//guardo la linea
             Reserva? reserva = ConvertirLinea(linea); // modifico la linea que recibi antes y me guardo sus campos en la variable reserva
