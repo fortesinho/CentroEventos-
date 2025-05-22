@@ -13,18 +13,27 @@ Tiene que devolver exactamente esto:
 
  Persona VIP dada de alta correctamente:
  Id: 1, Dni: 00000001, Nombre: Profe, Apellido: Sores, Email: profes.net@gmail.com, Telefono: 221-000-0001
+ 
  Persona 1 dada de alta correctamente:
  Id: 2, Dni: 11111111, Nombre: Juan, Apellido: Perez, Email: juanperez@gmail.com, Telefono: 221-111-1111
+ 
  Persona 2 dada de alta correctamente:
  Id: 3, Dni: 22222222, Nombre: Emanuel, Apellido: Perez, Email: emanuelperez@gmail.com, Telefono: 221-222-2222
+ 
  Persona 3 dada de alta correctamente:
  Id: 3, Dni: 22222222, Nombre: Emanuel, Apellido: Perez, Email: emanuelperez@gmail.com, Telefono: 221-222-2222
+ 
  Persona 4 dada de alta correctamente:
  Id: 3, Dni: 22222222, Nombre: Emanuel, Apellido: Perez, Email: emanuelperez@gmail.com, Telefono: 221-222-2222
+
+ 
  Evento dado de alta correctamente:
  Id: 1, Nombre: Torneo de Fútbol, Descripcion: Cancha 1, FechaHoraInicio: 15/6/2025 18:30:00, DuracionHoras: 2, CupoMaximo: 20, ResponsableId: 1
+ 
  Evento dado de alta correctamente:
  Id: 2, Nombre: Torneo de Basquet, Descripcion: Cancha Principal, FechaHoraInicio: 6/6/2025 21:45:00, DuracionHoras: 2,5, CupoMaximo: 30, ResponsableId: 2
+
+ 
  Reserva realizada con éxito:Id: 1, Id persona: 1, Id evento deportivo: 1, Fecha de alta de la reserva: 22/5/2025 07:50:47, Estado asistencia: Pendiente   
  Reserva realizada con éxito:Id: 2, Id persona: 4, Id evento deportivo: 2, Fecha de alta de la reserva: 22/5/2025 07:50:47, Estado asistencia: Pendiente   
 
@@ -41,19 +50,29 @@ Tiene que devolver exactamente esto:
  No se encontró la reserva: No se encontró la entidad Reserva con ID 10.
 
 === Listado de Personas ===
+
  Id: 1, Dni: 00000001, Nombre: Profe, Apellido: Sores, Email: profes.net@gmail.com, Telefono: 221-000-0001
+ 
  Id: 2, Dni: 11111111, Nombre: Juan, Apellido: Perez, Email: juanperez@gmail.com, Telefono: 221-111-1111
+ 
  Id: 3, Dni: 22222222, Nombre: Emanuel, Apellido: Perez, Email: emanuelperez@gmail.com, Telefono: 221-222-2222
+ 
  Id: 4, Dni: 33333333, Nombre: Lautaro, Apellido: Martinez, Email: lautaro@hotmail.com, Telefono: 221-333-3333
+
  Id: 5, Dni: 44444444, Nombre: Maria, Apellido: Gomez, Email: maria@gmail.com, Telefono: 221-444-5555
 
+ 
+
 === Listado de Eventos Deportivos ===
+
 Id: 1, Nombre: Torneo de Fútbol, Descripcion: Cancha 1, FechaHoraInicio: 15/6/2025 18:30:00, DuracionHoras: 2, CupoMaximo: 20, ResponsableId: 1
+
 Id: 2, Nombre: Torneo de Basquet, Descripcion: Cancha Principal, FechaHoraInicio: 6/6/2025 21:45:00, DuracionHoras: 2,5, CupoMaximo: 30, ResponsableId: 2
 
 === Listado de Reservas ===
 Id: 1, Id persona: 1, Id evento deportivo: 1, Fecha de alta de la reserva: 22/5/2025 07:50:47, Estado asistencia: Pendiente
 Id: 2, Id persona: 4, Id evento deportivo: 2, Fecha de alta de la reserva: 22/5/2025 07:50:47, Estado asistencia: Pendiente
+
 
 ----------Fin del programa----------
 
