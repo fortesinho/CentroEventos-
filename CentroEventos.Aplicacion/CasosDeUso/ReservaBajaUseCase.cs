@@ -9,8 +9,9 @@ public class ReservaBajaUseCase(IRepositorioReserva repoReserva, IServicioAutori
 {
 public void Ejecutar(int reservaId, int idUsuario){
  if(!servicio.PoseeElPermiso(idUsuario, Permiso.ReservaBaja))
-   throw new FalloAutorizacionException("El usuario no tiene permiso para dar de baja reservas.");
-
-  repoReserva.Eliminar(reservaId);
+    throw new FalloAutorizacionException("El usuario no tiene permiso para dar de baja reservas.");
+ if (repoReserva.ObtenerPorId(reservaId) == null)
+      throw new EntidadNotFoundException("Reserva", reservaId);
+   repoReserva.Eliminar(reservaId);
 }
 }
