@@ -11,7 +11,7 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
 
     public void Agregar(EventoDeportivo evento){
         evento.Id = GeneradorId.Obtener(_archivoUltimoId);
-        using StreamWriter sw = new StreamWriter(_archivoEventos,true);
+        using StreamWriter sw = new StreamWriter(_archivoEventos,true);// lo ponemos en false para que sobreescriba, si ponemos true va a agregar siempre el mismo evento
         sw.WriteLine(DarFormato(evento)); // escribe el evento en el archivo
     }
     public void Eliminar(int id){
@@ -83,7 +83,7 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
         return $"{evento.Id}|{evento.Nombre}|{evento.Descripcion}|{evento.FechaHoraInicio:O}|{evento.DuracionHoras}|{evento.CupoMaximo}|{evento.ResponsableId}";
     }
     private void ActualizarArchivo(List<EventoDeportivo> eventos){
-        using StreamWriter sw = new StreamWriter(_archivoEventos, false);
+        using StreamWriter sw = new StreamWriter(_archivoEventos);
         foreach (EventoDeportivo evento in eventos){
             sw.WriteLine(DarFormato(evento));
         }

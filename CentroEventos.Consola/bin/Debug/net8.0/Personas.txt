@@ -1,2 +1,5 @@
-1|12345678|Juan|Pérez|juan.perez@example.com|1234-5678
-2|12345652178|Ju21n|Pér21ez|juan.pere21z@example.com|123214-5678
+1|00000001|Profe|Sores|profes.net@gmail.com|221-000-0001
+2|11111111|Juan|Perez|juanperez@gmail.com|221-111-1111
+3|22222222|Emanuel|Perez|emanuelperez@gmail.com|221-222-2222
+4|33333333|Lautaro|Martinez|lautaro@hotmail.com|221-333-3333
+5|44444444|Maria|Gomez|maria@gmail.com|221-444-5555

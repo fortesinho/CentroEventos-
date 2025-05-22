@@ -13,7 +13,7 @@ public static int Obtener(string dirUltId){
                ultimoId = int.Parse(linea);
             }
         int nuevoId = ultimoId + 1;
-        using StreamWriter  sw = new StreamWriter(dirUltId, false);
+        using StreamWriter  sw = new StreamWriter(dirUltId);
         sw.WriteLine(nuevoId);
     return nuevoId;
         }

@@ -12,7 +12,7 @@ public class RepositorioPersona : IRepositorioPersona
     public void Agregar(Persona persona)
     {
         persona.id = GeneradorId.Obtener(_dirUltIdPer);
-        using StreamWriter sw = new StreamWriter(_ArchivoPersona);
+        using StreamWriter sw = new StreamWriter(_ArchivoPersona,true);
         sw.WriteLine($"{persona.id}|{persona.dni}|{persona.nombre}|{persona.apellido}|{persona.email}|{persona.telefono}");
 
     }
@@ -100,7 +100,7 @@ public class RepositorioPersona : IRepositorioPersona
     //-------- METODOS PRIVADOS ---------- 
     private void ActualizarPersonas(List<Persona> personas)
     {
-        using StreamWriter sw = new StreamWriter(_ArchivoPersona, false);
+        using StreamWriter sw = new StreamWriter(_ArchivoPersona);
         foreach (Persona p in personas)
         {
             sw.WriteLine($"{p.id}|{p.dni}|{p.nombre}|{p.apellido}|{p.email}|{p.telefono}");
