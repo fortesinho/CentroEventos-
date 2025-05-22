@@ -8,7 +8,9 @@ Contienen:
 	-2 reservas
 
 Tiene que devolver exactamente esto:
----------------Comienzo del programa --------------- 
+
+---------------Comienzo del programa ---------------
+
  Persona VIP dada de alta correctamente:
  Id: 1, Dni: 00000001, Nombre: Profe, Apellido: Sores, Email: profes.net@gmail.com, Telefono: 221-000-0001
  Persona 1 dada de alta correctamente:
