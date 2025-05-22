@@ -21,10 +21,10 @@ public class  ValidadorPersona(IRepositorioPersona repoPersona)
         if(string.IsNullOrWhiteSpace(persona.email)){
             throw new ValidacionException("Email no puede estar vacio");
         }
-        if (repositorioPersona.ExisteConDni(persona.dni))
+        if (repoPersona.ExisteConDni(persona.dni))
                 throw new DuplicadoException($"Ya existe una persona con el DNI {persona.dni}.");
 
-        if (repositorioPersona.ExisteConEmail (persona.email))
+        if (repoPersona.ExisteConEmail (persona.email))
                 throw new DuplicadoException($"Ya existe una persona con el email {persona.email}.");
 
     }
@@ -44,10 +44,10 @@ public void ValidarModificacion(Persona persona)
 
     var personas = repoPersona.ObtenerTodas();
 
-    if (personas.Any(p => p.Id != persona.id && p.DNI == persona.DNI))
+    if (personas.Any(p => p.id != persona.id && p.dni == persona.dni))
         throw new DuplicadoException("Ya existe otra persona con el mismo DNI.");
 
-    if (personas.Any(p => p.Id != persona.id && p.Email == persona.Email))
+    if (personas.Any(p => p.id != persona.id && p.email == persona.email))
         throw new DuplicadoException("Ya existe otra persona con el mismo Email.");
 }
 

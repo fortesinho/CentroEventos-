@@ -13,7 +13,7 @@ public class RepositorioPersona : IRepositorioPersona
     {
         persona.id = GeneradorId.Obtener(_dirUltIdPer);
         using StreamWriter sw = new StreamWriter(_ArchivoPersona, append: true);
-        sw.WriteLine($"{persona.id};{persona.dni};{persona.nombre};{persona.apellido};{persona.email};{persona.telefono}");
+        sw.WriteLine($"{persona.id}|{persona.dni}|{persona.nombre}|{persona.apellido}|{persona.email}|{persona.telefono}");
 
     }
     public void Eliminar(int id)

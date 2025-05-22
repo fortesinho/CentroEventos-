@@ -11,7 +11,7 @@ public class ReservaAltaUseCase(IRepositorioReserva repoReserva, IServicioAutori
     public void Ejecutar(Reserva datosReserva, int idUsuario){
         if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.ReservaAlta))
             throw new FalloAutorizacionException("El usuario no tiene permiso para dar de alta reservas.");
-        validador.ValidarAlta(datosReserva);
+        validador.Validar(datosReserva);
         datosReserva.FechaAltaReserva = DateTime.Now;
         datosReserva.EstadoAsistencia = Reserva.EstadoAsis.Pendiente;
         repoReserva.Agregar(datosReserva);

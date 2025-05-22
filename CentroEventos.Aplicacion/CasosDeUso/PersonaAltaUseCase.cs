@@ -12,7 +12,7 @@ public void Ejecutar(Persona persona, int idUsuario){
     if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioAlta))  
         throw new FalloAutorizacionException("El usuario no tiene permiso para dar de alta personas.");
             
-    validador.Validar(persona);
+    validador.ValidarAlta(persona);
     repoPersona.Agregar(persona);
 
     }

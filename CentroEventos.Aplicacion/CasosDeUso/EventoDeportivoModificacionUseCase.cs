@@ -13,7 +13,9 @@ public void Ejecutar(EventoDeportivo Evento, int idUsuario){
       throw new FalloAutorizacionException("No tiene permiso para modificar Eventos.");
   if (repoEvento.ObtenerPorId(Evento.Id) == null)
         throw new EntidadNotFoundException("Evento", Evento.Id);
- validador.ValidarAlta(Evento);
+    if (repoEvento.ObtenerPorId(Evento.Id)?.FechaHoraInicio < DateTime.Now)
+        throw new OperacionInvalidaException("No se puede modificar un evento que ya ocurrió.");
+ validador.Validar(Evento);
  repoEvento.Modificar(Evento);
   
 }

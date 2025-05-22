@@ -9,7 +9,7 @@ public interface IRepositorioReserva
     void Eliminar(int id);// Elimina una reserva por ID
     void Modificar(Reserva reserva);// Cambia los datos de una reserva existente
     List<Reserva> Listar();// Devuelve todas las reservas
-    List<Reserva> ObtenerPorEventoYPersona(int eventoDeportivoId, int personaId);
+    Reserva? ObtenerPorId(int id);
     List<Reserva> ObtenerPorEvento(int eventoDeportivoId);
     List<Reserva> ObtenerPorPersona(int id);
 }

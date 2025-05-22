@@ -67,16 +67,7 @@ public class RepositorioReserva : IRepositorioReserva
         }
         return null;
     }
-    public List<Reserva> ObtenerPorEventoYPersona(int eventoDeportivoId, int personaId){
-        List<Reserva> listaNue = new List<Reserva>();
-        List<Reserva> lista = Listar();
-        foreach (Reserva r in lista){
-            if (r.EventoDeportivoId == eventoDeportivoId && r.PersonaId == personaId){ //si tienen el mismo id la persona y el evento
-                listaNue.Add(r);//lo agrego a la lista nueva
-            }
-        }
-        return listaNue;
-    }
+   
     public List<Reserva> ObtenerPorEvento(int eventoDeportivoId){
         List<Reserva> listaNue = new List<Reserva>();
         List<Reserva> lista = Listar();
