@@ -9,11 +9,11 @@ public class PersonaAltaUseCase(IRepositorioPersona repoPersona,IServicioAutoriz
 {
 
 public void Ejecutar(Persona persona, int idUsuario){
-if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioAlta))  
-    throw new FalloAutorizacionException("El usuario no tiene permiso para dar de alta personas.");
-        
-validador.Validar(persona);
-repoPersona.Agregar(persona);
+    if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioAlta))  
+        throw new FalloAutorizacionException("El usuario no tiene permiso para dar de alta personas.");
+            
+    validador.Validar(persona);
+    repoPersona.Agregar(persona);
 
-}
+    }
 }

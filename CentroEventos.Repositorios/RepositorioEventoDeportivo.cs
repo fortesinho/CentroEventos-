@@ -10,7 +10,7 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
     private readonly string _archivoUltimoId = "ultimo_id_evento.txt";
 
     public void Agregar(EventoDeportivo evento){
-        evento.Id = GeneradorId.obtener(_archivoUltimoId);
+        evento.Id = GeneradorId.Obtener(_archivoUltimoId);
         using StreamWriter sw = new StreamWriter(_archivoEventos, true);
         sw.WriteLine(DarFormato(evento)); // escribe el evento en el archivo
     }
@@ -65,7 +65,6 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
             ActualizarArchivo(eventos); // actualizo la lista
         }
     }
-
     public EventoDeportivo? ObtenerPorId(int id){
         if (!File.Exists(_archivoEventos))
             return null;

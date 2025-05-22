@@ -9,7 +9,7 @@ public class RepositorioReservaTXT : IRepositorioReserva
     readonly string ArchivoReservas = "Reservas.txt";
     readonly string _dirUltIdRes = "ultimo_id_reserva.txt";
     public void Agregar(Reserva reserva){
-        reserva.Id = GeneradorId.obtener(_dirUltIdRes); // genera nuevo id
+        reserva.Id = GeneradorId.Obtener(_dirUltIdRes); // genera nuevo id
         using StreamWriter sw = new StreamWriter(ArchivoReservas, true); //empieza a escribir al final del archivo sin borrar lo que ya habia 
         sw.WriteLine(DarFormato(reserva)); // escribe los datos de la reserva en el archivo
     }
