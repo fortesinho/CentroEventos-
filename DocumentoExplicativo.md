@@ -21,11 +21,10 @@ Tiene que devolver exactamente esto:
  Id: 3, Dni: 22222222, Nombre: Emanuel, Apellido: Perez, Email: emanuelperez@gmail.com, Telefono: 221-222-2222
  
  Persona 3 dada de alta correctamente:
- Id: 3, Dni: 22222222, Nombre: Emanuel, Apellido: Perez, Email: emanuelperez@gmail.com, Telefono: 221-222-2222
+ Id: 4, Dni: 33333333, Nombre: Lautaro, Apellido: Martinez, Email: lautaro@hotmail.com, Telefono: 221-333-3333
  
  Persona 4 dada de alta correctamente:
- Id: 3, Dni: 22222222, Nombre: Emanuel, Apellido: Perez, Email: emanuelperez@gmail.com, Telefono: 221-222-2222
-
+ Id: 5, Dni: 44444444, Nombre: Maria, Apellido: Gomez, Email: maria@gmail.com, Telefono: 221-444-5555
  
  Evento dado de alta correctamente:
  Id: 1, Nombre: Torneo de Fútbol, Descripcion: Cancha 1, FechaHoraInicio: 15/6/2025 18:30:00, DuracionHoras: 2, CupoMaximo: 20, ResponsableId: 1
