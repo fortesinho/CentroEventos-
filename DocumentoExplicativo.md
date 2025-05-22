@@ -2,6 +2,7 @@
 
 En la primer depuracion del proyecto se deberian de dar de alta las personas que estan declaradas en el programa, eventos y reservas.
 Contienen:
+
 	-5 personas
 	-2 eventos
 	-2 reservas
