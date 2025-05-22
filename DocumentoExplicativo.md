@@ -70,7 +70,9 @@ Id: 1, Nombre: Torneo de Fútbol, Descripcion: Cancha 1, FechaHoraInicio: 15/6/2
 Id: 2, Nombre: Torneo de Basquet, Descripcion: Cancha Principal, FechaHoraInicio: 6/6/2025 21:45:00, DuracionHoras: 2,5, CupoMaximo: 30, ResponsableId: 2
 
 === Listado de Reservas ===
+
 Id: 1, Id persona: 1, Id evento deportivo: 1, Fecha de alta de la reserva: 22/5/2025 07:50:47, Estado asistencia: Pendiente
+
 Id: 2, Id persona: 4, Id evento deportivo: 2, Fecha de alta de la reserva: 22/5/2025 07:50:47, Estado asistencia: Pendiente
 
 
