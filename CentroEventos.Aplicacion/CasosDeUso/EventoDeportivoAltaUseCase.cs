@@ -6,7 +6,7 @@ using CentroEventos.Aplicacion.Interfaces;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class EventoDeportivoAltaUseCase(IRepositorioPersona repoPersona, )
+public class EventoDeportivoAltaUseCase(IRepositorioPersona repoPersona)
 {
 
 }

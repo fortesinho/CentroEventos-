@@ -106,13 +106,13 @@ public class RepositorioPersona : IRepositorioPersona
         return personas;
     }
 
-    //-------- metodos privados ---------------
+    //-------- METODOS PRIVADOS ---------- 
     private void ActualizarPersonas(List<Persona> personas)
     {
         using StreamWriter sw = new StreamWriter(_ArchivoPersona, false);
-        foreach (var p in personas)
+        foreach (Persona p in personas)
         {
-            sw.WriteLine($"{p.id};{p.dni};{p.nombre};{p.apellido};{p.email};{p.telefono}");
+            sw.WriteLine($"{p.id}|{p.dni}|{p.nombre}|{p.apellido}|{p.email}|{p.telefono}");
         }
     }
 
@@ -122,7 +122,7 @@ public class RepositorioPersona : IRepositorioPersona
         {
             return null;
         }
-        string[]? partes = linea.Split(';');
+        string[]? partes = linea.Split('|');
         if (partes.Length != 6) {
             return null;
         }
