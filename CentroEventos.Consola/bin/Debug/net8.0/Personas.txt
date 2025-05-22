@@ -1,1 +1,2 @@
-1;12345678;Juan;Pérez;;
+1|12345678|Juan|Pérez|juan.perez@example.com|1234-5678
+2|12345652178|Ju21n|Pér21ez|juan.pere21z@example.com|123214-5678

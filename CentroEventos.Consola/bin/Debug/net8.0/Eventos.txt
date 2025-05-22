@@ -1,1 +1,6 @@
-1|Torneo Futbol|5 vs 5|2025-05-27T00:58:52.2843971-03:00|2|10|1
+1|Torneo de Fútbol|Cancha 1|2025-06-15T00:00:00.0000000|2|20|1
+2|Torneo de Fútbol|Cancha 1|2025-06-15T00:00:00.0000000|2|20|1
+3|Torneo de Fútbol|Cancha 1|2025-06-15T00:00:00.0000000|2|20|1
+4|Torneo de Fútbol|Cancha 1|2025-06-15T00:00:00.0000000|2|20|1
+5|Torneo de Fútbol|Cancha 1|2025-06-15T00:00:00.0000000|2|20|1
+6|Torneo de Fútbol|Cancha 1|2025-06-15T00:00:00.0000000|2|20|1

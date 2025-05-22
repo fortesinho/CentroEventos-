@@ -12,17 +12,15 @@ public class RepositorioPersona : IRepositorioPersona
     public void Agregar(Persona persona)
     {
         persona.id = GeneradorId.Obtener(_dirUltIdPer);
-        using StreamWriter sw = new StreamWriter(_ArchivoPersona, append: true);
+        using StreamWriter sw = new StreamWriter(_ArchivoPersona);
         sw.WriteLine($"{persona.id}|{persona.dni}|{persona.nombre}|{persona.apellido}|{persona.email}|{persona.telefono}");
 
     }
     public void Eliminar(int id)
     {
         var personas = ObtenerTodas();
-        for (int i = 0; i < personas.Count; i++)
-        {
-            if (personas[i].id == id)
-            {
+        for (int i = 0; i < personas.Count; i++){
+            if (personas[i].id == id) {
                 personas.RemoveAt(i);
                 i--;
             }
@@ -30,31 +28,24 @@ public class RepositorioPersona : IRepositorioPersona
         ActualizarPersonas(personas);
     }
 
-    public void Modificar(Persona persona)
-    {
+    public void Modificar(Persona persona){
         List<Persona> personas = ObtenerTodas();
         int aux = -1;
-        for (int i = 0; i < personas.Count; i++)
-        {
-            if (personas[i].id == persona.id)
-            {
+        for (int i = 0; i < personas.Count; i++){
+            if (personas[i].id == persona.id) {
                 aux = i;
                 break;
             }
         }
-        if (aux >= 0)
-        {
+        if (aux >= 0){
             personas[aux] = persona;
             ActualizarPersonas(personas);
         }
     }
-    public bool ExisteConDni(string dni)
-    {
+    public bool ExisteConDni(string dni){
         List<Persona> personas = ObtenerTodas();
-        foreach (Persona p in personas)
-        {
-            if (p.dni == dni)
-            {
+        foreach (Persona p in personas){
+            if (p.dni == dni){
                 return true;
             }
         }

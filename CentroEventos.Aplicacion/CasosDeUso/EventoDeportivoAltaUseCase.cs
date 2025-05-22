@@ -10,7 +10,7 @@ public class EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repoEvento, 
 {
 public void Ejecutar(EventoDeportivo evento, int idUsuario){
   if (!servicio.PoseeElPermiso(idUsuario, Permiso.EventoAlta))
-        throw new FalloAutorizacionException("No tiene permiso para dar de alta eventos.");
+        throw new FalloAutorizacionException("El usuario no tiene permiso para dar de alta eventos.");
    
    validador.Validar(evento);
    repoEvento.Agregar(evento);

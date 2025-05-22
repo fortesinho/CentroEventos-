@@ -11,7 +11,7 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
 
     public void Agregar(EventoDeportivo evento){
         evento.Id = GeneradorId.Obtener(_archivoUltimoId);
-        using StreamWriter sw = new StreamWriter(_archivoEventos, true);
+        using StreamWriter sw = new StreamWriter(_archivoEventos,true);
         sw.WriteLine(DarFormato(evento)); // escribe el evento en el archivo
     }
     public void Eliminar(int id){
@@ -36,7 +36,7 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
     }
 
     public List<EventoDeportivo> Listar(){
-        List<EventoDeportivo> eventos = new(); //creo la lista vacia
+        List<EventoDeportivo> eventos = new List<EventoDeportivo>(); //creo la lista vacia
         if (!File.Exists(_archivoEventos)){
             return eventos;
         }

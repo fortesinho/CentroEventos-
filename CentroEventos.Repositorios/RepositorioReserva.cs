@@ -44,7 +44,7 @@ public class RepositorioReserva : IRepositorioReserva
         if (!File.Exists(ArchivoReservas)){ // si no existe el archivo
             return reservas;//devuelve la lista vacia
         }
-        using StreamReader sr = new StreamReader(ArchivoReservas);
+        using StreamReader sr = new StreamReader(ArchivoReservas,false);
         while (!sr.EndOfStream){    //mientras no llego al final del archivo
             string? linea = sr.ReadLine();//guardo la linea
             Reserva? reserva = ConvertirLinea(linea); // modifico la linea que recibi antes y me guardo sus campos en la variable reserva
@@ -58,7 +58,7 @@ public class RepositorioReserva : IRepositorioReserva
         if (!File.Exists(ArchivoReservas)){
             return null;
         }   
-        using StreamReader sr = new StreamReader(ArchivoReservas);
+        using StreamReader sr = new StreamReader(ArchivoReservas,false);
         while (!sr.EndOfStream){
             string? linea = sr.ReadLine();
             Reserva? reserva = ConvertirLinea(linea);
@@ -94,7 +94,7 @@ public class RepositorioReserva : IRepositorioReserva
         return $"{reserva.Id}|{reserva.EventoDeportivoId}|{reserva.PersonaId}|{reserva.FechaAltaReserva:O}|{reserva.EstadoAsistencia}";
         }
         private void ActualizarReservas(List<Reserva> reservas){
-            using StreamWriter sw = new StreamWriter(ArchivoReservas, false);
+            using StreamWriter sw = new StreamWriter(ArchivoReservas,false);
             foreach (Reserva reserva in reservas){
                 sw.WriteLine(DarFormato(reserva));
             }

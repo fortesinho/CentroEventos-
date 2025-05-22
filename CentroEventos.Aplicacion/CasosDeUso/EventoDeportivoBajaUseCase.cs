@@ -9,7 +9,7 @@ public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoEvento, 
 {
 public void Ejecutar (int idEvento, int idUsuario){
 if (!servicio.PoseeElPermiso(idUsuario, Permiso.EventoBaja))
-     throw new FalloAutorizacionException("No tiene permiso para eliminar eventos.");
+     throw new FalloAutorizacionException("El usuario no tiene permiso para eliminar eventos.");
  if (repoEvento.ObtenerPorId(idEvento) == null)
       throw new EntidadNotFoundException("Evento", idEvento);
 var reservas = repoReserva.Listar();

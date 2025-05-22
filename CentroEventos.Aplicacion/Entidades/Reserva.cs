@@ -12,7 +12,7 @@ public class Reserva
         FechaAltaReserva = fechaAltaReserva;
         EstadoAsistencia = estadoAsistencia;
     }
-   public Reserva(){}
+public Reserva(){}
 public int Id { get; set; }
 public int PersonaId { get; set; }
 public int EventoDeportivoId { get; set; }
