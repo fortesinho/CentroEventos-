@@ -7,7 +7,7 @@ using CentroEventos.Aplicacion.Servicios;
 using CentroEventos.Aplicacion.Validadores;
 
 
-Console.WriteLine(" *--*-*-*PROBANDO *-*-*- ");
+Console.WriteLine(" ---------------Comienzo del programa --------------- ");
 
 
 RepositorioPersona repoPersona = new RepositorioPersona();
@@ -54,7 +54,7 @@ EventoDeportivo evento2 = new EventoDeportivo { Nombre = "Torneo de Basquet", De
 
 //crear una reserva
 Reserva reserva1 = new Reserva { PersonaId = 1, EventoDeportivoId = 1, FechaAltaReserva = DateTime.Now, EstadoAsistencia = Reserva.EstadoAsis.Presente, };
-Reserva reserva2 = new Reserva { PersonaId = 1, EventoDeportivoId = 3, FechaAltaReserva = DateTime.Now.AddDays(30), EstadoAsistencia = Reserva.EstadoAsis.Presente, };
+Reserva reserva2 = new Reserva { PersonaId = 4, EventoDeportivoId = 2, FechaAltaReserva = DateTime.Now.AddDays(30), EstadoAsistencia = Reserva.EstadoAsis.Presente, };
 
 //crear persona modificada, probando con id X que sabemos ya sabemos que esta en la lista
 Persona personaModificada = new Persona { id = 10, nombre = "Lionel", apellido = "Messi", dni = "10101010", email = "lionelmessi10@gmail.com", telefono = "342-111-7539" };
@@ -201,7 +201,6 @@ catch (Exception ex)
 {
     Console.WriteLine($"\n Error inesperado: {ex.Message}");
 }
-// Modificar reserva
 try
 {
     reservaModificacionUC.Ejecutar(reservaModificada, idUsuario);
@@ -255,3 +254,5 @@ foreach (EventoDeportivo e in repoEvento.Listar())
 Console.WriteLine("\n=== Listado de Reservas ===");
 foreach (Reserva r in repoReserva.Listar())
     Console.WriteLine(r);
+
+Console.WriteLine("----------Fin del programa----------");

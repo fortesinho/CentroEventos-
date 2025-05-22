@@ -28,6 +28,6 @@ public class EventoDeportivo
     
     public override string ToString()
     {
-        return $"Id: {this.Id}, Nombre: {this.Nombre}, Descripcion: {this.Descripcion}, FechaHoraInicio: {this.FechaHoraInicio}, DuracionHoras: {this.DuracionHoras}, CupoMaximo: {this.CupoMaximo}, ResponsableId: {this.ResponsableId}";
+        return $" Id: {this.Id}, Nombre: {this.Nombre}, Descripcion: {this.Descripcion}, FechaHoraInicio: {this.FechaHoraInicio}, DuracionHoras: {this.DuracionHoras}, CupoMaximo: {this.CupoMaximo}, ResponsableId: {this.ResponsableId}";
     }
 }

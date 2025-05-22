@@ -1,2 +1,4 @@
 1|Torneo de Fútbol|Cancha 1|2025-06-15T18:30:00.0000000|2|20|1
 2|Torneo de Basquet|Cancha Principal|2025-06-06T21:45:00.0000000|2,5|30|2
+3|Torneo de Fútbol|Cancha 1|2025-06-15T18:30:00.0000000|2|20|1
+4|Torneo de Basquet|Cancha Principal|2025-06-06T21:45:00.0000000|2,5|30|2
