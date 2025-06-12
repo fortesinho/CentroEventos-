@@ -14,3 +14,21 @@ C:\Users\Forte\Desktop\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.
 C:\Users\Forte\Desktop\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\refint\CentroEventos.Repositorios.dll
 C:\Users\Forte\Desktop\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\CentroEventos.Repositorios.pdb
 C:\Users\Forte\Desktop\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\ref\CentroEventos.Repositorios.dll
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\bin\Debug\net8.0\CentroEventos.Repositorios.deps.json
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\bin\Debug\net8.0\CentroEventos.Repositorios.runtimeconfig.json
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\bin\Debug\net8.0\CentroEventos.Repositorios.dll
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\bin\Debug\net8.0\CentroEventos.Repositorios.pdb
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\bin\Debug\net8.0\CentroEventos.Aplicacion.dll
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\bin\Debug\net8.0\CentroEventos.Aplicacion.pdb
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\CentroEventos.Repositorios.csproj.AssemblyReference.cache
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\CentroEventos.Repositorios.GeneratedMSBuildEditorConfig.editorconfig
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\CentroEventos.Repositorios.AssemblyInfoInputs.cache
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\CentroEventos.Repositorios.AssemblyInfo.cs
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\CentroEventos.Repositorios.csproj.CoreCompileInputs.cache
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\CentroEventos.Repositorios.sourcelink.json
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\CentroEventos.Repositorios.csproj.CopyComplete
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\CentroEventos.Repositorios.dll
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\refint\CentroEventos.Repositorios.dll
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\CentroEventos.Repositorios.pdb
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\CentroEventos.Repositorios.genruntimeconfig.cache
+D:\Facultad\2do Año\Seminario de Lenguaje (.net)\Programa final\CentroEventos-\CentroEventos.Repositorios\obj\Debug\net8.0\ref\CentroEventos.Repositorios.dll
