@@ -18,7 +18,7 @@ public void Ejecutar(int personaId, int idUsuario){
 
    if (repoEvento.Listar().Any(e => e.ResponsableId == personaId))
             throw new OperacionInvalidaException("La persona es responsable de eventos.");
-    
+   
    repoPersona.Eliminar(personaId);
 }
 }

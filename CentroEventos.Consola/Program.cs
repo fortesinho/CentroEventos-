@@ -10,7 +10,7 @@ using CentroEventos.Aplicacion.Validadores;
 Console.WriteLine(" ---------------Comienzo del programa --------------- ");
 
 
-RepositorioPersona repoPersona = new RepositorioPersona();
+/*RepositorioPersona repoPersona = new RepositorioPersona();
 RepositorioEventoDeportivo repoEvento = new RepositorioEventoDeportivo();
 RepositorioReserva repoReserva = new RepositorioReserva();
 ServicioAutorizacionProvisorio autorizacion = new ServicioAutorizacionProvisorio();
@@ -253,6 +253,8 @@ foreach (EventoDeportivo e in repoEvento.Listar())
 
 Console.WriteLine("\n=== Listado de Reservas ===");
 foreach (Reserva r in repoReserva.Listar())
-    Console.WriteLine(r);
+    Console.WriteLine(r);*/
 
-Console.WriteLine("----------Fin del programa----------");
+CentroEventosDbInicializador.Inicializar();
+
+    

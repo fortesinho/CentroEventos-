@@ -103,3 +103,64 @@ Al aplicar los casos de usos veremos como se modifican los datos que estamos usa
 
 // problemas
 	cuando agregamos eventos al escribir los archivos y poner el StreamWriter (_archivoEventos,true) nos guarda los datos y agrega el evento correctamente, el problema es que cuando depuramos devuelta, sigue agregando esos mismos eventos, y si ponemos el StreamWriter en false solo guarda el ultimo evento
+
+ public List<Exception> ValidateAlta(Persona persona)
+    {
+        var errores = new List<Exception>();
+
+        // 1) Campos obligatorios
+        if (string.IsNullOrWhiteSpace(persona.Nombre))
+            errores.Add(new ValidacionException("El nombre no puede estar vacío."));
+        if (string.IsNullOrWhiteSpace(persona.Apellido))
+            errores.Add(new ValidacionException("El apellido no puede estar vacío."));
+        if (string.IsNullOrWhiteSpace(persona.Dni))
+            errores.Add(new ValidacionException("El DNI no puede estar vacío."));
+        if (string.IsNullOrWhiteSpace(persona.Email))
+            errores.Add(new ValidacionException("El email no puede estar vacío."));
+
+        // 2) Reglas de duplicado (solo Alta, Id == 0)
+        if (_repoPersona.ExisteConDni(persona.Dni))
+            errores.Add(new DuplicadoException($"Ya existe una persona con el DNI {persona.Dni}."));
+        if (_repoPersona.ExisteConEmail(persona.Email))
+            errores.Add(new DuplicadoException($"Ya existe una persona con el email {persona.Email}."));
+
+        return errores;
+    }
+}
+
+ public void Ejecutar(Persona persona, int usuarioId)
+    {
+        // 1) Autorización
+        if (!_auth.PoseeElPermiso(usuarioId, Permiso.UsuarioAlta))
+            throw new FalloAutorizacionException("No tienes permiso para dar de alta personas.");
+
+        // 2) Validación
+        var errores = _validator.ValidateAlta(persona);
+        if (errores.Any())
+            throw new AggregateException("Errores al validar Alta de Persona", errores);
+
+        // 3) Persistencia
+        _repo.Agregar(persona);
+    }
+}
+
+try
+{
+    var persona = new Persona { Nombre = "", Apellido = "", Dni = "123", Email = null };
+    var useCase = new AltaPersonaUseCase(repo, new PersonaValidator(repo), authService);
+
+    useCase.Ejecutar(persona, usuarioId);
+}
+catch (AggregateException aex)
+{
+    Console.WriteLine(aex.Message);
+    // → “Errores al validar Alta de Persona”
+    foreach (var inner in aex.InnerExceptions)
+    {
+        Console.WriteLine($"  • {inner.Message}");
+    }
+    // Ejemplo de salida:
+    //   • El nombre no puede estar vacío.
+    //   • El apellido no puede estar vacío.
+    //   • El email no puede estar vacío.
+}

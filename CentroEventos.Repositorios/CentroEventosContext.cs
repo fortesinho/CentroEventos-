@@ -5,7 +5,8 @@ namespace CentroEventos.Repositorios
 {
     public class CentroEventosContext : DbContext
     {
-        //public DbSet<Usuario> Usuarios { get; set; } = null!;
+        // Descomenta cuando tengas la entidad Usuario implementada
+        // public DbSet<Usuario> Usuarios { get; set; } = null!;
         public DbSet<Persona> Personas { get; set; } = null!;
         public DbSet<EventoDeportivo> Eventos { get; set; } = null!;
         public DbSet<Reserva> Reservas { get; set; } = null!;
@@ -14,8 +15,13 @@ namespace CentroEventos.Repositorios
         {
             optionsBuilder.UseSqlite("Data Source=centroeventos.sqlite");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Aquí podrías agregar configuraciones adicionales, por ejemplo relaciones Usuario-Permisos cuando las agregues
+        }
     }
-    
+
     public static class CentroEventosDbInicializador
     {
         public static void Inicializar()
@@ -24,6 +30,15 @@ namespace CentroEventos.Repositorios
             if (context.Database.EnsureCreated())
             {
                 Console.WriteLine("Base de datos creada correctamente.");
+
+                var connection = context.Database.GetDbConnection();
+                connection.Open();
+
+                using var command = connection.CreateCommand();
+                command.CommandText = "PRAGMA journal_mode=DELETE;";
+                command.ExecuteNonQuery();
+
+                connection.Close();
             }
         }
     }
