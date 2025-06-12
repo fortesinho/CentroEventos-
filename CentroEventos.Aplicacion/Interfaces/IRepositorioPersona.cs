@@ -13,6 +13,6 @@ public interface IRepositorioPersona
     Persona? ObtenerPorId(int id);
     /// Devuelve todas las personas guardadas.
     List<Persona> ObtenerTodas();
-    bool ExisteConDni(string dni);
+    bool ExisteConDni(string? dni);
     bool ExisteConEmail(string email);
 }

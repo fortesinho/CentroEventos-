@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Forte\\Desktop\\CentroEventos-\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj",
+      "projectUniqueName": "D:\\Facultad\\2do Año\\Seminario de Lenguaje (.net)\\Programa final\\CentroEventos-\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj",
       "projectName": "CentroEventos.Aplicacion",
-      "projectPath": "C:\\Users\\Forte\\Desktop\\CentroEventos-\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj",
+      "projectPath": "D:\\Facultad\\2do Año\\Seminario de Lenguaje (.net)\\Programa final\\CentroEventos-\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj",
       "packagesPath": "C:\\Users\\Forte\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Forte\\Desktop\\CentroEventos-\\CentroEventos.Aplicacion\\obj\\",
+      "outputPath": "D:\\Facultad\\2do Año\\Seminario de Lenguaje (.net)\\Programa final\\CentroEventos-\\CentroEventos.Aplicacion\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Forte\\AppData\\Roaming\\NuGet\\NuGet.Config"

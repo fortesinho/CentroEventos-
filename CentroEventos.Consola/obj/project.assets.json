@@ -51,11 +51,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Forte\\Desktop\\CentroEventos-\\CentroEventos.Consola\\CentroEventos.Consola.csproj",
+      "projectUniqueName": "D:\\Facultad\\2do Año\\Seminario de Lenguaje (.net)\\Programa final\\CentroEventos-\\CentroEventos.Consola\\CentroEventos.Consola.csproj",
       "projectName": "CentroEventos.Consola",
-      "projectPath": "C:\\Users\\Forte\\Desktop\\CentroEventos-\\CentroEventos.Consola\\CentroEventos.Consola.csproj",
+      "projectPath": "D:\\Facultad\\2do Año\\Seminario de Lenguaje (.net)\\Programa final\\CentroEventos-\\CentroEventos.Consola\\CentroEventos.Consola.csproj",
       "packagesPath": "C:\\Users\\Forte\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Forte\\Desktop\\CentroEventos-\\CentroEventos.Consola\\obj\\",
+      "outputPath": "D:\\Facultad\\2do Año\\Seminario de Lenguaje (.net)\\Programa final\\CentroEventos-\\CentroEventos.Consola\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Forte\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -70,11 +70,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Forte\\Desktop\\CentroEventos-\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj": {
-              "projectPath": "C:\\Users\\Forte\\Desktop\\CentroEventos-\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj"
+            "D:\\Facultad\\2do Año\\Seminario de Lenguaje (.net)\\Programa final\\CentroEventos-\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj": {
+              "projectPath": "D:\\Facultad\\2do Año\\Seminario de Lenguaje (.net)\\Programa final\\CentroEventos-\\CentroEventos.Aplicacion\\CentroEventos.Aplicacion.csproj"
             },
-            "C:\\Users\\Forte\\Desktop\\CentroEventos-\\CentroEventos.Repositorios\\CentroEventos.Repositorios.csproj": {
-              "projectPath": "C:\\Users\\Forte\\Desktop\\CentroEventos-\\CentroEventos.Repositorios\\CentroEventos.Repositorios.csproj"
+            "D:\\Facultad\\2do Año\\Seminario de Lenguaje (.net)\\Programa final\\CentroEventos-\\CentroEventos.Repositorios\\CentroEventos.Repositorios.csproj": {
+              "projectPath": "D:\\Facultad\\2do Año\\Seminario de Lenguaje (.net)\\Programa final\\CentroEventos-\\CentroEventos.Repositorios\\CentroEventos.Repositorios.csproj"
             }
           }
         }
