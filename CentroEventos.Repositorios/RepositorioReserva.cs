@@ -1,7 +1,6 @@
 
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
-using CentroEventos.Aplicacion.Extra;
 namespace CentroEventos.Repositorios;
 
 public class RepositorioReserva : IRepositorioReserva
@@ -9,7 +8,6 @@ public class RepositorioReserva : IRepositorioReserva
     readonly string ArchivoReservas = "Reservas.txt";
     readonly string _dirUltIdRes = "ultimo_id_reserva.txt";
     public void Agregar(Reserva reserva){
-        reserva.Id = GeneradorId.Obtener(_dirUltIdRes); // genera nuevo id
         using StreamWriter sw = new StreamWriter(ArchivoReservas,true); //empieza a escribir al final del archivo sin borrar lo que ya habia 
         sw.WriteLine(DarFormato(reserva)); // escribe los datos de la reserva en el archivo
     }

@@ -1,7 +1,6 @@
 using System;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
-using CentroEventos.Aplicacion.Extra;
 
 namespace CentroEventos.Repositorios;
 
@@ -11,7 +10,6 @@ public class RepositorioPersona : IRepositorioPersona
     readonly string _dirUltIdPer = "ultimo_id_persona.txt";
     public void Agregar(Persona persona)
     {
-        persona.id = GeneradorId.Obtener(_dirUltIdPer);
         using StreamWriter sw = new StreamWriter(_ArchivoPersona,true);
         sw.WriteLine($"{persona.id}|{persona.dni}|{persona.nombre}|{persona.apellido}|{persona.email}|{persona.telefono}");
 
@@ -42,7 +40,10 @@ public class RepositorioPersona : IRepositorioPersona
             ActualizarPersonas(personas);
         }
     }
-    public bool ExisteConDni(string dni){
+    public bool ExisteConDni(string? dni){
+        if (dni == null){
+            return false;
+        }    
         List<Persona> personas = ObtenerTodas();
         foreach (Persona p in personas){
             if (p.dni == dni){
@@ -51,7 +52,10 @@ public class RepositorioPersona : IRepositorioPersona
         }
         return false;
     }
-    public bool ExisteConEmail(string email){
+    public bool ExisteConEmail(string? email){
+        if (email == null){
+            return false;
+        }
         List<Persona> personas = ObtenerTodas();
         foreach (Persona p in personas){
             if (p.email == email){

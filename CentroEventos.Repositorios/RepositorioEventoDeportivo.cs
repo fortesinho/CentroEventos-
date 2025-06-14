@@ -1,7 +1,6 @@
 using System;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
-using CentroEventos.Aplicacion.Extra;
 namespace CentroEventos.Repositorios;
 
 public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
@@ -10,7 +9,6 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
     private readonly string _archivoUltimoId = "ultimo_id_evento.txt";
 
     public void Agregar(EventoDeportivo evento){
-        evento.Id = GeneradorId.Obtener(_archivoUltimoId);
         using StreamWriter sw = new StreamWriter(_archivoEventos,true);// lo ponemos en false para que sobreescriba, si ponemos true va a agregar siempre el mismo evento
         sw.WriteLine(DarFormato(evento)); // escribe el evento en el archivo
     }
