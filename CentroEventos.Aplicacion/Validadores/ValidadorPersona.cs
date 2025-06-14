@@ -12,16 +12,16 @@ public class  ValidadorPersona(IRepositorioPersona repoPersona)
         mensajeError = "";
 
         if (string.IsNullOrWhiteSpace(persona.nombre))
-            mensajeError += "Nombre no puede estar vacío.\n";
+            mensajeError += "Nombre no puede estar vacío.";
 
         if (string.IsNullOrWhiteSpace(persona.apellido))
-            mensajeError += "Apellido no puede estar vacío.\n";
+            mensajeError += "Apellido no puede estar vacío.";
 
         if (string.IsNullOrWhiteSpace(persona.dni))
-            mensajeError += "DNI no puede estar vacío.\n";
+            mensajeError += "DNI no puede estar vacío.";
 
         if (string.IsNullOrWhiteSpace(persona.email))
-            mensajeError += "Email no puede estar vacío.\n";
+            mensajeError += "Email no puede estar vacío.";
 
         return mensajeError == "";// si el mensaje esta vacio quiere que no hubo error por lo tanto devuelve true
     }
@@ -29,16 +29,16 @@ public class  ValidadorPersona(IRepositorioPersona repoPersona)
     {
         mensajeError = "";
         if (string.IsNullOrWhiteSpace(persona.nombre))
-            mensajeError += "Nombre no puede estar vacío.\n";
+            mensajeError += "Nombre no puede estar vacío.";
 
         if (string.IsNullOrWhiteSpace(persona.apellido))
-            mensajeError += "Apellido no puede estar vacío.\n";
+            mensajeError += "Apellido no puede estar vacío.";
 
         if (string.IsNullOrWhiteSpace(persona.dni))
-            mensajeError += "DNI no puede estar vacío.\n";
+            mensajeError += "DNI no puede estar vacío.";
 
         if (string.IsNullOrWhiteSpace(persona.email))
-            mensajeError += "Email no puede estar vacío.\n";
+            mensajeError += "Email no puede estar vacío.";
 
         List<Persona> personas = repoPersona.ObtenerTodas();
 

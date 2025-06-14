@@ -32,7 +32,7 @@ public class ReservaAltaUseCase(IRepositorioReserva repoReserva, IServicioAutori
             throw new DuplicadoException("Persona duplicada en el evento.");
         }
         if (repoReserva.ObtenerPorEvento(reserva.EventoDeportivoId).Count() >= repoEventoDeportivo.ObtenerPorId(reserva.EventoDeportivoId)?.CupoMaximo)
-            throw new CupoExcedidoException();
+            throw new CupoExcedidoException(" Alcanzo el cupo maximo ");
         reserva.FechaAltaReserva = DateTime.Now;
         reserva.EstadoAsistencia = Reserva.EstadoAsis.Pendiente;
         repoReserva.Agregar(reserva);

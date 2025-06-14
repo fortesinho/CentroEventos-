@@ -5,13 +5,10 @@ using CentroEventos.Aplicacion.Interfaces;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class PersonaListadoUseCase(IRepositorioPersona repoPersona, IServicioAutorizacion autorizacion)
+public class ListarPersonaUseCase(IRepositorioPersona repoPersona)
 {
-    public List<Persona> Ejecutar(int idUsuario)
+    public List<Persona> Ejecutar()
     {
-        if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioListado))
-            throw new FalloAutorizacionException("El usuario no tiene permiso para listar personas.");
-
-        return repoPersona.ObtenerTodas(); //devuelve la lista de todas las personas
+        return repoPersona.ObtenerTodas();
     }
 }

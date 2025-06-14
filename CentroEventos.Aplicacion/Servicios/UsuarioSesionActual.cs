@@ -1,5 +1,3 @@
-
-
 using CentroEventos.Aplicacion.Entidades;
 namespace CentroEventos.Aplicacion.Servicios;
 public class UsuarioSesionActual

@@ -5,11 +5,10 @@ using CentroEventos.Aplicacion.Interfaces;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class EventoDeportivoListadoUseCase(IRepositorioEventoDeportivo repoEvento, IServicioAutorizacion autorizacion){
-    public List<EventoDeportivo> Ejecutar(int idUsuario){
-        if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.EventoListado))
-            throw new FalloAutorizacionException("El usuario no tiene permiso para listar eventos deportivos.");
-
+public class EventoDeportivoListadoUseCase(IRepositorioEventoDeportivo repoEvento )
+{
+     public List<EventoDeportivo> Ejecutar(){
         return repoEvento.Listar();
     }
 }
+        

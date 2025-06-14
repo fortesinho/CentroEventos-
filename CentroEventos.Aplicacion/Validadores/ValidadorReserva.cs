@@ -11,17 +11,17 @@ namespace CentroEventos.Aplicacion.Validadores;
             mensajeError = "";
 
             if (reserva.PersonaId <= 0)
-                mensajeError += "Id de la persona inválido.\n";
+                mensajeError += "Id de la persona inválido.";
 
             if (reserva.EventoDeportivoId <= 0)
-                mensajeError += "Id del evento deportivo inválido.\n";
+                mensajeError += "Id del evento deportivo inválido.";
 
             if (reserva.FechaAltaReserva == default(DateTime))
-                mensajeError += "FechaAlta de la reserva inválida.\n";
+                mensajeError += "FechaAlta de la reserva inválida.";
 
             if (string.IsNullOrWhiteSpace(reserva.EstadoAsistencia + ""))
             {
-                mensajeError += "Estado de la reserva invalido.\n";
+                mensajeError += "Estado de la reserva invalido.";
             }
 
             return mensajeError == "";
