@@ -7,26 +7,23 @@ namespace CentroEventos.Aplicacion.Validadores;
 
 public class  ValidadorPersona(IRepositorioPersona repoPersona)
 {
-    public void ValidarAlta(Persona persona){
-        
-        if(string.IsNullOrWhiteSpace(persona.nombre)){
-            throw new ValidacionException("Nombre no puede estar vacio");
-        }
-        if(string.IsNullOrWhiteSpace(persona.apellido)){
-            throw new ValidacionException("Apellido no puede estar vacio");
-        }
-        if(string.IsNullOrWhiteSpace(persona.dni)){
-            throw new ValidacionException("Apellido no puede estar vacio");
-        }
-        if(string.IsNullOrWhiteSpace(persona.email)){
-            throw new ValidacionException("Email no puede estar vacio");
-        }
-        if (repoPersona.ExisteConDni(persona.dni))
-                throw new DuplicadoException($"Ya existe una persona con el DNI {persona.dni}.");
+    public bool ValidarAlta(Persona persona, out string mensajeError) // con el out devuelve el mensaje de la excepcion 
+    {
+        mensajeError = "";
 
-        if (repoPersona.ExisteConEmail (persona.email))
-                throw new DuplicadoException($"Ya existe una persona con el email {persona.email}.");
+        if (string.IsNullOrWhiteSpace(persona.nombre))
+            mensajeError += "Nombre no puede estar vacío.\n";
 
+        if (string.IsNullOrWhiteSpace(persona.apellido))
+            mensajeError += "Apellido no puede estar vacío.\n";
+
+        if (string.IsNullOrWhiteSpace(persona.dni))
+            mensajeError += "DNI no puede estar vacío.\n";
+
+        if (string.IsNullOrWhiteSpace(persona.email))
+            mensajeError += "Email no puede estar vacío.\n";
+
+        return mensajeError == "";
     }
 public void ValidarModificacion(Persona persona)
 {

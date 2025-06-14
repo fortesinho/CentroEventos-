@@ -11,9 +11,20 @@ public class PersonaAltaUseCase(IRepositorioPersona repoPersona,IServicioAutoriz
 public void Ejecutar(Persona persona, int idUsuario){
     if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioAlta))  
         throw new FalloAutorizacionException("El usuario no tiene permiso para dar de alta personas.");
-            
-    validador.ValidarAlta(persona);
-    repoPersona.Agregar(persona);
 
+    if (!validador.ValidarAlta(persona, out string mensajeError))
+        throw new ValidacionException(mensajeError);
+
+    if (repoPersona.ExisteConDni(persona.dni))
+        throw new DuplicadoException("Ya existe una persona con ese DNI.");
+
+    if (repoPersona.ExisteConEmail(persona.email))
+        throw new DuplicadoException("Ya existe una persona con ese email.");
+
+    repoPersona.Agregar(persona);
     }
+
+    
+
+    
 }
