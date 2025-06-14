@@ -4,19 +4,26 @@ using CentroEventos.Aplicacion.Interfaces;
 
 namespace CentroEventos.Aplicacion.Validadores;
 
-public class ValidadorReserva(IRepositorioPersona repoPersona, IRepositorioEventoDeportivo repoEvento, IRepositorioReserva repoReserva)
-{
-public void Validar(Reserva reserva){
- if (repoPersona.ObtenerPorId(reserva.PersonaId) == null)
-            throw new EntidadNotFoundException("reserva",reserva.PersonaId);
+    public class ValidadorReserva()
+    {
+        public bool ValidarReserva(Reserva reserva, out string mensajeError)
+        {
+            mensajeError = "";
 
- if (repoEvento.ObtenerPorId(reserva.EventoDeportivoId) == null)
-            throw new EntidadNotFoundException("Evento Deportivo", reserva.EventoDeportivoId);
+            if (reserva.PersonaId <= 0)
+                mensajeError += "Id de la persona inválido.\n";
 
- if (repoReserva.Listar().Any(r => r.PersonaId == reserva.PersonaId &&  r.EventoDeportivoId == reserva.EventoDeportivoId))
-            throw new DuplicadoException("La persona ya está inscripta en este evento");
+            if (reserva.EventoDeportivoId <= 0)
+                mensajeError += "Id del evento deportivo inválido.\n";
 
- if (repoReserva.ObtenerPorEvento(reserva.EventoDeportivoId).Count()>= repoEvento.ObtenerPorId(reserva.EventoDeportivoId)?.CupoMaximo)
-            throw new CupoExcedidoException();
-}
-}
+            if (reserva.FechaAltaReserva == default(DateTime))
+                mensajeError += "FechaAlta de la reserva inválida.\n";
+
+            if (string.IsNullOrWhiteSpace(reserva.EstadoAsistencia + ""))
+            {
+                mensajeError += "Estado de la reserva invalido.\n";
+            }
+
+            return mensajeError == "";
+        }
+    }

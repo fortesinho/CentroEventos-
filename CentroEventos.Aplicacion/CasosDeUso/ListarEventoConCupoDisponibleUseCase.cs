@@ -7,8 +7,6 @@ namespace CentroEventos.Aplicacion.CasosDeUso;
 
 public class ListarEventoConCupoDisponibleUseCase(IRepositorioEventoDeportivo repoEvento, IRepositorioReserva repoReserva, IServicioAutorizacion autorizacion){
         public List<EventoDeportivo> Ejecutar(int idUsuario){
-            if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.EventoListado))
-                throw new FalloAutorizacionException("El usuario no tiene permiso para listar eventos.");
 
             List<EventoDeportivo> eventosFuturos = new List<EventoDeportivo>();
             foreach (EventoDeportivo? evento in repoEvento.Listar()){ //recorre toda la lista de eventos  

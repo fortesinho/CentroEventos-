@@ -8,8 +8,8 @@ namespace CentroEventos.Aplicacion.CasosDeUso;
 public class PersonaAltaUseCase(IRepositorioPersona repoPersona,IServicioAutorizacion autorizacion, ValidadorPersona validador)
 {
 
-public void Ejecutar(Persona persona, int idUsuario){
-    if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioAlta))  
+public void Ejecutar(Persona persona){
+    if (!autorizacion.PoseeElPermiso(Permiso.UsuarioAlta))  
         throw new FalloAutorizacionException("El usuario no tiene permiso para dar de alta personas.");
 
     if (!validador.ValidarAlta(persona, out string mensajeError))

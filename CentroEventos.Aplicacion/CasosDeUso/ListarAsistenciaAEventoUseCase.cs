@@ -7,8 +7,6 @@ namespace CentroEventos.Aplicacion.CasosDeUso;
 
 public class ListarAsistenciaAEventoUseCase(IRepositorioEventoDeportivo repoEvento,IRepositorioReserva repoReserva,IRepositorioPersona repoPersona,IServicioAutorizacion autorizacion){
     public List<Persona> Ejecutar(int idEvento, int idUsuario){ 
-        if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.ReservaListado))//si usuario tiene permiso para listar reservas
-            throw new FalloAutorizacionException("El usuario no tiene permiso para listar la asistencia.");
 
         EventoDeportivo? evento = repoEvento.ObtenerPorId(idEvento);//guarda el evento deportivo por su id
         if (evento == null)
