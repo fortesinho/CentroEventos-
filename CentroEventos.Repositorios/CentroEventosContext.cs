@@ -3,15 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CentroEventos.Repositorios
 {
-    public class CentroEventosContext : DbContext
+    public class CentroEventosContext : DbContext //  CentroEventosContext hereda DbContext que trae el paquete Microsoft.EntityFrameworkCore;
     {
         // Descomenta cuando tengas la entidad Usuario implementada
         // public DbSet<Usuario> Usuarios { get; set; } = null!;
-        public DbSet<Persona> Personas { get; set; } = null!;
-        public DbSet<EventoDeportivo> Eventos { get; set; } = null!;
-        public DbSet<Reserva> Reservas { get; set; } = null!;
+        public DbSet<Persona> Personas { get; set; } = null!; //tabla de persona
+        public DbSet<EventoDeportivo> Eventos { get; set; } = null!; //tabla de evento
+        public DbSet<Reserva> Reservas { get; set; } = null!; //tabla de reserva
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)  
         {
             optionsBuilder.UseSqlite("Data Source=centroeventos.sqlite");
         }
@@ -27,7 +27,7 @@ namespace CentroEventos.Repositorios
         public static void Inicializar()
         {
             using var context = new CentroEventosContext();
-            if (context.Database.EnsureCreated())
+            if (context.Database.EnsureCreated()) // si la base de datos no existe la crea
             {
                 Console.WriteLine("Base de datos creada correctamente.");
 

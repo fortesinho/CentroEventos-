@@ -7,9 +7,14 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
 {
     private readonly string _archivoEventos = "Eventos.txt";
     private readonly string _archivoUltimoId = "ultimo_id_evento.txt";
-
-    public void Agregar(EventoDeportivo evento){
-        using StreamWriter sw = new StreamWriter(_archivoEventos,true);// lo ponemos en false para que sobreescriba, si ponemos true va a agregar siempre el mismo evento
+    private readonly IRepositorioReserva _repoReserva;
+    
+    public RepositorioEventoDeportivo(IRepositorioReserva repoReserva){
+        _repoReserva = repoReserva;
+    }
+    public void Agregar(EventoDeportivo evento)
+    {
+        using StreamWriter sw = new StreamWriter(_archivoEventos, true);// lo ponemos en false para que sobreescriba, si ponemos true va a agregar siempre el mismo evento
         sw.WriteLine(DarFormato(evento)); // escribe el evento en el archivo
     }
     public void Eliminar(int id){
@@ -75,9 +80,23 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
         }
         return null;
     }
+    public List<EventoDeportivo> ListarEventosDisponibles(){
+        List<EventoDeportivo> eventosFuturos = ObtenerEventosFuturos(); 
+        List<EventoDeportivo> eventosConCupo = new List<EventoDeportivo>();
+        foreach (EventoDeportivo evento in eventosFuturos) {//recorre todos los eventosFuturos 
+            int cantidadReservas = _repoReserva.ObtenerPorEvento(evento.Id).Count();
+            if (cantidadReservas < evento.CupoMaximo) {// si hay lugar en el evento lo agrego al evento con cupos
+                eventosConCupo.Add(evento);
+            }
+        }
+
+    return eventosConCupo;
+}
+    
     //-------- METODOS PRIVADOS ---------- 
 
-    private static string DarFormato(EventoDeportivo evento){
+    private static string DarFormato(EventoDeportivo evento)
+    {
         return $"{evento.Id}|{evento.Nombre}|{evento.Descripcion}|{evento.FechaHoraInicio:O}|{evento.DuracionHoras}|{evento.CupoMaximo}|{evento.ResponsableId}";
     }
     private void ActualizarArchivo(List<EventoDeportivo> eventos){
@@ -107,7 +126,18 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
             return null;
         }
     }
-
+    private List<EventoDeportivo> ObtenerEventosFuturos(){
+        List<EventoDeportivo> eventosFuturos = new List<EventoDeportivo>();
+        List<EventoDeportivo> todosLosEventos = Listar();
+        foreach (EventoDeportivo evento in todosLosEventos)
+        {
+            if (evento.FechaHoraInicio > DateTime.Now)
+            {
+                eventosFuturos.Add(evento);
+            }
+        }
+        return eventosFuturos;
+    }
     
 
 }
