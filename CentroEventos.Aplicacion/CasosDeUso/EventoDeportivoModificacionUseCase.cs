@@ -14,13 +14,15 @@ public void Ejecutar(EventoDeportivo Evento){
             throw new FalloAutorizacionException("El usuario no tiene permiso para modificar Eventos.");
     
   if (repoEvento.ObtenerPorId(Evento.Id) == null)
-            throw new EntidadNotFoundException("Evento");
+            throw new EntidadNotFoundException("Evento no existe");
             
   if (repoEvento.ObtenerPorId(Evento.Id)?.FechaHoraInicio < DateTime.Now)
             throw new OperacionInvalidaException("No se puede modificar un evento que ya ocurrió.");
             
   if (!validador.ValidadorEvento(Evento, out string mensajeError))
             throw new ValidacionException(mensajeError); 
+
+  
 
  repoEvento.Modificar(Evento);
   

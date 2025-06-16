@@ -12,6 +12,7 @@ public void Ejecutar(int reservaId){
     throw new FalloAutorizacionException("El usuario no tiene permiso para dar de baja reservas.");
  if (repoReserva.ObtenerPorId(reservaId) == null)
       throw new EntidadNotFoundException("Reserva no existe");
+      
    repoReserva.Eliminar(reservaId);
 }
 }
