@@ -7,7 +7,7 @@ namespace CentroEventos.Aplicacion.CasosDeUso;
 
 public class EventoDeportivoListadoUseCase(IRepositorioEventoDeportivo repoEvento )
 {
-     public List<EventoDeportivo> Ejecutar(){
+     public List<EventoDeportivo>? Ejecutar(){
         return repoEvento.Listar();
     }
 }

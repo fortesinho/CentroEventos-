@@ -11,4 +11,5 @@ public interface IRepositorioEventoDeportivo
     List<EventoDeportivo> Listar();
     EventoDeportivo? ObtenerPorId(int id);
     bool ExisteResponsable(int responsableId);
+    List<EventoDeportivo>? ListarEventosDisponibles();
 }

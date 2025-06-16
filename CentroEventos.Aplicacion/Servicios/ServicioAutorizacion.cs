@@ -11,7 +11,7 @@ public class ServicioAutorizacion: IServicioAutorizacion
     {
         _sesion = sesion;
     }
-public bool PoseeElPermiso(Permiso permiso){
-return _sesion.Usuario?.Permisos.Contains(permiso) ?? false;
-}
+    public bool PoseeElPermiso(Permiso permiso){
+        return _sesion.Usuario?.Permisos.Contains(permiso) ?? false;
+    }
 }
