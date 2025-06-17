@@ -37,7 +37,7 @@ public class RepositorioUsuario : IRepositorioUsuario
     }
 
     public void Modificar(Usuario usuario)
-    {
-        throw new NotImplementedException();
+    { 
+       throw new NotImplementedException();
     }
 }

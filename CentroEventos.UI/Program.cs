@@ -7,10 +7,19 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
-builder.Services.AddScoped<UsuarioSesionActual>();
+builder.Services.AddDbContext<CentroEventosContext>(options =>options.UseSqlite("Data Source=centroeventos.db"));
+
+builder.Services.AddScoped<IRepositorioPersona, RepositorioPersona>();
+builder.Services.AddScoped<IRepositorioReserva, RepositorioReserva>();
+builder.Services.AddScoped<IRepositorioEventoDeportivo, RepositorioEventoDeportivo>();
+builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
+
+builder.Services.AddScoped<UsuarioSesionActual>(); // Guarda el usuario actual
 builder.Services.AddScoped<IServicioAutorizacion, ServicioAutorizacion>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // Necesario para sesiones
+builder.Services.AddSession(); // Activa el soporte de sesiones en Blazor Server
+
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 var app = builder.Build();
 
@@ -22,6 +31,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+app.UseSession(); // Habilita el uso de sesión en los servicios
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
