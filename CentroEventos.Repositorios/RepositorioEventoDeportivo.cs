@@ -34,105 +34,40 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
     }
 
     public List<EventoDeportivo> Listar(){
-        List<EventoDeportivo> eventos = new List<EventoDeportivo>(); //creo la lista vacia
-        if (!File.Exists(_archivoEventos)){
-            return eventos;
-        }
-        using StreamReader sr = new StreamReader(_archivoEventos);
-        while (!sr.EndOfStream){
-            string? linea = sr.ReadLine();//guardo en un string la linea del archivo
-            EventoDeportivo? evento = ConvertirLinea(linea);//
-            if (evento != null){
-                eventos.Add(evento);
-            }
-        }
-        return eventos;
+       return _db.EventosDeportivos.ToList(); 
     }
 
     public void Modificar(EventoDeportivo evento){
-        List<EventoDeportivo> eventos = Listar();
-        int aux = -1;
-        for (int i = 0; i < eventos.Count; i++){
-            if (eventos[i].Id == evento.Id){
-                aux = i;
-                break;
-            }
-        }
-        if (aux >= 0){
-            eventos[aux] = evento;//guardo el evento que recibi
-            ActualizarArchivo(eventos); // actualizo la lista
-        }
+        _db.EventosDeportivos.Update(evento);  
+        _db.SaveChanges();    
     }
     public EventoDeportivo? ObtenerPorId(int id){
-        if (!File.Exists(_archivoEventos))
-            return null;
-        using StreamReader sr = new StreamReader(_archivoEventos);
-        while (!sr.EndOfStream){
-            string? linea = sr.ReadLine();
-            EventoDeportivo? evento = ConvertirLinea(linea); // guarda en evento null o si la linea que paso como parametro tiene los campos completos guardo el evento
-            if (evento?.Id == id) // si el evento coincide con el id
-                return evento; // lo devuelvo
-        }
-        return null;
+       return _db.EventosDeportivos.Find(id);
     }
     public List<EventoDeportivo> ListarEventosDisponibles(){
-        List<EventoDeportivo> eventosFuturos = ObtenerEventosFuturos(); 
-        List<EventoDeportivo> eventosConCupo = new List<EventoDeportivo>();
-        foreach (EventoDeportivo evento in eventosFuturos) {//recorre todos los eventosFuturos 
-            int cantidadReservas = _repoReserva.ObtenerPorEvento(evento.Id).Count();
-            if (cantidadReservas < evento.CupoMaximo) {// si hay lugar en el evento lo agrego al evento con cupos
-                eventosConCupo.Add(evento);
-            }
-        }
+       var eventosFuturos = _db.EventosDeportivos
+                                .Where(e => e.FechaHoraInicio > DateTime.Now) 
+                                .ToList();
 
-    return eventosConCupo;
-}
-    
-    //-------- METODOS PRIVADOS ---------- 
+        List<EventoDeportivo> eventosConCupo = new();
 
-    private static string DarFormato(EventoDeportivo evento)
-    {
-        return $"{evento.Id}|{evento.Nombre}|{evento.Descripcion}|{evento.FechaHoraInicio:O}|{evento.DuracionHoras}|{evento.CupoMaximo}|{evento.ResponsableId}";
-    }
-    private void ActualizarArchivo(List<EventoDeportivo> eventos){
-        using StreamWriter sw = new StreamWriter(_archivoEventos);
-        foreach (EventoDeportivo evento in eventos){
-            sw.WriteLine(DarFormato(evento));
-        }
-    }
-    private static EventoDeportivo? ConvertirLinea(string? linea){
-        if (string.IsNullOrWhiteSpace(linea))
-            return null;
-        string[] partes = linea.Split('|');
-        if (partes.Length != 7)
-            return null;
-        try{
-            return new EventoDeportivo{
-                Id = int.Parse(partes[0]),
-                Nombre = partes[1],
-                Descripcion = partes[2],
-                FechaHoraInicio = DateTime.Parse(partes[3]),
-                DuracionHoras = double.Parse(partes[4]),
-                CupoMaximo = int.Parse(partes[5]),
-                ResponsableId = int.Parse(partes[6])
-        };
-        }
-        catch{
-            return null;
-        }
-    }
-    private List<EventoDeportivo> ObtenerEventosFuturos(){
-        List<EventoDeportivo> eventosFuturos = new List<EventoDeportivo>();
-        List<EventoDeportivo> todosLosEventos = Listar();
-        foreach (EventoDeportivo evento in todosLosEventos)
+        foreach (var evento in eventosFuturos)
         {
-            if (evento.FechaHoraInicio > DateTime.Now)
+            int cantidadReservas = _repoReserva.ObtenerPorEvento(evento.Id).Count;
+            if (cantidadReservas < evento.CupoMaximo)
             {
-                eventosFuturos.Add(evento);
+                eventosConCupo.Add(evento);  
             }
         }
-        return eventosFuturos;
+
+        return eventosConCupo;
     }
+}
+    
     
 
-}
+   
+    
+    
+
+
