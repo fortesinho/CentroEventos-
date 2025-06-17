@@ -31,18 +31,13 @@ public class RepositorioUsuario : IRepositorioUsuario
         throw new NotImplementedException();
     }
 
-    public void Guardar()
-    {
-        throw new NotImplementedException();
-    }
-
     public List<Usuario> Listar()
     {
         throw new NotImplementedException();
     }
 
     public void Modificar(Usuario usuario)
-    { 
-       throw new NotImplementedException();
+    {
+        throw new NotImplementedException();
     }
 }

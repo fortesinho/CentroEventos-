@@ -1,6 +1,9 @@
 using CentroEventos.UI.Components;
 using CentroEventos.Aplicacion.Servicios;
 using CentroEventos.Aplicacion.Interfaces;
+using CentroEventos.Aplicacion.Entidades;
+using CentroEventos.Repositorios;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
