@@ -1,6 +1,8 @@
 using CentroEventos.UI.Components;
 using CentroEventos.Aplicacion.Servicios;
 using CentroEventos.Aplicacion.Interfaces;
+using CentroEventos.Aplicacion.Validadores;
+using CentroEventos.Aplicacion.CasosDeUso;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Repositorios;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +16,23 @@ builder.Services.AddScoped<IRepositorioPersona, RepositorioPersona>();
 builder.Services.AddScoped<IRepositorioReserva, RepositorioReserva>();
 builder.Services.AddScoped<IRepositorioEventoDeportivo, RepositorioEventoDeportivo>();
 builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
-
+// casos de uso Persona
 builder.Services.AddScoped<PersonaAltaUseCase>();
 builder.Services.AddScoped<PersonaBajaUseCase>();
-builder.Services.AddScoped<PersonaModificarUseCase>();
-builder.Services.AddScoped<PersonaListarUseCase>();
+builder.Services.AddScoped<PersonaModificacionUseCase>();
+builder.Services.AddScoped<PersonaListadoUseCase>();
+// casos de uso Evento Deportivo
+builder.Services.AddScoped<EventoDeportivoAltaUseCase>();
+builder.Services.AddScoped<EventoDeportivoBajaUseCase>();
+builder.Services.AddScoped<EventoDeportivoModificacionUseCase>();
+builder.Services.AddScoped<EventoDeportivoListadoUseCase>();
+builder.Services.AddScoped<ListarAsistenciaAEventoUseCase>();
+builder.Services.AddScoped<ListarEventoConCupoDisponibleUseCase>();
+// casos de uso Reserva
+builder.Services.AddScoped<ReservaAltaUseCase>();
+builder.Services.AddScoped<ReservaBajaUseCase>();
+builder.Services.AddScoped<ReservaModificacionUseCase>();
+builder.Services.AddScoped<ReservaListadoUseCase>();
 
 builder.Services.AddScoped<UsuarioSesionActual>(); // Guarda el usuario actual
 builder.Services.AddScoped<IServicioAutorizacion, ServicioAutorizacion>();
