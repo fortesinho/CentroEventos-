@@ -1,131 +1,58 @@
 using System;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
-
+using Microsoft.EntityFrameworkCore;
 namespace CentroEventos.Repositorios;
 
 public class RepositorioPersona : IRepositorioPersona
 {
-    readonly string _ArchivoPersona = "Personas.txt";
-    readonly string _dirUltIdPer = "ultimo_id_persona.txt";
+    private readonly CentroEventosContext _db;
+
+    public RepositorioPersona(CentroEventosContext db)
+    {
+        _db = db;
+    }
     public void Agregar(Persona persona)
     {
-        using StreamWriter sw = new StreamWriter(_ArchivoPersona,true);
-        sw.WriteLine($"{persona.id}|{persona.dni}|{persona.nombre}|{persona.apellido}|{persona.email}|{persona.telefono}");
+        _db.Personas.Add(persona); 
+        _db.SaveChanges();
 
     }
     public void Eliminar(int id)
     {
-        var personas = ObtenerTodas();
-        for (int i = 0; i < personas.Count; i++){
-            if (personas[i].id == id) {
-                personas.RemoveAt(i);
-                i--;
-            }
+        var persona = _db.Personas.Find(id);  
+        if (persona is not null)
+        {
+            _db.Personas.Remove(persona);     
+            _db.SaveChanges();                
         }
-        ActualizarPersonas(personas);
     }
 
     public void Modificar(Persona persona){
-        List<Persona> personas = ObtenerTodas();
-        int aux = -1;
-        for (int i = 0; i < personas.Count; i++){
-            if (personas[i].id == persona.id) {
-                aux = i;
-                break;
-            }
-        }
-        if (aux >= 0){
-            personas[aux] = persona;
-            ActualizarPersonas(personas);
-        }
+        _db.Personas.Update(persona);  
+        _db.SaveChanges();
     }
     public bool ExisteConDni(string? dni){
         if (dni == null){
-            return false;
-        }    
-        List<Persona> personas = ObtenerTodas();
-        foreach (Persona p in personas){
-            if (p.dni == dni){
-                return true;
-            }
+              return false;
         }
-        return false;
+          
+        return _db.Personas.Any(p => p.dni == dni);
     }
     public bool ExisteConEmail(string? email){
         if (email == null){
             return false;
         }
-        List<Persona> personas = ObtenerTodas();
-        foreach (Persona p in personas){
-            if (p.email == email){
-                return true;
-            }
-        }
-        return false;
+        return _db.Personas.Any(p => p.email == email);
     }
 
     public Persona? ObtenerPorId(int id){
-        List<Persona> personas = ObtenerTodas();
-        foreach (Persona p in personas){
-            if (p.id == id){
-                return p;
-            }
-        }
-        return null;
+        return _db.Personas.Find(id);
     }
 
     public List<Persona> ObtenerTodas()
     {
-        List<Persona> personas = new List<Persona>();
-        if (!File.Exists(_ArchivoPersona))
-        {
-            return personas;
-        }
-        using StreamReader sr = new StreamReader(_ArchivoPersona);
-        while (!sr.EndOfStream){
-            string? linea = sr.ReadLine();
-            Persona? persona = ConvertirLinea(linea);
-            if (persona != null){
-                personas.Add(persona);
-            }
-        }
-        return personas;
-    }
-
-    //-------- METODOS PRIVADOS ---------- 
-    private void ActualizarPersonas(List<Persona> personas)
-    {
-        using StreamWriter sw = new StreamWriter(_ArchivoPersona);
-        foreach (Persona p in personas)
-        {
-            sw.WriteLine($"{p.id}|{p.dni}|{p.nombre}|{p.apellido}|{p.email}|{p.telefono}");
-        }
-    }
-
-    private Persona? ConvertirLinea(string? linea)
-    {
-        if (string.IsNullOrWhiteSpace(linea))
-        {
-            return null;
-        }
-        string[]? partes = linea.Split('|');
-        if (partes.Length != 6) {
-            return null;
-        }
-        try{
-        return new Persona{
-            id = int.Parse(partes[0]),
-            dni = partes[1],
-            nombre = partes[2],
-            apellido = partes[3],
-            email = partes[4],
-            telefono = partes[5]
-        };
-        }
-        catch{
-            return null;
-        }
+       return _db.Personas.ToList();
     }
 
 }   

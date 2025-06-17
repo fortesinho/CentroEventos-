@@ -1,41 +1,36 @@
 using System;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
+using Microsoft.EntityFrameworkCore;
 namespace CentroEventos.Repositorios;
 
 public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
 {
-    private readonly string _archivoEventos = "Eventos.txt";
-    private readonly string _archivoUltimoId = "ultimo_id_evento.txt";
+   private readonly CentroEventosContext _db;
     private readonly IRepositorioReserva _repoReserva;
+
     
-    public RepositorioEventoDeportivo(IRepositorioReserva repoReserva){
+    public RepositorioEventoDeportivo(CentroEventosContext db, IRepositorioReserva repoReserva)
+    {
+        _db = db;
         _repoReserva = repoReserva;
     }
     public void Agregar(EventoDeportivo evento)
     {
-        using StreamWriter sw = new StreamWriter(_archivoEventos, true);// lo ponemos en false para que sobreescriba, si ponemos true va a agregar siempre el mismo evento
-        sw.WriteLine(DarFormato(evento)); // escribe el evento en el archivo
+        _db.EventosDeportivos.Add(evento);  
+        _db.SaveChanges();  
     }
     public void Eliminar(int id){
-        List<EventoDeportivo> eventos = Listar(); // carga todos los eventos
-        for (int i = 0; i < eventos.Count; i++){
-            if (eventos[i].Id == id){
-                eventos.RemoveAt(i);
-                i--; // en caso de ids seguidos,sino no funcionaria bien
-            }
+         var evento = _db.EventosDeportivos.Find(id);  
+        if (evento is not null)
+        {
+            _db.EventosDeportivos.Remove(evento);    
+            _db.SaveChanges();                        
         }
-        ActualizarArchivo(eventos); // sobrescribe el archivo sin los elementos eliminados
     }
 
     public bool ExisteResponsable(int responsableId){
-        List<EventoDeportivo> eventos = Listar();
-        foreach (EventoDeportivo evento in eventos) { // recorro la lista de eventos hasta encontrar el id del responsable si no lo encuentra devuelve false
-            if (evento.ResponsableId == responsableId){
-                return true;
-            }
-        }
-        return false;
+        return _db.EventosDeportivos.Any(e => e.ResponsableId == responsableId);
     }
 
     public List<EventoDeportivo> Listar(){
