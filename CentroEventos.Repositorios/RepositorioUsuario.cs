@@ -6,9 +6,17 @@ namespace CentroEventos.Repositorios;
 
 public class RepositorioUsuario : IRepositorioUsuario
 {
+    private readonly CentroEventosContext _db;
+
+    
+    public RepositorioUsuario(CentroEventosContext db)
+    {
+        _db = db;
+    }
     public void Agregar(Usuario usuario)
     {
-        throw new NotImplementedException();
+       _db.Usuarios.Add(usuario);   
+       _db.SaveChanges();
     }
 
     public Usuario? BuscarPorEmail(string email)
@@ -23,21 +31,27 @@ public class RepositorioUsuario : IRepositorioUsuario
 
     public int CantidadUsuarios()
     {
-        throw new NotImplementedException();
+      return _db.Usuarios.Count();
     }
 
     public void Eliminar(int id)
     {
-        throw new NotImplementedException();
+      var usuario = _db.Usuarios.Find(id);
+        if (usuario != null)
+        {
+            _db.Usuarios.Remove(usuario);
+            _db.SaveChanges();
+        }
     }
 
     public List<Usuario> Listar()
     {
-        throw new NotImplementedException();
+       return _db.Usuarios.ToList();
     }
 
     public void Modificar(Usuario usuario)
     { 
-       throw new NotImplementedException();
+       _db.Usuarios.Update(usuario); 
+        _db.SaveChanges();
     }
 }

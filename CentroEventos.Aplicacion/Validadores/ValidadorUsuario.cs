@@ -7,11 +7,13 @@ public class UsuarioValidador
     {
         mensajeError = "";
         if (string.IsNullOrWhiteSpace(usuario.Nombre))
-            mensajeError=mensajeError +" No existe el nombre ";
+            mensajeError = mensajeError + " No existe el nombre ";
         if (string.IsNullOrWhiteSpace(usuario.Apellido))
-            mensajeError=mensajeError +" No existe el apellido ";
+            mensajeError = mensajeError + " No existe el apellido ";
         if (string.IsNullOrWhiteSpace(usuario.ContraseñaHash))
-            mensajeError=mensajeError +" No existe la contraseña ";
+            mensajeError = mensajeError + " No existe la contraseña ";
         return mensajeError == "";
+        
+        
     }
 }

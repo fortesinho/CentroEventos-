@@ -7,12 +7,18 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// configuracion EF Core con SQLite
 builder.Services.AddDbContext<CentroEventosContext>(options =>options.UseSqlite("Data Source=centroeventos.db"));
-
+// repositorios
 builder.Services.AddScoped<IRepositorioPersona, RepositorioPersona>();
 builder.Services.AddScoped<IRepositorioReserva, RepositorioReserva>();
 builder.Services.AddScoped<IRepositorioEventoDeportivo, RepositorioEventoDeportivo>();
 builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
+
+builder.Services.AddScoped<PersonaAltaUseCase>();
+builder.Services.AddScoped<PersonaBajaUseCase>();
+builder.Services.AddScoped<PersonaModificarUseCase>();
+builder.Services.AddScoped<PersonaListarUseCase>();
 
 builder.Services.AddScoped<UsuarioSesionActual>(); // Guarda el usuario actual
 builder.Services.AddScoped<IServicioAutorizacion, ServicioAutorizacion>();

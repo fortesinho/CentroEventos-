@@ -6,6 +6,7 @@ namespace CentroEventos.Aplicacion.Interfaces;
 public interface IRepositorioUsuario
 {
     void Agregar(Usuario usuario);
+    // bool ExisteEmail(string email);
     void Modificar(Usuario usuario);
     Usuario? BuscarPorId(int id);
     Usuario? BuscarPorEmail(string email);
