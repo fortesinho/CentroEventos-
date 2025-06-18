@@ -1,19 +1,22 @@
 using CentroEventos.Aplicacion.Entidades;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CentroEventos.Repositorios
 {
     public class CentroEventosContext : DbContext //  CentroEventosContext hereda DbContext que trae el paquete Microsoft.EntityFrameworkCore;
     {
+        public CentroEventosContext(DbContextOptions<CentroEventosContext> options)
+        : base(options){}
         public DbSet<Persona> Personas { get; set; } = null!; //tabla de persona
         public DbSet<EventoDeportivo> EventosDeportivos { get; set; } = null!; //tabla de evento
         public DbSet<Reserva> Reservas { get; set; } = null!; //tabla de reserva
         public DbSet<Usuario> Usuarios { get; set; } = null!; //tabla de usuario
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)  
+        
+        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)  
         {
             optionsBuilder.UseSqlite("Data Source=centroeventos.sqlite");
-        }
+        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,10 +26,10 @@ namespace CentroEventos.Repositorios
 
     public static class CentroEventosDbInicializador
     {
-        public static void Inicializar()
-        {
-            using var context = new CentroEventosContext();
-            if (context.Database.EnsureCreated()) // si la base de datos no existe la crea
+        public static void Inicializar(IServiceProvider servicios)
+    {
+        using var context = servicios.GetRequiredService<CentroEventosContext>();
+        if (context.Database.EnsureCreated()) // si la base de datos no existe la crea
             {
                 Console.WriteLine("Base de datos creada correctamente.");
 
@@ -40,5 +43,7 @@ namespace CentroEventos.Repositorios
                 connection.Close();
             }
         }
+        
     }
+    
 }
