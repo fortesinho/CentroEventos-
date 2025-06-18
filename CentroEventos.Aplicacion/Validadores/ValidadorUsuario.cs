@@ -1,6 +1,7 @@
 using System;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
+namespace CentroEventos.Aplicacion.Validadores;
 public class UsuarioValidador: IValidadorUsuario
 {
     public bool Validar(Usuario usuario, out string mensajeError)
