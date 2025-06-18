@@ -19,7 +19,7 @@ public class RepositorioUsuario : IRepositorioUsuario
        _db.SaveChanges();
     }
 
-    public Usuario? BuscarPorEmail(string email){
+    public Usuario? BuscarPorEmail(string? email){
        return _db.Usuarios.SingleOrDefault(u => u.Email == email); //si el mail no existe devuelve null, como solo existe un email y no se puede repetir usamos el single
     }
 
