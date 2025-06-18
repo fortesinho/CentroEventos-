@@ -12,6 +12,4 @@ public enum Permiso
     UsuarioModificacion,//Puede modificar los datos de los usuarios
     UsuarioBaja,//Puede dar de baja usuarios del sistema
     
-
-    
 }

@@ -13,7 +13,7 @@ public class UsuarioValidador: IValidadorUsuario
         if (string.IsNullOrWhiteSpace(usuario.ContraseñaHash))
             mensajeError = mensajeError + " No existe la contraseña ";
         if (string.IsNullOrWhiteSpace(usuario.Email)){ 
-            mensajeError = mensajeError + "Email de la persona invalido.\n";
+            mensajeError = mensajeError + "Email de la persona invalido ";
         }
         return mensajeError == "";
     }

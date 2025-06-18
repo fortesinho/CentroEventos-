@@ -27,21 +27,19 @@ public class UsuarioAltaUseCase
 
         if (_repositorio.BuscarPorEmail(usuario.Email) is not null)
         {
-            throw new Exception("Ya existe un usuario con ese email.");
+            throw new ValidacionException("Ya existe un usuario con ese email ");
+        }
+
+        if (_repositorio.CantidadUsuarios() == 0){
+            usuario.Permisos = Enum.GetValues<Permiso>().ToList();// si no hay usuarios le da todos los permisos al primero (que seria el administrador)
+        }
+        else
+        {
+            usuario.Permisos = new List<Permiso>(); // sino crea la lista de permisos vacia (seria un usuario de solo lectura)
         }
 
         usuario.ContraseñaHash = CalculadorHash.CalcularSha256(contraseñaPlano);
         usuario.Permisos ??= new List<Permiso>(); // Asegura que la lista esté inicializada
-
-        if (_repositorio.CantidadUsuarios() == 0)
-        {
-            usuario.Permisos = Enum.GetValues<Permiso>().ToList();// si no hay usuarios le da todos los permisos al primero que seria el administrador
-        }
-        else
-        {
-            usuario.Permisos = new List<Permiso>(); // sino crea la lista de permisos vacia (solo lectura)
-        }
-
         _repositorio.Agregar(usuario);
     }
 }
