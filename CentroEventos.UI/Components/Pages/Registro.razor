@@ -1,4 +1,5 @@
 @page "/registro"
+@rendermode InteractiveServer
 @using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
 @using CentroEventos.Aplicacion.Entidades
 @using CentroEventos.Aplicacion.Servicios
@@ -19,7 +20,7 @@
 
      void Registrarse()
     {
-        try
+        
         { var usuario = new Usuario
         {
             Nombre = nombre,
@@ -30,11 +31,7 @@
         useCase.Ejecutar(usuario, contraseña);
 
         nav.NavigateTo("/login");
+        
         }
-        catch(Exception ex)
-        {
-            
-        }
-       
     }
 }
