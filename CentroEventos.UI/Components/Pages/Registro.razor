@@ -1,0 +1,40 @@
+@page "/registro"
+@using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.Servicios
+@inject UsuarioAltaUseCase useCase
+@inject NavigationManager nav   
+
+<h3>Registro</h3>
+
+<input @bind="nombre" placeholder="Nombre" class="form-control" />
+<input @bind="apellido" placeholder="Apellido" class="form-control" />
+<input @bind="email" placeholder="Email" class="form-control" />
+<input @bind="contraseña" placeholder="Contraseña" type="password" class="form-control" />
+
+<button class="btn btn-success mt-2" @onclick="Registrarse">Registrarse</button>
+
+@code {
+    string nombre = "", apellido = "", email = "", contraseña = "";
+
+     void Registrarse()
+    {
+        try
+        { var usuario = new Usuario
+        {
+            Nombre = nombre,
+            Apellido = apellido,
+            Email = email
+        };
+
+        useCase.Ejecutar(usuario, contraseña);
+
+        nav.NavigateTo("/login");
+        }
+        catch(Exception ex)
+        {
+            
+        }
+       
+    }
+}

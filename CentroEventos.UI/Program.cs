@@ -9,6 +9,8 @@ using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// EF CORE CON SQLITE
 builder.Services.AddDbContext<CentroEventosContext>(options => options.UseSqlite("Data Source=centroeventos.db"));
 //REPOSITORIOS
 builder.Services.AddScoped<IRepositorioPersona, RepositorioPersona>();
@@ -40,7 +42,13 @@ builder.Services.AddScoped<UsuarioLoginUseCase>();
 builder.Services.AddScoped<UsuarioLogOutUseCase>();
 builder.Services.AddScoped<UsuarioListadoUseCase>();
 // VALIDADORES
-builder.Services.AddScoped<IValidadorUsuario, ValidadorUsuario>();
+builder.Services.AddTransient<IValidadorUsuario, ValidadorUsuario>();
+builder.Services.AddTransient<IValidadorPersona, ValidadorPersona>();
+builder.Services.AddTransient<IValidadorReserva, ValidadorReserva>();
+builder.Services.AddTransient<IValidadorEventoDeportivo, ValidadorEventoDeportivo>();
+// SERVICIOS
+builder.Services.AddScoped<IServicioAutorizacion, ServicioAutorizacion>();
+builder.Services.AddScoped<UsuarioSesionActual>();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
