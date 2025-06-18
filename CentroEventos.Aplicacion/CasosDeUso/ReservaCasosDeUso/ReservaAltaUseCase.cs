@@ -6,7 +6,7 @@ using CentroEventos.Aplicacion.Validadores;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class ReservaAltaUseCase(IRepositorioReserva repoReserva, IServicioAutorizacion autorizacion, ValidadorReserva validador, IRepositorioPersona repoPersona, IRepositorioEventoDeportivo repoEventoDeportivo)
+public class ReservaAltaUseCase(IRepositorioReserva repoReserva, IServicioAutorizacion autorizacion, IValidadorReserva validador, IRepositorioPersona repoPersona, IRepositorioEventoDeportivo repoEventoDeportivo)
 {
 
     public void Ejecutar(Reserva reserva)

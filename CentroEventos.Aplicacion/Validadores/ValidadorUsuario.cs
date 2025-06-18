@@ -1,7 +1,7 @@
 using System;
 using CentroEventos.Aplicacion.Entidades;
-
-public class UsuarioValidador
+using CentroEventos.Aplicacion.Interfaces;
+public class UsuarioValidador: IValidadorUsuario
 {
     public bool Validar(Usuario usuario, out string mensajeError)
     {
@@ -12,8 +12,9 @@ public class UsuarioValidador
             mensajeError = mensajeError + " No existe el apellido ";
         if (string.IsNullOrWhiteSpace(usuario.ContraseñaHash))
             mensajeError = mensajeError + " No existe la contraseña ";
+        if (string.IsNullOrWhiteSpace(usuario.Email)){ 
+            mensajeError = mensajeError + "Email de la persona invalido.\n";
+        }
         return mensajeError == "";
-        
-        
     }
 }

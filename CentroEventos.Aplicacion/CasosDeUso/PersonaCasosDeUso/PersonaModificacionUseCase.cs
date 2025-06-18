@@ -6,7 +6,7 @@ using CentroEventos.Aplicacion.Interfaces;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class PersonaModificacionUseCase(IRepositorioPersona repoPersona,IServicioAutorizacion servicio, ValidadorPersona validador)
+public class PersonaModificacionUseCase(IRepositorioPersona repoPersona,IServicioAutorizacion servicio, IValidadorPersona validador)
 {
     public void Ejecutar(Persona persona) {
         if (!servicio.PoseeElPermiso( Permiso.UsuarioModificacion)) {

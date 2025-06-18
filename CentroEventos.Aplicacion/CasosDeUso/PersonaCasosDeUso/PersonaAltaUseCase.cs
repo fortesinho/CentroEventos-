@@ -5,7 +5,7 @@ using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Excepciones;
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class PersonaAltaUseCase(IRepositorioPersona repoPersona,IServicioAutorizacion autorizacion, ValidadorPersona validador)
+public class PersonaAltaUseCase(IRepositorioPersona repoPersona,IServicioAutorizacion autorizacion, IValidadorPersona validador)
 {
 
 public void Ejecutar(Persona persona){

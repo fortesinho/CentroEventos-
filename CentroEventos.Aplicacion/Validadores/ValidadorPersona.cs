@@ -1,11 +1,10 @@
 using CentroEventos.Aplicacion.Entidades;
-using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Interfaces;
 namespace CentroEventos.Aplicacion.Validadores;
 
 
 
-public class  ValidadorPersona(IRepositorioPersona repoPersona)
+public class  ValidadorPersona(IRepositorioPersona repoPersona): IValidadorPersona
 {
     public bool ValidarAlta(Persona persona, out string mensajeError) // con el out devuelve el mensaje de la excepcion 
     {

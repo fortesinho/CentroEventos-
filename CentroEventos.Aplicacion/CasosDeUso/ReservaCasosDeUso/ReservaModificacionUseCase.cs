@@ -6,7 +6,7 @@ using CentroEventos.Aplicacion.Validadores;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class ReservaModificacionUseCase(IRepositorioReserva repoReserva, IServicioAutorizacion servicio, ValidadorReserva validador, IRepositorioPersona repoPersona, IRepositorioEventoDeportivo repoEventoDeportivo)
+public class ReservaModificacionUseCase(IRepositorioReserva repoReserva, IServicioAutorizacion servicio, IValidadorReserva validador, IRepositorioPersona repoPersona, IRepositorioEventoDeportivo repoEventoDeportivo)
 {
       public void Ejecutar(Reserva reserva){
             if (!servicio.PoseeElPermiso( Permiso.UsuarioModificacion))

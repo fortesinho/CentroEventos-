@@ -1,8 +1,8 @@
 using CentroEventos.Aplicacion.Entidades;
-
+using CentroEventos.Aplicacion.Interfaces;
 namespace CentroEventos.Aplicacion.Validadores;
 
-public class ValidadorEventoDeportivo()
+public class ValidadorEventoDeportivo: IValidadorEventoDeportivo
 {
   public bool ValidadorEvento(EventoDeportivo Evento, out string mensajeError) {
     

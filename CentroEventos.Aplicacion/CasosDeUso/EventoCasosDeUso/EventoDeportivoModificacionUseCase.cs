@@ -6,7 +6,7 @@ using CentroEventos.Aplicacion.Validadores;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repoEvento, IServicioAutorizacion servicio, ValidadorEventoDeportivo validador)
+public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repoEvento, IServicioAutorizacion servicio, IValidadorEventoDeportivo validador)
 {
 public void Ejecutar(EventoDeportivo Evento){
     
