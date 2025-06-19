@@ -47,8 +47,9 @@ builder.Services.AddTransient<IValidadorPersona, ValidadorPersona>();
 builder.Services.AddTransient<IValidadorReserva, ValidadorReserva>();
 builder.Services.AddTransient<IValidadorEventoDeportivo, ValidadorEventoDeportivo>();
 // SERVICIOS
-builder.Services.AddScoped<IServicioAutorizacion, ServicioAutorizacion>();
 builder.Services.AddScoped<UsuarioSesionActual>();
+builder.Services.AddScoped<IServicioAutorizacion, ServicioAutorizacion>();
+
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

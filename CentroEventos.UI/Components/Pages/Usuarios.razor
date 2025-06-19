@@ -1,4 +1,5 @@
 @page "/usuarios"
+@rendermode InteractiveServer
 @using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
 @using CentroEventos.Aplicacion.Entidades
 @using CentroEventos.Aplicacion.Interfaces
@@ -19,9 +20,9 @@
                     <td>@u.Nombre @u.Apellido</td>
                     <td>@u.Email</td>
                     <td>
-                        <button class="btn btn-sm btn-primary"@onclick='() => nav.NavigateTo($"/usuarios/modificarUsuario/{u.Id}")'> Modificar</button>
-                        <button class="btn btn-sm btn-danger ms-2" @onclick='() => nav.NavigateTo($"/eliminar{u.Id}")'> Eliminar</button>
-                        
+                        <button class="btn btn-sm btn-primary" @onclick="() => IrAModificar(u.Id)">Modificar</button>
+                        <button class="btn btn-sm btn-danger ms-2" @onclick='() => nav.NavigateTo($"/usuarios/eliminar/{u.Id}")'> Eliminar</button>
+                        <button class="btn btn-sm btn-warning ms-2" @onclick='() => nav.NavigateTo($"/usuarios/permisos/{u.Id}")'>Permisos</button>
                     </td>
                 </tr>
             }
@@ -30,15 +31,15 @@
 
 
 @code {
+ void IrAModificar(int id)
+    {
+        nav.NavigateTo($"/usuarios/modificarUsuario/{id}");
+    }
+
     List<Usuario> usuarios = new();
 
     protected override void OnInitialized()
     {
-        usuarios = ListadoUseCase.Ejecutar(); // o el método que tengas para listar todos
+        usuarios = ListadoUseCase.Ejecutar(); // muestra la lista de usuarios
     }
-
-    void Editar(int id)
-    {
-        nav.NavigateTo($"/usuario");
-    } 
 }

@@ -1,0 +1,88 @@
+@page "/usuarios/permisos/{id:int}"
+@rendermode InteractiveServer
+@using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.Interfaces
+@inject UsuarioListadoUseCase listarUseCase
+@inject UsuarioModificacionUseCase modUseCase
+@inject CentroEventos.Aplicacion.Interfaces.IRepositorioUsuario repositorioUsuario
+
+@inject NavigationManager nav
+
+<h3>Permisos del usuario</h3>
+
+@if (!autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion))
+{
+    <p class="text-danger">No tenés permiso para modificar usuarios.</p>
+}
+
+else
+{
+    <p><b>Usuario:</b> @usuario.Nombre @usuario.Apellido</p>
+
+    <p><b>Permisos actuales:</b></p>
+    <ul>
+        @foreach (var permiso in usuario.Permisos)
+        {
+            <li>@permiso.ToString()</li>
+        }
+    </ul>
+
+    <p><b>Agregar permisos faltantes:</b></p>
+    @foreach (var permiso in todosLosPermisos.Except(usuario.Permisos))
+    {
+        <button class="btn btn-outline-primary m-1" @onclick="() => AgregarPermiso(permiso)">
+            Agregar @permiso.ToString()
+        </button>
+    }
+
+    <button class="btn btn-secondary mt-3" @onclick="Volver">Volver</button>
+}
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private Usuario? usuario;
+    private List<Permiso> todosLosPermisos = Enum.GetValues(typeof(Permiso)).Cast<Permiso>().ToList();
+    private bool tienePermiso = false;
+
+    protected override void OnInitialized()
+    {
+        tienePermiso = autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion);
+
+        if (!tienePermiso)
+        {
+            // Opcional: podés redirigir directamente
+            // nav.NavigateTo("/usuarios");
+            return;
+        }
+
+        usuario = listarUseCase.Ejecutar().FirstOrDefault(u => u.Id == id);
+        if (usuario == null)
+        {
+            nav.NavigateTo("/usuarios");
+        }
+    }
+
+    private void AgregarPermiso(Permiso permiso)
+    {
+        if (!tienePermiso)
+            return;
+
+        if (usuario == null)
+            return;
+
+        if (!usuario.Permisos.Contains(permiso))
+        {
+            usuario.Permisos.Add(permiso);
+            modUseCase.Ejecutar(usuario);
+            StateHasChanged(); // refrescar UI para quitar botón
+        }
+    }
+
+    private void Volver()
+    {
+        nav.NavigateTo("/usuarios");
+    }
+}
