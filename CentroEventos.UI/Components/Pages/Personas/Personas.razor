@@ -1,0 +1,68 @@
+@page "/personas"
+@rendermode InteractiveServer
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.Interfaces
+@inject PersonaListadoUseCase listadoUseCase
+@inject IServicioAutorizacion autorizacion
+@inject NavigationManager nav
+
+<h3>Listado de Socios</h3>
+@if (autorizacion.PoseeElPermiso(Permiso.PersonaAlta)){
+    <button class="btn btn-success mb-3" @onclick="IrAAlta">Agregar Persona</button>
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>DNI</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in personas)
+        {
+            <tr>
+                <td>@p.nombre @p.apellido</td>
+                <td>@p.dni</td>
+                <td>@p.email</td>
+                <td>@p.telefono</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" @onclick="@(() => IrAModificar(p.id))">Modificar</button>
+                    <button class="btn btn-sm btn-danger ms-2" @onclick="@(() => IrAEliminar(p.id))">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    <button @onclick="IrMenu">Volver al menu</button> 
+@code {
+    List<Persona> personas = new();
+
+    protected override void OnInitialized()
+    {
+        personas = listadoUseCase.Ejecutar(); // carga la lista al iniciar
+    }
+
+    void IrAModificar(int id)
+    {
+        nav.NavigateTo($"/personas/modificar/{id}");
+    }
+
+    void IrAEliminar(int id)
+    {
+        nav.NavigateTo($"/personas/eliminar/{id}");
+    }
+
+    void IrAAlta()
+    {
+        nav.NavigateTo("/personas/alta");
+    }
+    void IrMenu()
+    {
+        nav.NavigateTo("/menu");
+    }
+    
+}

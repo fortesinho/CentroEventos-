@@ -1,2 +1,51 @@
 @page "/personas/alta"
 @rendermode InteractiveServer
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Entidades
+@inject PersonaAltaUseCase useCase
+@inject NavigationManager nav
+
+<h3>Agregar Persona</h3>
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+
+
+<EditForm OnValidSubmit="Guardar" Model="@persona">
+    <InputText @bind-Value="persona.nombre" placeholder="Nombre" class="form-control mb-2" />
+    <InputText @bind-Value="persona.apellido" placeholder="Apellido" class="form-control mb-2" />
+    <InputText @bind-Value="persona.dni" placeholder="DNI" class="form-control mb-2" />
+    <InputText @bind-Value="persona.email" placeholder="Email" class="form-control mb-2" />
+    <InputText @bind-Value="persona.telefono" placeholder="Teléfono" class="form-control mb-2" />
+    
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+</EditForm>
+
+@code {
+    Persona persona = new Persona();
+    string error = "";
+
+    void Guardar()
+    {
+        try
+        {
+            useCase.Ejecutar(persona);
+            nav.NavigateTo("/personas");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    void Cancelar()
+    {
+        nav.NavigateTo("/personas");
+    }
+}
+

@@ -9,7 +9,7 @@ namespace CentroEventos.Aplicacion.CasosDeUso;
 public class PersonaModificacionUseCase(IRepositorioPersona repoPersona,IServicioAutorizacion servicio, IValidadorPersona validador)
 {
     public void Ejecutar(Persona persona) {
-        if (!servicio.PoseeElPermiso( Permiso.UsuarioModificacion)) {
+        if (!servicio.PoseeElPermiso( Permiso.PersonaModificacion)) {
             throw new FalloAutorizacionException("No tiene permiso para modificar personas."); }
         if (repoPersona.ObtenerPorId(persona.id) == null){
             throw new EntidadNotFoundException("Persona");

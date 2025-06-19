@@ -2,16 +2,45 @@
 @rendermode InteractiveServer
 @using CentroEventos.Aplicacion.Entidades
 @using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
+@using CentroEventos.Aplicacion.Interfaces
 @using CentroEventos.Aplicacion.Servicios
 @using CentroEventos.Aplicacion.Excepciones
+@inject IServicioAutorizacion autorizacion
 @inject NavigationManager nav
 
-<h1>Todos los usuarios</h1>
-<button @onclick="Modificar">Modificar</button>
-
+@if (autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion)){
+    <h1>Interfaz de administrador</h1>
+    <button @onclick="ModificarPermisos">Lista de Usuarios</button>
+    <button @onclick="ModificarPermisos">Agregar Eventos(s/n)</button>
+    <button @onclick="ModificarPermisos">Agregar Reserva(s/n)</button>
+    <button @onclick="AgregarPersonas">Agregar Persona</button>
+    
+}
+else{
+    <h1>Interfaz de usuario</h1>
+    }
+    <h1></h1>
+    <!-- lo pueden ver todos los ususarios-->
+    <button @onclick="Modificar">Modificar Perfil</button> 
+    <button @onclick="ModificarPermisos">Lista de Eventos(s/n)</button>
+    <button @onclick="ModificarPermisos">Lista de Reservas(s/n)</button>
+    <button @onclick="ListaDeSocios">Lista de Socios</button>
 @code {
     void Modificar()
     {
         nav.NavigateTo("/modificar");
+    }
+
+    void ModificarPermisos()
+    {
+        nav.NavigateTo("/usuarios");
+    }
+    void ListaDeSocios()
+    {
+        nav.NavigateTo("/personas");
+    }
+    void AgregarPersonas()
+    {
+        nav.NavigateTo("/personas/alta");
     }
 }

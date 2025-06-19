@@ -11,5 +11,8 @@ public enum Permiso
     UsuarioAlta,//Puede dar de alta nuevos usuarios del sistema
     UsuarioModificacion,//Puede modificar los datos de los usuarios
     UsuarioBaja,//Puede dar de baja usuarios del sistema
+    PersonaAlta,
+    PersonaBaja,
+    PersonaModificacion,
     
 }

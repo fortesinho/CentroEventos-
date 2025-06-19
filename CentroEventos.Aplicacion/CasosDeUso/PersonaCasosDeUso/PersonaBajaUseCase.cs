@@ -7,7 +7,7 @@ namespace CentroEventos.Aplicacion.CasosDeUso;
 public class PersonaBajaUseCase(IRepositorioPersona repoPersona, IRepositorioEventoDeportivo repoEvento, IRepositorioReserva repoReserva, IServicioAutorizacion autorizacion)
 {
 public void Ejecutar(int personaId){
- if (!autorizacion.PoseeElPermiso( Permiso.UsuarioBaja))
+ if (!autorizacion.PoseeElPermiso( Permiso.PersonaBaja))
       throw new FalloAutorizacionException("El usuario no tiene permiso para eliminar personas.");
 
   if (repoPersona.ObtenerPorId(personaId) == null)

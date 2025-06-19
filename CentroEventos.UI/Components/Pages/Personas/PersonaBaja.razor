@@ -1,2 +1,42 @@
-
+@page "/personas/eliminar/{Id:int}"
 @rendermode InteractiveServer
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Interfaces
+@using CentroEventos.Aplicacion.Entidades
+@inject PersonaBajaUseCase bajaUseCase
+@inject NavigationManager nav
+@inject IServicioAutorizacion autorizacion
+
+<h3>Eliminar Persona</h3>
+@if (!autorizacion.PoseeElPermiso(Permiso.PersonaBaja))
+{
+    <p class="text-danger">No tenés permiso para eliminar personas.</p>
+}
+else
+{
+    <p>¿Estás seguro que querés eliminar esta persona?</p>
+    <button class="btn btn-danger" @onclick="EliminarPersona">Eliminar</button>
+    <button class="btn btn-secondary" @onclick="Cancelar">Cancelar</button>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    void EliminarPersona()
+    {
+        try
+        {
+            bajaUseCase.Ejecutar(id);
+            nav.NavigateTo("/personas");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al eliminar: " + ex.Message);
+        }
+    }
+
+    void Cancelar()
+    {
+        nav.NavigateTo("/personas");
+    }
+}

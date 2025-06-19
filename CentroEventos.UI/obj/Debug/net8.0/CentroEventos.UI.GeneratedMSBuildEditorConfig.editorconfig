@@ -30,6 +30,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/EventosDeportivos/EventoAlta.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFdmVudG9zRGVwb3J0aXZvc1xFdmVudG9BbHRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/EventosDeportivos/Eventos.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFdmVudG9zRGVwb3J0aXZvc1xFdmVudG9zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
