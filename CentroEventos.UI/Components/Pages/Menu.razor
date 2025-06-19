@@ -22,7 +22,7 @@ else{
     <h1></h1>
     <!-- lo pueden ver todos los ususarios-->
     <button @onclick="Modificar">Modificar Perfil</button> 
-    <button @onclick="ModificarPermisos">Lista de Eventos(s/n)</button>
+    <button @onclick="ListaEventos">Lista de Eventos(s/n)</button>
     <button @onclick="ModificarPermisos">Lista de Reservas(s/n)</button>
     <button @onclick="ListaDeSocios">Lista de Socios</button>
 @code {
@@ -42,5 +42,9 @@ else{
     void AgregarPersonas()
     {
         nav.NavigateTo("/personas/alta");
+    }
+    void ListaEventos()
+    {
+        nav.NavigateTo("/eventos");
     }
 }

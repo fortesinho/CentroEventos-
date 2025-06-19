@@ -5,7 +5,7 @@
 @inject PersonaAltaUseCase useCase
 @inject NavigationManager nav
 
-<h3>Agregar Persona</h3>
+<h3>Agregar Socio</h3>
 
 @if (!string.IsNullOrWhiteSpace(error))
 {
@@ -25,7 +25,7 @@
     <button type="submit" class="btn btn-success">Guardar</button>
     <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
 </EditForm>
-
+<button @onclick="IrMenu">Volver al menu</button> 
 @code {
     Persona persona = new Persona();
     string error = "";
@@ -46,6 +46,10 @@
     void Cancelar()
     {
         nav.NavigateTo("/personas");
+    }
+    void IrMenu()
+    {
+        nav.NavigateTo("/menu");
     }
 }
 

@@ -7,7 +7,7 @@ public class Persona
 
     public Persona(int id, string? dNI, string? nombre, string? apellido, string? email, string? telefono)
     {
-        this.id = id;
+        this.Id = id;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -16,7 +16,7 @@ public class Persona
     }
     public Persona(){}
 
-   public int id { get; set; }
+   public int Id { get; set; }
    public string? dni { get; set; }
    public string? nombre { get; set; }
    public string? apellido { get; set;}
@@ -24,6 +24,6 @@ public class Persona
    public string? telefono{ get; set; }
 
    public override string ToString(){
-      return $" Id: {this.id}, Dni: {this.dni}, Nombre: {this.nombre}, Apellido: {this.apellido}, Email: {this.email}, Telefono: {this.telefono}";
+      return $" Id: {this.Id}, Dni: {this.dni}, Nombre: {this.nombre}, Apellido: {this.apellido}, Email: {this.email}, Telefono: {this.telefono}";
    }
 }

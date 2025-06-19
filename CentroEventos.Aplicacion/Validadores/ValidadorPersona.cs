@@ -41,10 +41,10 @@ public class  ValidadorPersona(IRepositorioPersona repoPersona): IValidadorPerso
 
         List<Persona> personas = repoPersona.ObtenerTodas();
 
-        if (personas.Any(p => p.id != persona.id && p.dni == persona.dni))
+        if (personas.Any(p => p.Id != persona.Id && p.dni == persona.dni))
               mensajeError +="Ya existe otra persona con el mismo DNI.";
 
-        if (personas.Any(p => p.id != persona.id && p.email == persona.email))
+        if (personas.Any(p => p.Id != persona.Id && p.email == persona.email))
               mensajeError +="Ya existe otra persona con el mismo Email.";
         
         return mensajeError == "";

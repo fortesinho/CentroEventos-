@@ -11,7 +11,7 @@ public class PersonaModificacionUseCase(IRepositorioPersona repoPersona,IServici
     public void Ejecutar(Persona persona) {
         if (!servicio.PoseeElPermiso( Permiso.PersonaModificacion)) {
             throw new FalloAutorizacionException("No tiene permiso para modificar personas."); }
-        if (repoPersona.ObtenerPorId(persona.id) == null){
+        if (repoPersona.ObtenerPorId(persona.Id) == null){
             throw new EntidadNotFoundException("Persona");
         }
         if (!validador.ValidarModificacion(persona, out string mensajeError)){

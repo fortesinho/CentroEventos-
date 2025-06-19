@@ -1,2 +1,69 @@
 @page "/personas/modificar/{Id:int}"
 @rendermode InteractiveServer
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.Interfaces
+@inject PersonaModificacionUseCase modificacionUseCase
+@inject PersonaListadoUseCase listadoUseCase
+@inject NavigationManager nav
+@inject IServicioAutorizacion autorizacion
+
+<h3>Modificar Socio</h3>
+@if (!autorizacion.PoseeElPermiso(Permiso.PersonaModificacion))
+{
+    <p class="text-danger">No tenés permiso para modificar personas.</p>
+}
+else if (persona == null)
+{
+    <p class="text-warning">Cargando persona...</p>
+}
+else
+{
+   @if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+
+    <EditForm OnValidSubmit="Modificar" Model="@persona">
+        <InputText @bind-Value="persona.nombre" placeholder="Nombre" class="form-control mb-2" />
+        <InputText @bind-Value="persona.apellido" placeholder="Apellido" class="form-control mb-2" />
+        <InputText @bind-Value="persona.dni" placeholder="DNI" class="form-control mb-2" />
+        <InputText @bind-Value="persona.email" placeholder="Email" class="form-control mb-2" />
+        <InputText @bind-Value="persona.telefono" placeholder="Teléfono" class="form-control mb-2" />
+        
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+    </EditForm>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+    Persona? persona;
+    string error = "";
+
+    protected override void OnInitialized()
+    {
+        // Buscamos la persona por ID desde el listado (alternativamente, podrías usar un ObtenerPorIdUseCase)
+        persona = listadoUseCase.Ejecutar().FirstOrDefault(p => p.Id == id);
+    }
+
+    void Modificar()
+    {
+        try
+        {
+            modificacionUseCase.Ejecutar(persona!);
+            nav.NavigateTo("/personas");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    void Cancelar()
+    {
+        nav.NavigateTo("/personas");
+    }
+}
