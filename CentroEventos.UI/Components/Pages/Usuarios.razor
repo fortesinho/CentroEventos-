@@ -8,12 +8,9 @@
 
 <h3>Lista de Usuarios</h3>
 
-@if (!autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion))
-{
-    <p>No tenés permiso para gestionar usuarios.</p>
-}
-else
-{
+
+
+
     <table class="table">
         <thead>
             <tr><th>Nombre</th><th>Email</th><th>Acciones</th></tr>
@@ -25,13 +22,16 @@ else
                     <td>@u.Nombre @u.Apellido</td>
                     <td>@u.Email</td>
                     <td>
-                        <button class="btn btn-sm btn-primary" @onclick="() => Editar(u.Id)">Modificar</button>
+                        <button class="btn btn-sm btn-primary"@onclick='() => nav.NavigateTo($"/usuarios/modificarUsuario/{u.Id}")'> Modificar</button>
+
+                            <button class="btn btn-sm btn-danger ms-2" @onclick='() => nav.NavigateTo($"/eliminar{u.Id}")'> Eliminar</button>
+                        
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-}
+
 
 @code {
     List<Usuario> usuarios = new();
@@ -44,5 +44,5 @@ else
     void Editar(int id)
     {
         nav.NavigateTo($"/usuario");
-    }
+    } 
 }

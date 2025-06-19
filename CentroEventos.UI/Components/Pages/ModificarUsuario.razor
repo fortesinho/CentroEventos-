@@ -1,4 +1,4 @@
-@page "/usuarios/modificarUsuario"
+@page "/usuarios/modificarUsuario/{id:int}"
 @rendermode InteractiveServer
 @using CentroEventos.Aplicacion.Entidades
 @using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
@@ -7,6 +7,7 @@
 @using CentroEventos.Aplicacion.Excepciones
 @using CentroEventos.Repositorios
 @inject UsuarioModificacionUseCase modificarUseCase
+@inject UsuarioListadoUseCase ListadoUseCase
 @inject IRepositorioUsuario repositorioUsuario
 @inject IServicioAutorizacion autorizacion
 @inject NavigationManager nav
@@ -45,14 +46,7 @@ else
 
     protected override void OnInitialized()
     {
-        try
-        {
-            usuario = repositorioUsuario.BuscarPorId(id);
-        }
-        catch (ValidacionException ex)
-        {
-            error = ex.Message;
-        }
+        usuario = ListadoUseCase.Ejecutar().FirstOrDefault(u => u.Id == id);
     }
 
     void GuardarCambios()
