@@ -34,6 +34,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFdmVudG9zRGVwb3J0aXZvc1xFdmVudG9BbHRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/EventosDeportivos/EventoBaja.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFdmVudG9zRGVwb3J0aXZvc1xFdmVudG9CYWphLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/EventosDeportivos/EventoModificar.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFdmVudG9zRGVwb3J0aXZvc1xFdmVudG9Nb2RpZmljYXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/EventosDeportivos/Eventos.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFdmVudG9zRGVwb3J0aXZvc1xFdmVudG9zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -80,6 +88,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/Registro.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZWdpc3Ryby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/Reservas/ReservaAlta.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXNlcnZhc1xSZXNlcnZhQWx0YS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/Reservas/ReservaBaja.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXNlcnZhc1xSZXNlcnZhQmFqYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/Reservas/ReservaModificar.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXNlcnZhc1xSZXNlcnZhTW9kaWZpY2FyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/Reservas/Reservas.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXNlcnZhc1xSZXNlcnZhcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/Usuarios.razor]

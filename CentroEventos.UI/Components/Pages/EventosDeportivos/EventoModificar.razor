@@ -1,0 +1,81 @@
+@page "/eventos/modificar/{id:int}"
+@rendermode InteractiveServer
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.Interfaces
+@inject EventoDeportivoModificacionUseCase modificacionUseCase
+@inject EventoDeportivoListadoUseCase listadoUseCase
+@inject NavigationManager nav
+@inject IServicioAutorizacion autorizacion
+
+<h3>Modificar Evento Deportivo</h3>
+
+@if (!autorizacion.PoseeElPermiso(Permiso.EventoModificacion))
+{
+    <p class="text-danger">No tenés permiso para modificar eventos.</p>
+}
+else if (evento == null)
+{
+    <p class="text-warning">Cargando evento...</p>
+}
+else
+{
+    @if (!string.IsNullOrWhiteSpace(error))
+    {
+        <div class="alert alert-danger" role="alert">
+            @error
+        </div>
+    }
+
+    <EditForm OnValidSubmit="Modificar" Model="@evento">
+        <label>Nombre</label>
+        <InputText @bind-Value="evento.Nombre" placeholder="Nombre del evento" class="form-control mb-2" />
+
+        <label>Descripción</label>
+        <InputText @bind-Value="evento.Descripcion" placeholder="Descripción breve" class="form-control mb-2" />
+
+        <label>Fecha y Hora de Inicio</label>
+        <InputDate @bind-Value="evento.FechaHoraInicio" class="form-control mb-2" />
+
+        <label>Duración (horas)</label>
+        <InputNumber @bind-Value="evento.DuracionHoras" placeholder="Ej: 1.5" class="form-control mb-2" />
+
+        <label>Cupo Máximo</label>
+        <InputNumber @bind-Value="evento.CupoMaximo" placeholder="Cantidad máxima de asistentes" class="form-control mb-2" />
+
+        <label>ID del Responsable</label>
+        <InputNumber @bind-Value="evento.ResponsableId" placeholder="ID de la persona responsable" class="form-control mb-2" />
+
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+    </EditForm>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+    EventoDeportivo? evento;
+    string error = "";
+
+    protected override void OnInitialized()
+    {
+        evento = listadoUseCase.Ejecutar().FirstOrDefault(e => e.Id == id);
+    }
+
+    void Modificar()
+    {
+        try
+        {
+            modificacionUseCase.Ejecutar(evento!);
+            nav.NavigateTo("/eventos");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    void Cancelar()
+    {
+        nav.NavigateTo("/eventos");
+    }
+}

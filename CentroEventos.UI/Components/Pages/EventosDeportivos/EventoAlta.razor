@@ -1,0 +1,71 @@
+@page "/eventos/alta"
+@rendermode InteractiveServer
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Entidades
+@inject EventoDeportivoAltaUseCase useCase
+@inject NavigationManager nav
+
+<h3>Agregar Evento Deportivo</h3>
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+
+<EditForm OnValidSubmit="Guardar" Model="@evento">
+    <label>Nombre</label>
+    <InputText @bind-Value="evento.Nombre" placeholder="Nombre del evento" class="form-control mb-2" />
+
+    <label>Descripción</label>
+    <InputText @bind-Value="evento.Descripcion" placeholder="Descripción breve" class="form-control mb-2" />
+
+    <label>Fecha y Hora de Inicio</label>
+    <InputDate @bind-Value="evento.FechaHoraInicio" class="form-control mb-2" />
+
+    <label>Duración (horas)</label>
+    <InputNumber @bind-Value="evento.DuracionHoras" placeholder="Ej: 1.5" class="form-control mb-2" />
+
+    <label>Cupo Máximo</label>
+    <InputNumber @bind-Value="evento.CupoMaximo" placeholder="Cantidad máxima de asistentes" class="form-control mb-2" />
+
+    <label>ID del Responsable</label>
+    <InputNumber @bind-Value="evento.ResponsableId" placeholder="ID de la persona responsable" class="form-control mb-2" />
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+</EditForm>
+
+<button @onclick="IrMenu">Volver al menú</button>
+
+@code {
+    EventoDeportivo evento = new EventoDeportivo
+    {
+        FechaHoraInicio = DateTime.Now
+    };
+    string error = "";
+
+    void Guardar()
+    {
+        try
+        {
+            useCase.Ejecutar(evento);
+            nav.NavigateTo("/eventos");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    void Cancelar()
+    {
+        nav.NavigateTo("/eventos");
+    }
+
+    void IrMenu()
+    {
+        nav.NavigateTo("/menu");
+    }
+}

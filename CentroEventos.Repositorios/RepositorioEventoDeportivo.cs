@@ -70,7 +70,7 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
     }
     public List<Persona> ObtenerPersonasAsistieron(int idEvento){
     var personasAsistieron = (from reserva in _db.Reservas
-                              join persona in _db.Personas on reserva.PersonaId equals persona.id
+                              join persona in _db.Personas on reserva.PersonaId equals persona.Id
                               where reserva.EventoDeportivoId == idEvento
                                     && reserva.EstadoAsistencia == Reserva.EstadoAsis.Presente
                               select persona)

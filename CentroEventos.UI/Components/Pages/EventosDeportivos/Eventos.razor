@@ -9,10 +9,9 @@
 
 <h3>Listado de Eventos Deportivos</h3>
 
-
-<button class="btn btn-success mb-3" @onclick="IrAAlta">Agregar Evento</button>
-
-
+@if (autorizacion.PoseeElPermiso(Permiso.EventoAlta)){
+    <button class="btn btn-success mb-3" @onclick="IrAAlta">Agregar Evento</button>
+}
 <table class="table table-bordered">
     <thead>
         <tr>

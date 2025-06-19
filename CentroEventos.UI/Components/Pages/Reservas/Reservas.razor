@@ -1,0 +1,65 @@
+@page "/reservas"
+@rendermode InteractiveServer
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.Interfaces
+@inject ReservaListadoUseCase listadoUseCase
+@inject IServicioAutorizacion autorizacion
+@inject NavigationManager nav
+
+<h3>Listado de Reservas</h3>
+@if (autorizacion.PoseeElPermiso(Permiso.ReservaAlta)){
+<button class="btn btn-success mb-3" @onclick="IrAAlta">Agregar Reserva</button>
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Evento</th>
+            <th>Persona</th>
+            <th>Fecha</th>
+            <th>Estado Asistencia</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in reservas)
+        {
+            <tr>
+                <td>@r.Id</td>
+                <td>@r.EventoDeportivoId</td>
+                <td>@r.PersonaId</td>
+                <td>@r.FechaAltaReserva.ToString("g")</td>
+                <td>@r.EstadoAsistencia</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" @onclick="@(() => IrAModificar(r.Id))">Modificar</button>
+                    <button class="btn btn-sm btn-danger ms-2" @onclick="@(() => IrAEliminar(r.Id))">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<Reserva> reservas = new();
+
+    protected override void OnInitialized()
+    {
+        reservas = listadoUseCase.Ejecutar(); // carga la lista de reservas
+    }
+
+    void IrAModificar(int id)
+    {
+        nav.NavigateTo($"/reservas/modificar/{id}");
+    }
+
+    void IrAEliminar(int id)
+    {
+        nav.NavigateTo($"/reservas/eliminar/{id}");
+    }
+
+    void IrAAlta()
+    {
+        nav.NavigateTo("/reservas/alta");
+    }
+}

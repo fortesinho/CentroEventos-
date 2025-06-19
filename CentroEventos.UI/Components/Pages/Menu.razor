@@ -10,21 +10,16 @@
 
 @if (autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion)){
     <h1>Interfaz de administrador</h1>
-    <button @onclick="ModificarPermisos">Lista de Usuarios</button>
-    <button @onclick="ModificarPermisos">Agregar Eventos(s/n)</button>
-    <button @onclick="ModificarPermisos">Agregar Reserva(s/n)</button>
-    <button @onclick="AgregarPersonas">Agregar Persona</button>
-    
 }
 else{
     <h1>Interfaz de usuario</h1>
     }
     <h1></h1>
-    <!-- lo pueden ver todos los ususarios-->
     <button @onclick="Modificar">Modificar Perfil</button> 
-    <button @onclick="ListaEventos">Lista de Eventos(s/n)</button>
-    <button @onclick="ModificarPermisos">Lista de Reservas(s/n)</button>
+    <button @onclick="ListaEventos">Lista de Eventos</button>
     <button @onclick="ListaDeSocios">Lista de Socios</button>
+    <button @onclick="ModificarPermisos">Lista de Reservas</button>
+    <button @onclick="ModificarPermisos">Lista de usuarios</button>
 @code {
     void Modificar()
     {
