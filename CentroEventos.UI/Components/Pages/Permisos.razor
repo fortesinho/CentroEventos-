@@ -4,9 +4,9 @@
 @using CentroEventos.Aplicacion.Entidades
 @using CentroEventos.Aplicacion.Interfaces
 @inject UsuarioListadoUseCase listarUseCase
-@inject UsuarioModificacionUseCase modUseCase
+@inject UsuarioModificacionUseCase modificarUseCase
 @inject CentroEventos.Aplicacion.Interfaces.IRepositorioUsuario repositorioUsuario
-
+@inject IServicioAutorizacion autorizacion
 @inject NavigationManager nav
 
 <h3>Permisos del usuario</h3>
@@ -15,16 +15,18 @@
 {
     <p class="text-danger">No tenés permiso para modificar usuarios.</p>
 }
-
 else
 {
-    <p><b>Usuario:</b> @usuario.Nombre @usuario.Apellido</p>
-
     <p><b>Permisos actuales:</b></p>
     <ul>
-        @foreach (var permiso in usuario.Permisos)
+        @foreach (var permiso in usuario!.Permisos)
         {
-            <li>@permiso.ToString()</li>
+            <li>
+                @permiso.ToString()
+                <button class="btn btn-sm btn-danger ms-2" @onclick="() => QuitarPermiso(permiso)">
+                    Quitar
+                </button>
+            </li>
         }
     </ul>
 
@@ -49,12 +51,10 @@ else
 
     protected override void OnInitialized()
     {
-        tienePermiso = autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion);
+        tienePermiso = autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion); 
 
         if (!tienePermiso)
         {
-            // Opcional: podés redirigir directamente
-            // nav.NavigateTo("/usuarios");
             return;
         }
 
@@ -67,17 +67,27 @@ else
 
     private void AgregarPermiso(Permiso permiso)
     {
-        if (!tienePermiso)
-            return;
-
-        if (usuario == null)
+        if (!tienePermiso || usuario == null)
             return;
 
         if (!usuario.Permisos.Contains(permiso))
         {
             usuario.Permisos.Add(permiso);
-            modUseCase.Ejecutar(usuario);
-            StateHasChanged(); // refrescar UI para quitar botón
+            modificarUseCase.Ejecutar(usuario);
+            StateHasChanged();
+        }
+    }
+
+    private void QuitarPermiso(Permiso permiso)
+    {
+        if (!tienePermiso || usuario == null)
+            return;
+
+        if (usuario.Permisos.Contains(permiso))
+        {
+            usuario.Permisos.Remove(permiso);
+            modificarUseCase.Ejecutar(usuario);
+            StateHasChanged(); //actualiza la interfaz
         }
     }
 

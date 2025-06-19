@@ -15,7 +15,7 @@ public string? ContraseñaHash {get; set;}
 
 // No se guarda directamente esta propiedad, es para trabajar en código
 [NotMapped]
-public List<Permiso> Permisos {get;set;} = new();
+public List<Permiso> Permisos {get;set;} = new List<Permiso>();
 
 // Esta propiedad sí se guarda en la base como string
     public string PermisosSerializados
