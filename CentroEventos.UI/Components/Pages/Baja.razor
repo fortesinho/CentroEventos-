@@ -1,0 +1,42 @@
+@page "/eliminar"
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.Interfaces
+@inject UsuarioBajaUseCase bajaUseCase
+@inject NavigationManager nav
+@inject IServicioAutorizacion autorizacion
+
+<h3>Eliminar Usuario</h3>
+
+@if (!autorizacion.PoseeElPermiso(Permiso.UsuarioBaja))
+{
+    <p class="text-danger">No tenés permiso para dar de baja usuarios.</p>
+}
+else
+{
+    <p>¿Estás seguro que querés eliminar este usuario?</p>
+    <button class="btn btn-danger" @onclick="EliminarUsuario">Eliminar</button>
+    <button class="btn btn-secondary" @onclick="Cancelar">Cancelar</button>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    void EliminarUsuario()
+    {
+        try
+        {
+            bajaUseCase.Ejecutar(id);
+            nav.NavigateTo("/usuarios");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al eliminar: " + ex.Message);
+        }
+    }
+
+    void Cancelar()
+    {
+        nav.NavigateTo("/usuarios");
+    }
+}

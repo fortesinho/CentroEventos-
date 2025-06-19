@@ -1,7 +1,8 @@
-@page "/usuariosasd"
+@page "/usuarios"
+@using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
 @using CentroEventos.Aplicacion.Entidades
 @using CentroEventos.Aplicacion.Interfaces
-@inject IRepositorioUsuario repoUsuario
+@inject UsuarioListadoUseCase ListadoUseCase
 @inject IServicioAutorizacion autorizacion
 @inject NavigationManager nav
 
@@ -37,11 +38,11 @@ else
 
     protected override void OnInitialized()
     {
-        usuarios = repoUsuario.Listar(); // o el método que tengas para listar todos
+        usuarios = ListadoUseCase.Ejecutar(); // o el método que tengas para listar todos
     }
 
     void Editar(int id)
     {
-        nav.NavigateTo($"/modificar/usuario/{id}");
+        nav.NavigateTo($"/usuario");
     }
 }
