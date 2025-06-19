@@ -1,0 +1,80 @@
+@page "/usuarios/modificarUsuario"
+@rendermode InteractiveServer
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
+@using CentroEventos.Aplicacion.Interfaces
+@using CentroEventos.Aplicacion.Servicios
+@using CentroEventos.Aplicacion.Excepciones
+@using CentroEventos.Repositorios
+@inject UsuarioModificacionUseCase modificarUseCase
+@inject RepositorioUsuario repositorioUsuario
+@inject IServicioAutorizacion autorizacion
+@inject NavigationManager nav
+
+<h3>Modificar Usuario</h3>
+
+@if (!autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion))
+{
+    <p class="text-danger">No tenés permiso para modificar usuarios.</p>
+}
+else if (usuario == null)
+{
+    <p>Cargando usuario...</p>
+}
+else
+{
+    <div>
+        <input @bind="usuario.Nombre" placeholder="Nombre" class="form-control mb-2" />
+        <input @bind="usuario.Apellido" placeholder="Apellido" class="form-control mb-2" />
+        <input @bind="usuario.Email" placeholder="Email" class="form-control mb-2" />
+        <input @bind="nuevaContraseña" placeholder="Nueva Contraseña" type="password" class="form-control mb-2" />
+    </div>
+
+    <button @onclick="GuardarCambios">Guardar</button>
+    <p>@mensaje</p>
+    <p >@error</p>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    Usuario? usuario;
+    string nuevaContraseña = "";
+    string mensaje = "";
+    string error = "";
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            usuario = repositorioUsuario.BuscarPorId(id);
+        }
+        catch (ValidacionException ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    void GuardarCambios()
+    {
+        error = "";
+        mensaje = "";   
+
+        try
+        {
+            if (!string.IsNullOrWhiteSpace(nuevaContraseña))
+            {
+                var hash = CalculadorHash.CalcularSha256(nuevaContraseña);
+                usuario!.ContraseñaHash = hash;
+            }
+
+            modificarUseCase.Ejecutar(usuario!);
+            mensaje = "Cambios guardados.";
+        }
+        catch (Exception ex)
+        {
+            error = "Error al modificar usuario.";
+            Console.WriteLine(ex.Message);
+        }
+    }
+}

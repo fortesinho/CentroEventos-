@@ -1,0 +1,47 @@
+@page "/usuariosasd"
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.Interfaces
+@inject IRepositorioUsuario repoUsuario
+@inject IServicioAutorizacion autorizacion
+@inject NavigationManager nav
+
+<h3>Lista de Usuarios</h3>
+
+@if (!autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion))
+{
+    <p>No tenés permiso para gestionar usuarios.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr><th>Nombre</th><th>Email</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var u in usuarios)
+            {
+                <tr>
+                    <td>@u.Nombre @u.Apellido</td>
+                    <td>@u.Email</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" @onclick="() => Editar(u.Id)">Modificar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<Usuario> usuarios = new();
+
+    protected override void OnInitialized()
+    {
+        usuarios = repoUsuario.Listar(); // o el método que tengas para listar todos
+    }
+
+    void Editar(int id)
+    {
+        nav.NavigateTo($"/modificar/usuario/{id}");
+    }
+}
