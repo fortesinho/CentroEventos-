@@ -1,0 +1,40 @@
+@page "/login"
+@rendermode InteractiveServer
+@using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
+@using CentroEventos.Aplicacion.Servicios
+@using CentroEventos.Aplicacion.Excepciones
+@inject UsuarioLoginUseCase loginUseCase
+@inject UsuarioSesionActual sesion
+@inject NavigationManager nav
+
+<h3>Iniciar Sesión</h3>
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+<input @bind="email" placeholder="Email" class="form-control mb-2" />
+<input @bind="contraseña" placeholder="Contraseña" type="password" class="form-control mb-2" />
+
+<button class="btn btn-primary" @onclick="login">Ingresar</button>
+
+@code {
+    string email = "", contraseña = "", error = "";
+
+    void login()
+    {
+        error = "";
+        try
+        {
+          loginUseCase.Ejecutar(email, contraseña);
+        nav.NavigateTo("/menu");
+        
+        }
+        catch (ValidacionException ex)
+        {
+            error = ex.Message;
+        }
+    }
+}

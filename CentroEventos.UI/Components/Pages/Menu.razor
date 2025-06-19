@@ -1,0 +1,17 @@
+@page "/menu"
+@rendermode InteractiveServer
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
+@using CentroEventos.Aplicacion.Servicios
+@using CentroEventos.Aplicacion.Excepciones
+@inject NavigationManager nav
+
+<h1>Todos los usuarios</h1>
+<button @onclick="Modificar">Modificar</button>
+
+@code {
+    void Modificar()
+    {
+        nav.NavigateTo("/modificar");
+    }
+}

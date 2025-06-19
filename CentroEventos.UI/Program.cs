@@ -55,6 +55,11 @@ builder.Services.AddRazorComponents()
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())  
+{
+    var servicios = scope.ServiceProvider;
+    CentroEventosDbInicializador.Inicializar(servicios); // para poder acceder al scoped CentroEventosContext
+}
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

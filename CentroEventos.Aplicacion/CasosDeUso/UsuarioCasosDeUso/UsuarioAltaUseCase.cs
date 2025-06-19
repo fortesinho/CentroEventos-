@@ -20,6 +20,7 @@ public class UsuarioAltaUseCase
 
     public void Ejecutar(Usuario usuario, string contraseñaPlano)
     {
+        usuario.ContraseñaHash = CalculadorHash.CalcularSha256(contraseñaPlano);
         if (!_validador.Validar(usuario, out string mensajeError))
         {
             throw new ValidacionException(mensajeError);
@@ -38,7 +39,7 @@ public class UsuarioAltaUseCase
             usuario.Permisos = new List<Permiso>(); // sino crea la lista de permisos vacia (seria un usuario de solo lectura)
         }
 
-        usuario.ContraseñaHash = CalculadorHash.CalcularSha256(contraseñaPlano);
+       
         usuario.Permisos ??= new List<Permiso>(); // Asegura que la lista esté inicializada
         _repositorio.Agregar(usuario);
     }
