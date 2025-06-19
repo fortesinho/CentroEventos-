@@ -1,1 +1,43 @@
+@page "/reservas/eliminar/{id:int}"
 @rendermode InteractiveServer
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.Interfaces
+@inject ReservaBajaUseCase bajaUseCase
+@inject NavigationManager nav
+@inject IServicioAutorizacion autorizacion
+
+<h3>Eliminar Reserva</h3>
+
+@if (!autorizacion.PoseeElPermiso(Permiso.ReservaBaja))
+{
+    <p class="text-danger">No tenés permiso para eliminar reservas.</p>
+}
+else
+{
+    <p>¿Estás seguro que querés eliminar esta reserva?</p>
+    <button class="btn btn-danger" @onclick="EliminarReserva">Eliminar</button>
+    <button class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    void EliminarReserva()
+    {
+        try
+        {
+            bajaUseCase.Ejecutar(id);
+            nav.NavigateTo("/reservas");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al eliminar reserva: " + ex.Message);
+        }
+    }
+
+    void Cancelar()
+    {
+        nav.NavigateTo("/reservas");
+    }
+}

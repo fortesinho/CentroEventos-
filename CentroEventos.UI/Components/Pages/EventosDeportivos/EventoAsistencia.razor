@@ -1,0 +1,64 @@
+@page "/eventos/asistencia/{id:int}"
+@rendermode InteractiveServer
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Entidades
+@inject ListarAsistenciaAEventoUseCase AsistenciauseCase
+@inject NavigationManager nav
+
+<h3>Personas que asistieron al evento</h3>
+
+@if (!string.IsNullOrEmpty(error))
+{   
+    <div class="alert alert-danger">@error</div>
+}
+else if (personas == null)
+{
+    <p>Cargando...</p>
+}
+else if (personas.Count == 0)
+{
+    <p>Nadie asistió a este evento.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr><th>Nombre</th><th>DNI</th><th>Email</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var p in personas)
+            {
+                <tr>
+                    <td>@p.nombre @p.apellido</td>
+                    <td>@p.dni</td>
+                    <td>@p.email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-secondary mt-3" @onclick="Volver">Volver</button>
+
+@code {
+    [Parameter] public int id { get; set; }
+    List<Persona>? personas;
+    string error = "";
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            personas = AsistenciauseCase.Ejecutar(id);
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    void Volver()
+    {
+        nav.NavigateTo("/eventos");
+    }
+}

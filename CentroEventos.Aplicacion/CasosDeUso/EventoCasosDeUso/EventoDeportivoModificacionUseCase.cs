@@ -17,7 +17,7 @@ public void Ejecutar(EventoDeportivo Evento){
             throw new EntidadNotFoundException("Evento no existe");
             
   if (repoEvento.ObtenerPorId(Evento.Id)?.FechaHoraInicio < DateTime.Now)
-            throw new OperacionInvalidaException("No se puede modificar un evento que ya ocurrió.");
+            throw new OperacionInvalidaException("No se puede modificar un evento que ya ocurrio.");
             
   if (!validador.ValidadorEvento(Evento, out string mensajeError))
             throw new ValidacionException(mensajeError); 

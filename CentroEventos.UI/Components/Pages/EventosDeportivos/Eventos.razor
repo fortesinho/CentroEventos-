@@ -35,7 +35,7 @@
                 <td>@e.CupoMaximo</td>
                 <td>@e.ResponsableId</td>
                 <td>
-                    @if (autorizacion.PoseeElPermiso(Permiso.EventoModificacion))
+                     @if (autorizacion.PoseeElPermiso(Permiso.EventoModificacion))
                     {
                         <button class="btn btn-sm btn-primary" @onclick="() => IrAModificar(e.Id)">Modificar</button>
                     }
@@ -43,13 +43,17 @@
                     {
                         <button class="btn btn-sm btn-danger ms-2" @onclick="() => IrAEliminar(e.Id)">Eliminar</button>
                     }
+                    @if (e.FechaHoraInicio <= DateTime.Now)
+                    {
+                        <button class="btn btn-sm btn-info ms-2" @onclick="() => IrAsistencia()">Ver Asistencia</button>
+                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<button class="btn btn-secondary mt-3" @onclick="IrMenu">Volver al menú</button>
+<button @onclick="IrMenu">Volver al menu</button> 
 
 @code {
     List<EventoDeportivo> eventos = new();
@@ -77,5 +81,9 @@
     void IrMenu()
     {
         nav.NavigateTo("/menu");
+    }
+    void IrAsistencia()
+    {
+        nav.NavigateTo($"/eventos/asistencia/");
     }
 }

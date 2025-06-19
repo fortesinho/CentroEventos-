@@ -8,40 +8,52 @@
 @inject NavigationManager nav
 
 <h3>Lista de Usuarios</h3>
-    <table class="table">
-        <thead>
-            <tr><th>Nombre</th><th>Email</th><th>Acciones</th></tr>
-        </thead>
-        <tbody>
-            @foreach (var u in usuarios)
-            {
-                <tr>
-                    <td>@u.Nombre @u.Apellido</td>
-                    <td>@u.Email</td>
-                    <td>
-                        <button class="btn btn-sm btn-primary" @onclick="() => IrAModificar(u.Id)">Modificar</button>
-                        <button class="btn btn-sm btn-danger ms-2" @onclick='() => nav.NavigateTo($"/usuarios/eliminar/{u.Id}")'> Eliminar</button>
-                        <button class="btn btn-sm btn-warning ms-2" @onclick='() => nav.NavigateTo($"/usuarios/permisos/{u.Id}")'>Permisos</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <button @onclick="IrMenu">Volver al menu</button> 
-    
+
+@if (autorizacion.PoseeElPermiso(Permiso.UsuarioAlta))
+{
+    <button class="btn btn-success mb-3" @onclick="IrAAlta">Agregar Usuario</button>
+}
+
+<table class="table">
+    <thead>
+        <tr><th>Nombre</th><th>Email</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var u in usuarios)
+        {
+            <tr>
+                <td>@u.Nombre @u.Apellido</td>
+                <td>@u.Email</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" @onclick="() => IrAModificar(u.Id)">Modificar</button>
+                    <button class="btn btn-sm btn-danger ms-2" @onclick='() => nav.NavigateTo($"/usuarios/eliminar/{u.Id}")'>Eliminar</button>
+                    <button class="btn btn-sm btn-warning ms-2" @onclick='() => nav.NavigateTo($"/usuarios/permisos/{u.Id}")'>Permisos</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button @onclick="IrMenu">Volver al menu</button>
 
 @code {
- void IrAModificar(int id)
-    {
-        nav.NavigateTo($"/usuarios/modificarUsuario/{id}");
-    }
-
     List<Usuario> usuarios = new();
 
     protected override void OnInitialized()
     {
         usuarios = ListadoUseCase.Ejecutar(); // muestra la lista de usuarios
     }
+
+    void IrAModificar(int id)
+    {
+        nav.NavigateTo($"/usuarios/modificarUsuario/{id}");
+    }
+
+    void IrAAlta()
+    {
+        nav.NavigateTo("/usuario/alta"); 
+    }
+
     void IrMenu()
     {
         nav.NavigateTo("/menu");

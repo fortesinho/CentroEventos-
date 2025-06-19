@@ -16,16 +16,19 @@ else{
     }
     <h1></h1>
     <button @onclick="Modificar">Modificar Perfil</button> 
+    <button @onclick="ModificarPermisos">Lista de usuarios</button>
     <button @onclick="ListaEventos">Lista de Eventos</button>
     <button @onclick="ListaDeSocios">Lista de Socios</button>
-    <button @onclick="ModificarPermisos">Lista de Reservas</button>
-    <button @onclick="ModificarPermisos">Lista de usuarios</button>
+    <button @onclick="ListaDeReservas">Lista de Reservas</button>
 @code {
     void Modificar()
     {
         nav.NavigateTo("/modificar");
     }
-
+    void ListaDeReservas()
+    {
+        nav.NavigateTo("/reservas");
+    }
     void ModificarPermisos()
     {
         nav.NavigateTo("/usuarios");

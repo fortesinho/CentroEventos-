@@ -14,9 +14,8 @@ public class ListarAsistenciaAEventoUseCase(IRepositorioEventoDeportivo repoEven
                 throw new EntidadNotFoundException("El evento no se encontró");
 
             if (evento.FechaHoraInicio > DateTime.Now)
-                throw new OperacionInvalidaException("El evento aún no se realizó");
+                throw new OperacionInvalidaException("El evento aún no se realizo");
 
-            // Aquí llamás al método que tiene la consulta LINQ para traer las personas
             return repoEvento.ObtenerPersonasAsistieron(idEvento);
         }
     }

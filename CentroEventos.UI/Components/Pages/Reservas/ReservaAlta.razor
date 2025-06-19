@@ -1,1 +1,83 @@
+@page "/reservas/alta"
 @rendermode InteractiveServer
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Interfaces
+@inject ReservaAltaUseCase useCase
+@inject PersonaListadoUseCase personaUseCase
+@inject EventoDeportivoListadoUseCase eventoUseCase
+@inject IServicioAutorizacion autorizacion
+@inject NavigationManager nav
+
+<h3>Agregar Reserva</h3>
+@if (!autorizacion.PoseeElPermiso(Permiso.ReservaAlta))
+{
+    <p class="text-danger">No tenés permiso para agregar reservas.</p>
+}
+else
+{
+   @if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+
+    <EditForm Model="@reserva" OnValidSubmit="Guardar">
+        <div class="mb-2">
+            <label>Persona:</label>
+            <InputSelect class="form-control" @bind-Value="reserva.PersonaId">
+                <option value="">Seleccione una persona</option>
+                @foreach (var p in personas)
+                {
+                    <option value="@p.Id">@p.nombre @p.apellido</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="mb-2">
+            <label>Evento Deportivo:</label>
+            <InputSelect class="form-control" @bind-Value="reserva.EventoDeportivoId">
+                <option value="">Seleccione un evento</option>
+                @foreach (var e in eventos)
+                {
+                    <option value="@e.Id">@e.Nombre</option>
+                }
+            </InputSelect>
+        </div>
+
+        <button class="btn btn-success" type="submit">Guardar</button>
+        <button class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+    </EditForm>
+}
+
+@code {
+    Reserva reserva = new() { FechaAltaReserva = DateTime.Now, EstadoAsistencia = Reserva.EstadoAsis.Pendiente };
+    List<Persona> personas = new();
+    List<EventoDeportivo> eventos = new();
+    string error = "";
+
+    protected override void OnInitialized()
+    {
+        personas = personaUseCase.Ejecutar();
+        eventos = eventoUseCase.Ejecutar();
+    }
+
+    void Guardar()
+    {
+        try
+        {
+            useCase.Ejecutar(reserva);
+            nav.NavigateTo("/reservas");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    void Cancelar()
+    {
+        nav.NavigateTo("/reservas");
+    }
+}

@@ -39,7 +39,7 @@
         }
     </tbody>
 </table>
-
+<button @onclick="IrMenu">Volver al menu</button>   
 @code {
     List<Reserva> reservas = new();
 
@@ -61,5 +61,9 @@
     void IrAAlta()
     {
         nav.NavigateTo("/reservas/alta");
+    }
+    void IrMenu()
+    {
+        nav.NavigateTo("/menu");
     }
 }

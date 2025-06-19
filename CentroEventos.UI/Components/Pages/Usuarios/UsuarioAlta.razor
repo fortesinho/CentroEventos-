@@ -1,4 +1,4 @@
-@page "/modificar"
+@page "/usuario/alta"
 @rendermode InteractiveServer
 @using CentroEventos.Aplicacion.Entidades
 @using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
@@ -34,7 +34,7 @@
 }
 else
 {
-    <p>No estás logueado. <a href="/login">Iniciá sesión</a></p>
+    <p>No estás logueado. <a href="/menu">Iniciá sesión</a></p>
 }
 <button @onclick="IrMenu">Volver al menu</button> 
 @code {

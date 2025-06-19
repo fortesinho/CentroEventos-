@@ -1,1 +1,99 @@
+@page "/reservas/modificar/{id:int}"
 @rendermode InteractiveServer
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Interfaces
+@inject ReservaModificacionUseCase modificarUseCase
+@inject PersonaListadoUseCase personaUseCase
+@inject EventoDeportivoListadoUseCase eventoUseCase
+@inject ReservaListadoUseCase listadoUseCase
+@inject IServicioAutorizacion autorizacion
+@inject NavigationManager nav
+
+<h3>Modificar Reserva</h3>
+
+@if (!autorizacion.PoseeElPermiso(Permiso.ReservaModificacion))
+{
+    <p class="text-danger">No tenés permiso para modificar reservas.</p>
+}
+else if (reserva is not null)
+{
+   @if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+    <EditForm Model="@reserva" OnValidSubmit="Modificar">
+        <div class="mb-2">
+            <label>Persona:</label>
+            <InputSelect class="form-control" @bind-Value="reserva.PersonaId">
+                @foreach (var p in personas)
+                {
+                    <option value="@p.Id">@p.nombre @p.apellido</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="mb-2">
+            <label>Evento Deportivo:</label>
+            <InputSelect class="form-control" @bind-Value="reserva.EventoDeportivoId">
+                @foreach (var e in eventos)
+                {
+                    <option value="@e.Id">@e.Nombre</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="mb-2">
+            <label>Estado Asistencia:</label>
+            <InputSelect class="form-control" @bind-Value="reserva.EstadoAsistencia">
+                @foreach (var estado in Enum.GetValues<Reserva.EstadoAsis>())
+                {
+                    <option value="@estado">@estado</option>
+                }
+            </InputSelect>
+        </div>
+
+        <button class="btn btn-success" type="submit">Guardar Cambios</button>
+        <button class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+    </EditForm>
+}
+else
+{
+    <p class="text-danger">No se encontró la reserva.</p>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    Reserva? reserva;
+    List<Persona> personas = new();
+    List<EventoDeportivo> eventos = new();
+    string error = "";
+
+    protected override void OnInitialized()
+    {
+        reserva = listadoUseCase.Ejecutar().FirstOrDefault(r => r.Id == id);
+        personas = personaUseCase.Ejecutar();
+        eventos = eventoUseCase.Ejecutar();
+    }
+
+    void Modificar()
+    {
+        try
+        {
+            modificarUseCase.Ejecutar(reserva!);
+            nav.NavigateTo("/reservas");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    void Cancelar()
+    {
+        nav.NavigateTo("/reservas");
+    }
+}

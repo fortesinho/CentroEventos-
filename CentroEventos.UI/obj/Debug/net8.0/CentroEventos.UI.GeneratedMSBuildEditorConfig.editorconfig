@@ -34,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFdmVudG9zRGVwb3J0aXZvc1xFdmVudG9BbHRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/EventosDeportivos/EventoAsistencia.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFdmVudG9zRGVwb3J0aXZvc1xFdmVudG9Bc2lzdGVuY2lhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/EventosDeportivos/EventoBaja.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFdmVudG9zRGVwb3J0aXZvc1xFdmVudG9CYWphLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -106,8 +110,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXNlcnZhc1xSZXNlcnZhcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/UsuarioAlta.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc3VhcmlvQWx0YS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/Usuarios.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc3Vhcmlvcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Pages/Usuarios/UsuarioAlta.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc3Vhcmlvc1xVc3VhcmlvQWx0YS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Facultad/2do Año/Seminario de Lenguaje (.net)/Programa final/CentroEventos-/CentroEventos.UI/Components/Routes.razor]
