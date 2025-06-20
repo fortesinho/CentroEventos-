@@ -1,4 +1,5 @@
-@page "/usuarios"
+@page "/usuario"
+
 @rendermode InteractiveServer
 @using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
 @using CentroEventos.Aplicacion.Entidades
@@ -42,11 +43,6 @@
     void IrAModificar(int id)
     {
         nav.NavigateTo($"/usuarios/modificarUsuario/{id}");
-    }
-
-    void IrAAlta()
-    {
-        nav.NavigateTo("/usuario/alta"); 
     }
 
     void IrMenu()
