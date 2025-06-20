@@ -3,6 +3,7 @@
 @using CentroEventos.Aplicacion.Entidades
 @using CentroEventos.Aplicacion.CasosDeUso
 @inject ListarEventoConCupoDisponibleUseCase useCase
+@inject NavigationManager nav
 
 <h3>Eventos con Cupo Disponible</h3>
 
@@ -36,6 +37,7 @@ else
         </tbody>
     </table>
 }
+<button @onclick="IrMenu">Volver al menú</button>
 
 @code {
     List<EventoDeportivo>? eventos = new();
@@ -44,5 +46,9 @@ else
     {
         
         eventos = useCase.Ejecutar();
+    }
+    void IrMenu()
+    {
+        nav.NavigateTo("/menu");
     }
 }

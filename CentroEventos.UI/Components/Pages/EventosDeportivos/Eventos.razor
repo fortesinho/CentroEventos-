@@ -1,89 +1,98 @@
-    @page "/eventos"
-    @rendermode InteractiveServer
-    @using CentroEventos.Aplicacion.Entidades
-    @using CentroEventos.Aplicacion.CasosDeUso
-    @using CentroEventos.Aplicacion.Interfaces
-    @inject EventoDeportivoListadoUseCase listadoUseCase
-    @inject IServicioAutorizacion autorizacion
-    @inject NavigationManager nav
+@page "/eventos"
+@rendermode InteractiveServer
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.CasosDeUso
+@using CentroEventos.Aplicacion.Interfaces
+@inject EventoDeportivoListadoUseCase listadoUseCase
+@inject IServicioAutorizacion autorizacion
+@inject NavigationManager nav
 
-    <h3>Listado de Eventos Deportivos</h3>
+<h3>Listado de Eventos Deportivos</h3>
 
-    @if (autorizacion.PoseeElPermiso(Permiso.EventoAlta)){
-        <button class="btn btn-success mb-3" @onclick="IrAAlta">Agregar Evento</button>
-    }
-    <table class="table table-bordered">
-        <thead>
+@if (autorizacion.PoseeElPermiso(Permiso.EventoAlta))
+{
+    <button class="btn btn-success mb-3" @onclick="IrAAlta">Agregar Evento</button>
+}
+
+<button class="btn btn-info mb-3 ms-2" @onclick="IrADisponibles">Ver Eventos con Cupo Disponible</button>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Fecha</th>
+            <th>Duración (hs)</th>
+            <th>Cupo Máximo</th>
+            <th>Responsable</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in eventos)
+        {
             <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Fecha</th>
-                <th>Duración (hs)</th>
-                <th>Cupo Máximo</th>
-                <th>Responsable</th>
-                <th>Acciones</th>
+                <td>@e.Nombre</td>
+                <td>@e.Descripcion</td>
+                <td>@e.FechaHoraInicio.ToString("g")</td>
+                <td>@e.DuracionHoras</td>
+                <td>@e.CupoMaximo</td>
+                <td>@e.ResponsableId</td>
+                <td>
+                    @if (autorizacion.PoseeElPermiso(Permiso.EventoModificacion))
+                    {
+                        <button class="btn btn-sm btn-primary" @onclick="() => IrAModificar(e.Id)">Modificar</button>
+                    }
+                    @if (autorizacion.PoseeElPermiso(Permiso.EventoBaja))
+                    {
+                        <button class="btn btn-sm btn-danger ms-2" @onclick="() => IrAEliminar(e.Id)">Eliminar</button>
+                    }
+                    
+                        <button class="btn btn-sm btn-info ms-2" @onclick="() => IrAsistencia(e.Id)">Ver Asistencia</button>
+                    
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var e in eventos)
-            {
-                <tr>
-                    <td>@e.Nombre</td>
-                    <td>@e.Descripcion</td>
-                    <td>@e.FechaHoraInicio.ToString("g")</td>
-                    <td>@e.DuracionHoras</td>
-                    <td>@e.CupoMaximo</td>
-                    <td>@e.ResponsableId</td>
-                    <td>
-                        @if (autorizacion.PoseeElPermiso(Permiso.EventoModificacion))
-                        {
-                            <button class="btn btn-sm btn-primary" @onclick="() => IrAModificar(e.Id)">Modificar</button>
-                        }
-                        @if (autorizacion.PoseeElPermiso(Permiso.EventoBaja))
-                        {
-                            <button class="btn btn-sm btn-danger ms-2" @onclick="() => IrAEliminar(e.Id)">Eliminar</button>
-                        }
-                        @if (e.FechaHoraInicio <= DateTime.Now)
-                        {
-                            <button class="btn btn-sm btn-info ms-2" @onclick="() => IrAsistencia(e.Id)">Ver Asistencia</button>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <button @onclick="IrMenu">Volver al menu</button> 
-
-    @code {
-        List<EventoDeportivo> eventos = new();
-
-        protected override void OnInitialized()
-        {
-            eventos = listadoUseCase.Ejecutar();
         }
+    </tbody>
+</table>
 
-        void IrAModificar(int id)
-        {
-            nav.NavigateTo($"/eventos/modificar/{id}");
-        }
+<button @onclick="IrMenu">Volver al menu</button> 
 
-        void IrAEliminar(int id)
-        {
-            nav.NavigateTo($"/eventos/eliminar/{id}");
-        }
+@code {
+    List<EventoDeportivo> eventos = new();
 
-        void IrAAlta()
-        {
-            nav.NavigateTo("/eventos/alta");
-        }
-
-        void IrMenu()
-        {
-            nav.NavigateTo("/menu");
-        }
-        void IrAsistencia(int id)
-        {
-            nav.NavigateTo($"/eventos/asistencia/{id}");
-        }
+    protected override void OnInitialized()
+    {
+        eventos = listadoUseCase.Ejecutar();
     }
+
+    void IrAModificar(int id)
+    {
+        nav.NavigateTo($"/eventos/modificar/{id}");
+    }
+
+    void IrAEliminar(int id)
+    {
+        nav.NavigateTo($"/eventos/eliminar/{id}");
+    }
+
+    void IrAAlta()
+    {
+        nav.NavigateTo("/eventos/alta");
+    }
+
+    void IrMenu()
+    {
+        nav.NavigateTo("/menu");
+    }
+
+    void IrAsistencia(int id)
+    {
+        nav.NavigateTo($"/eventos/asistencia/{id}");
+    }
+
+    void IrADisponibles()
+    {
+        nav.NavigateTo("/eventos/disponibles");
+    }
+}
