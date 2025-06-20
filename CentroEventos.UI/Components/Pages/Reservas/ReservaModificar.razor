@@ -68,7 +68,7 @@ else
     [Parameter] public int id { get; set; }
 
     Reserva? reserva;
-    List<Persona> personas = new();
+    List<Persona> personas = new(); 
     List<EventoDeportivo> eventos = new();
     string error = "";
 
@@ -91,6 +91,7 @@ else
             error = ex.Message;
         }
     }
+    
 
     void Cancelar()
     {

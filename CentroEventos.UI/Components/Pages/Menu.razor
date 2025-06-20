@@ -8,12 +8,7 @@
 @inject IServicioAutorizacion autorizacion
 @inject NavigationManager nav
 
-@if (autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion)){
-    <h1>Interfaz de administrador</h1>
-}
-else{
     <h1>Interfaz de usuario</h1>
-    }
     <h1></h1>
     <button @onclick="Modificar">Modificar Perfil</button> 
     <button @onclick="ModificarPermisos">Lista de usuarios</button>

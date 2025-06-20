@@ -20,9 +20,14 @@ public class ReservaModificacionUseCase(IRepositorioReserva repoReserva, IServic
 
              if (!repoEventoDeportivo.ExisteResponsable(reserva.EventoDeportivoId))
                   throw new EntidadNotFoundException("Evento deportivo no encontrado.");
-            
-            if (repoReserva.Listar().Any(repo => (repo.PersonaId == reserva.PersonaId) && (repo.EventoDeportivoId == reserva.EventoDeportivoId)))
+
+            if (repoReserva.Listar().Any(repo =>
+                  repo.PersonaId == reserva.PersonaId &&
+                  repo.EventoDeportivoId == reserva.EventoDeportivoId &&
+                  repo.Id != reserva.Id))
+            {
                   throw new DuplicadoException("Persona duplicada en el evento.");
+            }
 
             repoReserva.Modificar(reserva);
       }
