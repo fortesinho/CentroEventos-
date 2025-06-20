@@ -34,8 +34,11 @@ else
         <label>Descripción</label>
         <InputText @bind-Value="evento.Descripcion" placeholder="Descripción breve" class="form-control mb-2" />
 
-        <label>Fecha y Hora de Inicio</label>
-        <InputDate @bind-Value="evento.FechaHoraInicio" class="form-control mb-2" />
+        <label>Fecha</label>
+        <InputDate @bind-Value="fecha" class="form-control mb-2" />
+
+        <label>Hora</label>
+        <input type="time" class="form-control mb-2" value="@horaString" @onchange="OnHoraChanged" />
 
         <label>Duración (horas)</label>
         <InputNumber @bind-Value="evento.DuracionHoras" placeholder="Ej: 1.5" class="form-control mb-2" />
@@ -55,17 +58,36 @@ else
     [Parameter] public int id { get; set; }
     EventoDeportivo? evento;
     string error = "";
+    DateTime fecha = DateTime.Today;
+    string horaString = "12:00";
 
     protected override void OnInitialized()
     {
         evento = listadoUseCase.Ejecutar().FirstOrDefault(e => e.Id == id);
+        if (evento != null)
+        {
+            // Inicializo fecha y hora a partir de FechaHoraInicio
+            fecha = evento.FechaHoraInicio.Date;
+            horaString = evento.FechaHoraInicio.ToString("HH:mm");
+        }
+    }
+
+    void OnHoraChanged(ChangeEventArgs e)
+    {
+        horaString = e.Value?.ToString() ?? "12:00";
     }
 
     void Modificar()
     {
         try
         {
-            modificacionUseCase.Ejecutar(evento!);
+            // Combino fecha y hora antes de guardar
+            var partes = horaString.Split(':');
+            int horas = int.Parse(partes[0]);
+            int minutos = int.Parse(partes[1]);
+            evento!.FechaHoraInicio = fecha.Date.AddHours(horas).AddMinutes(minutos);
+
+            modificacionUseCase.Ejecutar(evento);
             nav.NavigateTo("/eventos");
         }
         catch (Exception ex)

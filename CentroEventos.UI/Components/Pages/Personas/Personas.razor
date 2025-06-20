@@ -30,8 +30,12 @@
                 <td>@p.email</td>
                 <td>@p.telefono</td>
                 <td>
-                    <button class="btn btn-sm btn-primary" @onclick="@(() => IrAModificar(p.Id))">Modificar</button>
-                    <button class="btn btn-sm btn-danger ms-2" @onclick="@(() => IrAEliminar(p.Id))">Eliminar</button>
+                    @if (autorizacion.PoseeElPermiso(Permiso.PersonaModificacion)){
+                        <button class="btn btn-sm btn-primary" @onclick="@(() => IrAModificar(p.Id))">Modificar</button>
+                    }
+                    @if (autorizacion.PoseeElPermiso(Permiso.PersonaBaja)){
+                         <button class="btn btn-sm btn-danger ms-2" @onclick="@(() => IrAEliminar(p.Id))">Eliminar</button>
+                    }
                 </td>
             </tr>
         }

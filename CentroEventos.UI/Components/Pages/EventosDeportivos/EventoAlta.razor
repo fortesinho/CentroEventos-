@@ -9,9 +9,7 @@
 
 @if (!string.IsNullOrWhiteSpace(error))
 {
-    <div class="alert alert-danger" role="alert">
-        @error
-    </div>
+    <div class="alert alert-danger">@error</div>
 }
 
 <EditForm OnValidSubmit="Guardar" Model="@evento">
@@ -21,8 +19,11 @@
     <label>Descripción</label>
     <InputText @bind-Value="evento.Descripcion" placeholder="Descripción breve" class="form-control mb-2" />
 
-    <label>Fecha y Hora de Inicio</label>
-    <InputDate @bind-Value="evento.FechaHoraInicio" class="form-control mb-2" />
+    <label>Fecha</label>
+    <InputDate @bind-Value="fecha" class="form-control mb-2" />
+
+    <label>Hora</label>
+    <input type="time" class="form-control mb-2" value="@horaString" @onchange="OnHoraChanged" />
 
     <label>Duración (horas)</label>
     <InputNumber @bind-Value="evento.DuracionHoras" placeholder="Ej: 1.5" class="form-control mb-2" />
@@ -37,19 +38,29 @@
     <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
 </EditForm>
 
-<button @onclick="IrMenu">Volver al menú</button>
+<button @onclick="IrMenu" class="btn btn-link mt-3">Volver al menú</button>
 
 @code {
-    EventoDeportivo evento = new EventoDeportivo
-    {
-        FechaHoraInicio = DateTime.Now
-    };
+    EventoDeportivo evento = new EventoDeportivo();
+    DateTime fecha = DateTime.Today;
+    string horaString = "12:00";
     string error = "";
+
+    void OnHoraChanged(ChangeEventArgs e)
+    {
+        horaString = e.Value?.ToString() ?? "12:00";
+    }
 
     void Guardar()
     {
         try
         {
+            var partes = horaString.Split(':');
+            int horas = int.Parse(partes[0]);
+            int minutos = int.Parse(partes[1]);
+
+            evento.FechaHoraInicio = fecha.Date.AddHours(horas).AddMinutes(minutos);
+
             useCase.Ejecutar(evento);
             nav.NavigateTo("/eventos");
         }

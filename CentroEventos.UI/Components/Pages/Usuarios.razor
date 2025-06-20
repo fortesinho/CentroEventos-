@@ -1,4 +1,4 @@
-@page "/usuario"
+@page "/usuarios"
 
 @rendermode InteractiveServer
 @using CentroEventos.Aplicacion.CasosDeUso.UsuarioCasosDeUso
@@ -21,9 +21,15 @@
                 <td>@u.Nombre @u.Apellido</td>
                 <td>@u.Email</td>
                 <td>
-                    <button class="btn btn-sm btn-primary" @onclick="() => IrAModificar(u.Id)">Modificar</button>
-                    <button class="btn btn-sm btn-danger ms-2" @onclick='() => nav.NavigateTo($"/usuarios/eliminar/{u.Id}")'>Eliminar</button>
-                    <button class="btn btn-sm btn-warning ms-2" @onclick='() => nav.NavigateTo($"/usuarios/permisos/{u.Id}")'>Permisos</button>
+                    @if (autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion)){
+                        <button class="btn btn-sm btn-primary" @onclick="() => IrAModificar(u.Id)">Modificar</button>
+                    }
+                    @if (autorizacion.PoseeElPermiso(Permiso.UsuarioBaja)){
+                        <button class="btn btn-sm btn-danger ms-2" @onclick='() => nav.NavigateTo($"/usuarios/eliminar/{u.Id}")'>Eliminar</button>
+                    }
+                    @if (autorizacion.PoseeElPermiso(Permiso.UsuarioModificacion)){
+                        <button class="btn btn-sm btn-warning ms-2" @onclick='() => nav.NavigateTo($"/usuarios/permisos/{u.Id}")'>Permisos</button>
+                    }
                 </td>
             </tr>
         }

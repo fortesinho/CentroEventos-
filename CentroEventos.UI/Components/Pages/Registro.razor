@@ -21,7 +21,8 @@
 <input @bind="contraseña" placeholder="Contraseña" type="password" class="form-control" />
 
 <button class="btn btn-success mt-2" @onclick="Registrarse">Registrarse</button>
-
+<button @onclick="IrVolver">Volver </button>
+    
 @code {
     string nombre = "", apellido = "", email = "", contraseña = "", error = "";
 
@@ -44,5 +45,9 @@
         {
             error = ex.Message;
         }
+    }
+    void IrVolver()
+    {
+        nav.NavigateTo("/");
     }
 }

@@ -1,0 +1,48 @@
+@page "/eventos/disponibles"
+@rendermode InteractiveServer
+@using CentroEventos.Aplicacion.Entidades
+@using CentroEventos.Aplicacion.CasosDeUso
+@inject ListarEventoConCupoDisponibleUseCase useCase
+
+<h3>Eventos con Cupo Disponible</h3>
+
+@if (eventos is null || eventos.Count == 0)
+{
+    <p>No hay eventos disponibles con cupo en este momento.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+                <th>Duración (hs)</th>
+                <th>Cupo Máximo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in eventos)
+            {
+                <tr>
+                    <td>@e.Nombre</td>
+                    <td>@e.Descripcion</td>
+                    <td>@e.FechaHoraInicio.ToString("g")</td>
+                    <td>@e.DuracionHoras</td>
+                    <td>@e.CupoMaximo</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<EventoDeportivo>? eventos = new();
+
+    protected override void OnInitialized()
+    {
+        
+        eventos = useCase.Ejecutar();
+    }
+}

@@ -9,6 +9,7 @@ public class ListarEventoConCupoDisponibleUseCase(IRepositorioEventoDeportivo re
 {
     
     public List<EventoDeportivo>? Ejecutar(){
+        
         return repoEvento.ListarEventosDisponibles();
     }
         
