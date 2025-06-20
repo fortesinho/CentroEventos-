@@ -35,7 +35,6 @@ else
     <p>@mensaje</p>
     <p >@error</p>
 }
-
 @code {
     [Parameter] public int id { get; set; }
 
@@ -64,6 +63,7 @@ else
 
             modificarUseCase.Ejecutar(usuario!);
             mensaje = "Cambios guardados.";
+            nav.NavigateTo("/menu");
         }
         catch (Exception ex)
         {
@@ -71,4 +71,5 @@ else
             Console.WriteLine(ex.Message);
         }
     }
+    
 }
